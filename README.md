@@ -5,13 +5,11 @@ Built with Python, MySQL, Node.js, and React.
 
 ## Live Demo
 
-Static UI demo (for reference only — uses mock data):
+Static UI demo (for reference only & uses mock data):
 `https://student.csc.liv.ac.uk/~sgbtuvsh/stock/`
 
 Full application deployment:
 `https://student.csc.liv.ac.uk/~sgbtuvsh/team45/`
-
----
 
 ## Project Structure
 ```
@@ -39,8 +37,6 @@ team45/
 └── README.md
 ```
 
----
-
 ## Branching Strategy
 
 | Branch    | Purpose                                      |
@@ -53,16 +49,12 @@ team45/
 Never push directly to `main`. Work on your branch and open a pull request
 to `develop` when your changes are ready for review.
 
----
-
 ## Prerequisites
 
 - [NVM](https://github.com/nvm-sh/nvm) -> Node Version Manager
 - Node.js (LTS): `nvm install --lts`
 - Python 3.9+
 - MySQL or MariaDB
-
----
 
 ## Setup
 
@@ -118,8 +110,6 @@ pip install -r requirements.txt
 
 > `requirements.txt` will be added once dependencies are finalised.
 
----
-
 ## API Endpoints
 
 | Method | Endpoint                    | Description                              |
@@ -128,8 +118,6 @@ pip install -r requirements.txt
 | GET    | `/api/historical?weeks=26`  | OHLCV rows for the chart                 |
 | GET    | `/api/predictions/:model`   | Predicted close + trend for a given model|
 | GET    | `/api/models`               | All model evaluation metrics             |
-
----
 
 ## Deployment
 ```bash
@@ -144,8 +132,6 @@ chgrp -R apache ~/public_html/team45/
 chmod -R 755 ~/public_html/team45/
 ```
 
----
-
 ## Tech Stack
 
 | Layer         | Technology                                        |
@@ -155,3 +141,4 @@ chmod -R 755 ~/public_html/team45/
 | Database      | MySQL / MariaDB, mysql2                           |
 | ML & Pipeline | Python, scikit-learn, TensorFlow, Pandas, yfinance|
 | Deployment    | Apache (university server)                        |
+
