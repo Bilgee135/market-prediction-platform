@@ -33,7 +33,7 @@ team45/
 │   └── controllers/           # SQL queries and response logic
 │
 ├── database/                  # schema.sql
-├── data-pipeline/             # Python ML pipeline (managed by ML sub-team)
+├── data-pipeline/             # Machine Learning pipeline
 └── README.md
 ```
 
