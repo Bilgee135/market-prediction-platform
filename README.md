@@ -42,9 +42,9 @@ team45/
 | Branch    | Purpose                                      |
 |-----------|----------------------------------------------|
 | `main`    | Stable, deployed version                     |
-| `develop` | Integration branch — merge target for PRs    |
-| `web`     | Frontend & backend development (Billy + Haps)|
-| `ml`      | Data pipeline & ML models (ML sub-team)      |
+| `develop` | Integration branch for merging               |
+| `web`     | Frontend & backend development               |
+| `ml`      | Data pipeline & ML models                    |
 
 Never push directly to `main`. Work on your branch and open a pull request
 to `develop` when your changes are ready for review.
