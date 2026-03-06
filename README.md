@@ -5,10 +5,10 @@ Built with Python, MySQL, Node.js, and React.
 
 ## Live Demo
 
-Static UI demo (for reference only & uses mock data):
+[Static UI demo](https://student.csc.liv.ac.uk/~sgbtuvsh/stock/) (for reference only & uses mock data):
 `https://student.csc.liv.ac.uk/~sgbtuvsh/stock/`
 
-Full application deployment:
+[Full application deployment](https://student.csc.liv.ac.uk/~sgbtuvsh/team45/):
 `https://student.csc.liv.ac.uk/~sgbtuvsh/team45/`
 
 ## Project Structure
