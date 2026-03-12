@@ -198,7 +198,7 @@ Keep a note of the password you chose. You will need it for the `.env` file.
 ### Step 6: Clone the Repository
 
 ```bash
-git clone https://github.com/Bilgee135/team45.git
+git clone https://github.com/Bilgee135/market-prediction-platform.git
 cd team45
 ```
 
