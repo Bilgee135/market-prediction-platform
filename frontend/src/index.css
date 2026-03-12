@@ -1,2 +1,31 @@
+/*
+ * index.css
+ *
+ * What this is:
+ *   The single global stylesheet. Imported once in main.jsx.
+ *
+ * What it should contain:
+ *   - The Tailwind import (already present)
+ *   - CSS custom properties (design tokens) for the shared design system
+ *   - Any global resets or base styles that cannot be expressed with Tailwind
+ *
+ * Design tokens to define here:
+ *   --off-white:    #F7F6F2
+ *   --ink:          #111110
+ *   --muted:        #6B6B65
+ *   --accent-green: #1A7A4A
+ *   --accent-red:   #C0392B
+ *   --border:       #E2E0D8
+ *   --card-bg:      #ffffff
+ *
+ * Fonts to import:
+ *   DM Serif Display (headings and italic accents)
+ *   DM Sans (body text and UI elements)
+ *
+ * Development order:
+ *   Fill this in first, before any component. Every component depends on
+ *   these tokens and fonts being available.
+ */
+
 @import "tailwindcss";
 

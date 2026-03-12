@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stock Market Prediction</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --off-white: #F7F6F2;
+      --ink: #111110;
+      --muted: #6B6B65;
+      --accent-green: #1A7A4A;
+      --accent-red: #C0392B;
+      --border: #E2E0D8;
+      --ticker-bg: #EFEDE6;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--off-white);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+
+    /* ── NAVBAR ─────────────────────────────── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 64px;
+      border-bottom: 1px solid var(--border);
+      background: var(--off-white);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      letter-spacing: 0.01em;
+    }
+    .logo-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 2.5px;
+      height: 18px;
+    }
+    .logo-bars span {
+      width: 4px;
+      border-radius: 1px;
+      background: var(--accent-green);
+    }
+    .logo-bars span:nth-child(1) { height: 8px; }
+    .logo-bars span:nth-child(2) { height: 14px; }
+    .logo-bars span:nth-child(3) { height: 10px; background: var(--accent-red); }
+    .logo-bars span:nth-child(4) { height: 18px; }
+    .logo-bars span:nth-child(5) { height: 12px; background: var(--accent-red); }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.875rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta {
+      background: var(--ink);
+      color: var(--off-white) !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-weight: 500 !important;
+      transition: opacity 0.2s !important;
+    }
+    .nav-cta:hover { opacity: 0.75; }
+
+    /* ── TICKER TAPE ─────────────────────────── */
+    .ticker-wrap {
+      overflow: hidden;
+      background: var(--ticker-bg);
+      border-bottom: 1px solid var(--border);
+      padding: 8px 0;
+    }
+    .ticker-track {
+      display: flex;
+      gap: 0;
+      animation: ticker 30s linear infinite;
+      width: max-content;
+    }
+    .ticker-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 28px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      border-right: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    .ticker-item .sym { color: var(--muted); font-weight: 300; }
+    .ticker-item .val { color: var(--ink); }
+    .ticker-item .chg.up { color: var(--accent-green); }
+    .ticker-item .chg.dn { color: var(--accent-red); }
+    @keyframes ticker {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── HERO ─────────────────────────────────── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - 104px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Left column */
+    .hero-left {
+      padding: 80px 64px 80px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-right: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.1s forwards;
+    }
+    .eyebrow-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent-green);
+      animation: pulse 2s ease infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.6rem, 4vw, 3.8rem);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.2s forwards;
+    }
+    h1 em {
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 420px;
+      margin-bottom: 44px;
+      font-weight: 300;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.35s forwards;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.5s forwards;
+    }
+    .btn-primary {
+      background: var(--ink);
+      color: var(--off-white);
+      padding: 14px 28px;
+      border: none;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(17,17,16,0.18);
+    }
+    .btn-primary .arrow {
+      transition: transform 0.2s;
+    }
+    .btn-primary:hover .arrow { transform: translateX(4px); }
+
+    .btn-ghost {
+      background: none;
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.875rem;
+      color: var(--muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 0;
+      border-bottom: 1px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .btn-ghost:hover { color: var(--ink); border-color: var(--ink); }
+
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 64px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.65s forwards;
+    }
+    .stat { display: flex; flex-direction: column; gap: 4px; }
+    .stat-val {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* Right column – chart mockup */
+    .hero-right {
+      padding: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #FAFAF7;
+      opacity: 0;
+      animation: fadeIn 0.9s ease 0.4s forwards;
+    }
+
+    .chart-card {
+      width: 100%;
+      max-width: 480px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 40px rgba(17,17,16,0.06);
+    }
+    .chart-header {
+      padding: 20px 24px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+    .chart-title-group { display: flex; flex-direction: column; gap: 2px; }
+    .chart-title { font-size: 0.8rem; color: var(--muted); font-weight: 300; letter-spacing: 0.06em; text-transform: uppercase; }
+    .chart-price { font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: var(--ink); letter-spacing: -0.02em; }
+    .chart-badge {
+      background: #EAF7EF;
+      color: var(--accent-green);
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.02em;
+    }
+
+    /* SVG candlestick chart */
+    .chart-body { padding: 16px 24px 8px; }
+    .chart-svg { width: 100%; height: 180px; }
+
+    .model-pills {
+      padding: 16px 24px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--border);
+    }
+    .pill {
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+    .pill:hover, .pill.active {
+      border-color: var(--ink);
+      color: var(--ink);
+      background: var(--off-white);
+    }
+    .pill.active { background: var(--ink); color: var(--off-white); border-color: var(--ink); }
+
+    .chart-footer {
+      padding: 12px 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .forecast-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-weight: 300;
+    }
+    .forecast-val {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--accent-green);
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-logo">
+      <div class="logo-bars">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      Stock Market Prediction
+    </div>
+    <ul class="nav-links">
+      <li><a href="#">Overview</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="model_selection.html">Models</a></li>
+      <li><a href="evaluations.html">Forecast</a></li>
+      <li><a href="faq.html" class="nav-cta">FAQ</a></li>
+    </ul>
+  </nav>
+
+  <!-- TICKER -->
+  <div class="ticker-wrap">
+    <div class="ticker-track" id="ticker">
+      <!-- Filled by JS -->
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+
+      <div class="hero-eyebrow">
+        <span class="eyebrow-dot"></span>
+        Weekly S&P 500 Predictions · Powered by ML
+      </div>
+
+      <h1>Where data<br>meets <em>the market</em></h1>
+
+      <p class="hero-sub">
+        Explore machine learning models trained on decades of market history.
+        Compare forecasts, inspect accuracy, and understand the reasoning behind each prediction.
+      </p>
+
+      <div class="hero-actions">
+        <button class="btn-primary">
+          Browse Models <span class="arrow">→</span>
+        </button>
+        <button class="btn-ghost">
+          View live forecast ↗
+        </button>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-val">6</span>
+          <span class="stat-label">ML Models</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val">100yr</span>
+          <span class="stat-label">of Data</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val">52wk</span>
+          <span class="stat-label">Forecasted</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="hero-right">
+      <div class="chart-card">
+        <div class="chart-header">
+          <div class="chart-title-group">
+            <span class="chart-title">S&P 500 Index</span>
+            <span class="chart-price">5,642.30</span>
+          </div>
+          <span class="chart-badge">+1.2% this week</span>
+        </div>
+
+        <div class="chart-body">
+          <svg class="chart-svg" viewBox="0 0 432 180" id="candleChart"></svg>
+        </div>
+
+        <div class="model-pills">
+          <span class="pill active">LSTM</span>
+          <span class="pill">Random Forest</span>
+          <span class="pill">XGBoost</span>
+          <span class="pill">Linear Reg.</span>
+          <span class="pill">SVR</span>
+        </div>
+
+        <div class="chart-footer">
+          <span class="forecast-label">Next week prediction</span>
+          <span class="forecast-val">▲ 5,711 (+1.22%)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // ── TICKER ───────────────────────────────────────────
+    const tickers = [
+      { sym: 'S&P 500', val: '5,642.30', chg: '+1.20%', up: true },
+      { sym: 'AAPL',    val: '213.49',   chg: '+0.84%', up: true },
+      { sym: 'MSFT',    val: '415.32',   chg: '-0.31%', up: false },
+      { sym: 'AMZN',    val: '197.12',   chg: '+2.11%', up: true },
+      { sym: 'NVDA',    val: '875.43',   chg: '+3.45%', up: true },
+      { sym: 'GOOGL',   val: '173.88',   chg: '-0.62%', up: false },
+      { sym: 'META',    val: '524.71',   chg: '+1.07%', up: true },
+      { sym: 'TSLA',    val: '191.22',   chg: '-1.88%', up: false },
+      { sym: 'JPM',     val: '201.54',   chg: '+0.55%', up: true },
+      { sym: 'BRK.B',   val: '439.60',   chg: '+0.22%', up: true },
+    ];
+
+    const track = document.getElementById('ticker');
+    const doubled = [...tickers, ...tickers];
+    track.innerHTML = doubled.map(t => `
+      <span class="ticker-item">
+        <span class="sym">${t.sym}</span>
+        <span class="val">${t.val}</span>
+        <span class="chg ${t.up ? 'up' : 'dn'}">${t.chg}</span>
+      </span>`).join('');
+
+    // ── CANDLESTICK CHART ────────────────────────────────
+    const svg = document.getElementById('candleChart');
+    const W = 432, H = 180;
+    const padding = { top: 12, right: 12, bottom: 20, left: 0 };
+    const chartW = W - padding.left - padding.right;
+    const chartH = H - padding.top - padding.bottom;
+
+    // Synthetic weekly data (open, high, low, close)
+    const candles = [
+      [5320,5380,5290,5355], [5355,5410,5330,5370], [5370,5360,5280,5290],
+      [5290,5310,5240,5260], [5260,5300,5220,5285], [5285,5350,5270,5340],
+      [5340,5400,5320,5390], [5390,5440,5360,5420], [5420,5410,5350,5365],
+      [5365,5380,5290,5300], [5300,5360,5280,5350], [5350,5480,5340,5460],
+      [5460,5520,5430,5510], [5510,5560,5490,5540], [5540,5600,5510,5590],
+      [5590,5650,5560,5642],
+    ];
+
+    const allVals = candles.flat();
+    const minVal = Math.min(...allVals) - 40;
+    const maxVal = Math.max(...allVals) + 40;
+    const range = maxVal - minVal;
+
+    const toY = v => padding.top + chartH - ((v - minVal) / range) * chartH;
+    const candleCount = candles.length;
+    const totalWidth = chartW;
+    const candleW = (totalWidth / candleCount) * 0.55;
+    const gap = totalWidth / candleCount;
+
+    // Prediction line (last 3 points + 2 predicted)
+    const predicted = [[5642, 5720, 5610, 5711], [5711, 5780, 5690, 5760]];
+
+    let svgHtml = '';
+
+    // Grid lines
+    for (let i = 0; i <= 3; i++) {
+      const y = padding.top + (chartH / 3) * i;
+      svgHtml += `<line x1="${padding.left}" y1="${y}" x2="${W - padding.right}" y2="${y}" stroke="#E2E0D8" stroke-width="1"/>`;
+    }
+
+    // Candles
+    candles.forEach((c, i) => {
+      const [open, high, low, close] = c;
+      const x = padding.left + gap * i + gap / 2;
+      const up = close >= open;
+      const color = up ? '#1A7A4A' : '#C0392B';
+      const bodyTop = toY(Math.max(open, close));
+      const bodyBot = toY(Math.min(open, close));
+      const bodyH = Math.max(bodyBot - bodyTop, 1);
+
+      // Wick
+      svgHtml += `<line x1="${x}" y1="${toY(high)}" x2="${x}" y2="${toY(low)}" stroke="${color}" stroke-width="1.2" opacity="0.6"/>`;
+      // Body
+      svgHtml += `<rect x="${x - candleW / 2}" y="${bodyTop}" width="${candleW}" height="${bodyH}" fill="${color}" rx="1"/>`;
+    });
+
+    // Prediction overlay area
+    const predCandles = [...candles.slice(-2), ...predicted];
+    const linePoints = predCandles.map((c, i) => {
+      const baseI = candles.length - 2 + i;
+      const x = padding.left + gap * baseI + gap / 2;
+      const y = toY(c[3]);
+      return `${x},${y}`;
+    });
+    svgHtml += `<polyline points="${linePoints.join(' ')}" fill="none" stroke="#6B6B65" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.7"/>`;
+
+    predicted.forEach((c, i) => {
+      const [open, high, low, close] = c;
+      const baseI = candles.length + i;
+      const x = padding.left + gap * baseI + gap / 2;
+      const up = close >= open;
+      const color = up ? '#1A7A4A' : '#C0392B';
+      const bodyTop = toY(Math.max(open, close));
+      const bodyBot = toY(Math.min(open, close));
+      const bodyH = Math.max(bodyBot - bodyTop, 1);
+      svgHtml += `<line x1="${x}" y1="${toY(high)}" x2="${x}" y2="${toY(low)}" stroke="${color}" stroke-width="1.2" opacity="0.35"/>`;
+      svgHtml += `<rect x="${x - candleW / 2}" y="${bodyTop}" width="${candleW}" height="${bodyH}" fill="${color}" rx="1" opacity="0.4"/>`;
+    });
+
+    // "Forecast" label
+    const labelX = padding.left + gap * candles.length + gap / 2;
+    svgHtml += `<text x="${labelX}" y="${H - 4}" font-family="DM Sans, sans-serif" font-size="8" fill="#6B6B65" text-anchor="middle" letter-spacing="0.06em">FORECAST</text>`;
+
+    // "Now" divider
+    const nowX = padding.left + gap * (candles.length - 0.5);
+    svgHtml += `<line x1="${nowX}" y1="${padding.top}" x2="${nowX}" y2="${H - padding.bottom}" stroke="#E2E0D8" stroke-width="1" stroke-dasharray="3 2"/>`;
+
+    svg.innerHTML = svgHtml;
+
+    // ── PILL INTERACTION ─────────────────────────────────
+    document.querySelectorAll('.pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

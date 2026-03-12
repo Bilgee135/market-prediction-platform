@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Browse Models</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --off-white: #F7F6F2;
+      --ink: #111110;
+      --muted: #6B6B65;
+      --accent-green: #1A7A4A;
+      --accent-red: #C0392B;
+      --border: #E2E0D8;
+      --ticker-bg: #EFEDE6;
+      --card-bg: #ffffff;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--off-white);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+
+    /* ── NAVBAR ─────────────────────────────── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 64px;
+      border-bottom: 1px solid var(--border);
+      background: var(--off-white);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+      color: var(--ink);
+    }
+    .logo-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 2.5px;
+      height: 18px;
+    }
+    .logo-bars span {
+      width: 4px;
+      border-radius: 1px;
+      background: var(--accent-green);
+    }
+    .logo-bars span:nth-child(1) { height: 8px; }
+    .logo-bars span:nth-child(2) { height: 14px; }
+    .logo-bars span:nth-child(3) { height: 10px; background: var(--accent-red); }
+    .logo-bars span:nth-child(4) { height: 18px; }
+    .logo-bars span:nth-child(5) { height: 12px; background: var(--accent-red); }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.875rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--ink); }
+    .nav-links a.active { font-weight: 500; }
+    .nav-cta {
+      background: var(--ink);
+      color: var(--off-white) !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-weight: 500 !important;
+      transition: opacity 0.2s !important;
+    }
+    .nav-cta:hover { opacity: 0.75; }
+
+    /* ── TICKER TAPE ─────────────────────────── */
+    .ticker-wrap {
+      overflow: hidden;
+      background: var(--ticker-bg);
+      border-bottom: 1px solid var(--border);
+      padding: 8px 0;
+    }
+    .ticker-track {
+      display: flex;
+      animation: ticker 30s linear infinite;
+      width: max-content;
+    }
+    .ticker-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 28px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      border-right: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    .ticker-item .sym { color: var(--muted); font-weight: 300; }
+    .ticker-item .val { color: var(--ink); }
+    .ticker-item .chg.up { color: var(--accent-green); }
+    .ticker-item .chg.dn { color: var(--accent-red); }
+    @keyframes ticker {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── DISCLAIMER MODAL ────────────────────── */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(17,17,16,0.45);
+      backdrop-filter: blur(4px);
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeIn 0.3s ease forwards;
+    }
+    .modal-backdrop.hidden { display: none; }
+    .modal {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 44px 48px;
+      max-width: 520px;
+      width: 90%;
+      box-shadow: 0 24px 64px rgba(17,17,16,0.14);
+      transform: translateY(12px);
+      animation: slideUp 0.35s ease 0.05s forwards;
+      opacity: 0;
+    }
+    @keyframes slideUp {
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .modal-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .modal h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      color: var(--ink);
+    }
+    .modal p {
+      font-size: 0.88rem;
+      line-height: 1.75;
+      color: var(--muted);
+      font-weight: 300;
+      margin-bottom: 12px;
+    }
+    .modal p strong {
+      color: var(--ink);
+      font-weight: 500;
+    }
+    .modal-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 24px 0;
+    }
+    .btn-primary {
+      background: var(--ink);
+      color: var(--off-white);
+      padding: 14px 28px;
+      border: none;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      width: 100%;
+      justify-content: center;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(17,17,16,0.18);
+    }
+
+    /* ── PAGE LAYOUT ─────────────────────────── */
+    .page {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      min-height: calc(100vh - 104px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── LEFT SIDEBAR ────────────────────────── */
+    .sidebar {
+      border-right: 1px solid var(--border);
+      padding: 56px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.15s forwards;
+    }
+    .sidebar-section {}
+    .sidebar-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .sidebar-headline {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+    .sidebar-text {
+      font-size: 0.85rem;
+      line-height: 1.75;
+      color: var(--muted);
+      font-weight: 300;
+    }
+    .how-it-works {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .how-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .step-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .step-text {
+      font-size: 0.83rem;
+      line-height: 1.6;
+      color: var(--muted);
+      font-weight: 300;
+    }
+    .step-text strong {
+      color: var(--ink);
+      font-weight: 500;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    /* Live index pill */
+    .live-index {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+    }
+    .live-index-label {
+      font-size: 0.72rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .live-index-val {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+    .live-index-chg {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--accent-green);
+    }
+    .live-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent-green);
+      display: inline-block;
+      margin-right: 5px;
+      animation: pulse 2s ease infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* ── CAROUSEL AREA ───────────────────────── */
+    .carousel-area {
+      padding: 56px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.25s forwards;
+    }
+
+    .carousel-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+    .carousel-title-group {}
+    .carousel-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .carousel-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.8rem;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+    .btn-outline {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.83rem;
+      font-weight: 400;
+      color: var(--muted);
+      padding: 10px 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: border-color 0.2s, color 0.2s;
+      text-decoration: none;
+    }
+    .btn-outline:hover { border-color: var(--ink); color: var(--ink); }
+
+    /* ── CAROUSEL WIDGET ─────────────────────── */
+    .carousel-widget {
+      position: relative;
+      display: grid;
+      grid-template-columns: 48px 1fr 48px;
+      align-items: center;
+      gap: 16px;
+    }
+    .carousel-btn {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: var(--muted);
+      transition: border-color 0.2s, color 0.2s, box-shadow 0.2s;
+      flex-shrink: 0;
+    }
+    .carousel-btn:hover {
+      border-color: var(--ink);
+      color: var(--ink);
+      box-shadow: 0 4px 16px rgba(17,17,16,0.08);
+    }
+
+    /* Card wrapper — handles slide transition */
+    .carousel-track-wrapper {
+      overflow: hidden;
+      border-radius: 16px;
+    }
+    .model-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 40px rgba(17,17,16,0.06);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 360px;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    .model-card.slide-out-left  { opacity: 0; transform: translateX(-24px); }
+    .model-card.slide-out-right { opacity: 0; transform: translateX(24px); }
+    .model-card.slide-in        { opacity: 0; transform: translateX(0); animation: cardIn 0.3s ease forwards; }
+    @keyframes cardIn {
+      to { opacity: 1; }
+    }
+
+    /* Left half — visual */
+    .card-visual {
+      border-right: 1px solid var(--border);
+      background: #FAFAF7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-visual-bg {
+      position: absolute;
+      inset: 0;
+      opacity: 0.04;
+      font-family: 'DM Serif Display', serif;
+      font-size: 9rem;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: -0.04em;
+      user-select: none;
+      pointer-events: none;
+    }
+    .card-visual-svg {
+      width: 100%;
+      max-width: 220px;
+      height: 140px;
+    }
+    .card-type-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      font-size: 0.68rem;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .badge-deep  { background: #E8F0FE; color: #1A56DB; }
+    .badge-ensemble { background: #FEF3C7; color: #92400E; }
+    .badge-linear   { background: #F3F4F6; color: #374151; }
+    .badge-kernel   { background: #EDE9FE; color: #5B21B6; }
+
+    /* Right half — info */
+    .card-info {
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card-top {}
+    .card-model-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .card-model-full {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-weight: 300;
+      margin-bottom: 20px;
+      letter-spacing: 0.02em;
+    }
+    .card-desc {
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: var(--muted);
+      font-weight: 300;
+      margin-bottom: 24px;
+    }
+    .card-attrs {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .card-attr {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+    .attr-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      min-width: 68px;
+      padding-top: 2px;
+    }
+    .attr-val {
+      font-size: 0.83rem;
+      color: var(--ink);
+      font-weight: 400;
+      line-height: 1.5;
+    }
+    .attr-val.green { color: var(--accent-green); }
+    .attr-val.red   { color: var(--accent-red); }
+
+    .card-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .complexity-row {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .complexity-label {
+      font-size: 0.68rem;
+      font-weight: 300;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .complexity-dots {
+      display: flex;
+      gap: 4px;
+    }
+    .complexity-dots span {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+    }
+    .complexity-dots span.filled { background: var(--ink); border-color: var(--ink); }
+
+    .btn-select {
+      background: var(--ink);
+      color: var(--off-white);
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+    }
+    .btn-select:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(17,17,16,0.18);
+    }
+    .btn-select .arrow { transition: transform 0.2s; }
+    .btn-select:hover .arrow { transform: translateX(4px); }
+
+    /* ── DOT INDICATORS ──────────────────────── */
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+    .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--border);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .dot.active {
+      background: var(--ink);
+      transform: scale(1.3);
+    }
+
+    /* ── BOTTOM CTA ──────────────────────────── */
+    .bottom-cta {
+      border-top: 1px solid var(--border);
+      padding: 28px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--off-white);
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.4s forwards;
+    }
+    .bottom-cta-text {
+      font-size: 0.88rem;
+      color: var(--muted);
+      font-weight: 300;
+    }
+    .bottom-cta-text strong {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- DISCLAIMER MODAL -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal">
+      <div class="modal-eyebrow">Important Notice</div>
+      <h2>This is an educational tool, not financial advice.</h2>
+      <p>
+        The predictions shown on this platform are generated by machine learning models trained on historical S&P 500 data.
+        <strong>Past performance does not guarantee future results.</strong>
+      </p>
+      <p>
+        This system is built for academic and analytical purposes only. Do not use these predictions to make real investment or trading decisions. Markets are affected by events that no historical model can anticipate.
+      </p>
+      <hr class="modal-divider" />
+      <button class="btn-primary" id="agreeBtn">
+        I understand and agree <span>→</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <div class="logo-bars">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      Stock Market Prediction
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Overview</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="model_selection.html" class="active">Models</a></li>
+      <li><a href="evaluations.html">Forecast</a></li>
+      <li><a href="faq.html" class="nav-cta">FAQ</a></li>
+    </ul>
+  </nav>
+
+  <!-- TICKER -->
+  <div class="ticker-wrap">
+    <div class="ticker-track" id="ticker"></div>
+  </div>
+
+  <!-- MAIN PAGE -->
+  <div class="page">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="sidebar-section">
+        <div class="live-index">
+          <span class="live-index-label"><span class="live-dot"></span>S&P 500 Index</span>
+          <span class="live-index-val">5,642.30</span>
+          <span class="live-index-chg">▲ +1.20% this week</span>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-label">About this page</div>
+        <div class="sidebar-headline">Choose your model</div>
+        <p class="sidebar-text">
+          Each model uses a different approach to learn from historical S&P 500 data. Browse the carousel to understand how each one works, its strengths, and what it's best suited for.
+        </p>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-label">How it works</div>
+        <div class="how-it-works">
+          <div class="how-step">
+            <span class="step-num">1</span>
+            <div class="step-text">
+              <strong>Select a model</strong>
+              Browse the carousel and click Select on any model to view its full predictions.
+            </div>
+          </div>
+          <div class="how-step">
+            <span class="step-num">2</span>
+            <div class="step-text">
+              <strong>View predictions</strong>
+              Explore interactive charts with weekly forecasts, actual vs predicted trends, and key statistics.
+            </div>
+          </div>
+          <div class="how-step">
+            <span class="step-num">3</span>
+            <div class="step-text">
+              <strong>Compare models</strong>
+              Visit the evaluations page to see all models ranked side by side on accuracy metrics.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- CAROUSEL AREA -->
+    <main class="carousel-area">
+
+      <div class="carousel-header">
+        <div class="carousel-title-group">
+          <div class="carousel-eyebrow">6 ML Models</div>
+          <div class="carousel-title">Browse & select a model</div>
+        </div>
+        <a href="evaluations.html" class="btn-outline">
+          View all evaluations ↗
+        </a>
+      </div>
+
+      <div class="carousel-widget">
+        <button class="carousel-btn" id="prevBtn">←</button>
+        <div class="carousel-track-wrapper">
+          <div class="model-card" id="modelCard"></div>
+        </div>
+        <button class="carousel-btn" id="nextBtn">→</button>
+      </div>
+
+      <div class="carousel-dots" id="dotsContainer"></div>
+
+    </main>
+  </div>
+
+  <!-- BOTTOM CTA -->
+  <div class="bottom-cta">
+    <p class="bottom-cta-text">
+      Want to compare all models at once? <strong>See accuracy metrics, training time, and more.</strong>
+    </p>
+    <a href="evaluations.html" class="btn-select">
+      Go to Model Evaluations <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <script>
+    // ── TICKER ───────────────────────────────────────────
+    const tickers = [
+      { sym: 'S&P 500', val: '5,642.30', chg: '+1.20%', up: true },
+      { sym: 'AAPL',    val: '213.49',   chg: '+0.84%', up: true },
+      { sym: 'MSFT',    val: '415.32',   chg: '-0.31%', up: false },
+      { sym: 'AMZN',    val: '197.12',   chg: '+2.11%', up: true },
+      { sym: 'NVDA',    val: '875.43',   chg: '+3.45%', up: true },
+      { sym: 'GOOGL',   val: '173.88',   chg: '-0.62%', up: false },
+      { sym: 'META',    val: '524.71',   chg: '+1.07%', up: true },
+      { sym: 'TSLA',    val: '191.22',   chg: '-1.88%', up: false },
+      { sym: 'JPM',     val: '201.54',   chg: '+0.55%', up: true },
+      { sym: 'BRK.B',   val: '439.60',   chg: '+0.22%', up: true },
+    ];
+    const track = document.getElementById('ticker');
+    track.innerHTML = [...tickers, ...tickers].map(t => `
+      <span class="ticker-item">
+        <span class="sym">${t.sym}</span>
+        <span class="val">${t.val}</span>
+        <span class="chg ${t.up ? 'up' : 'dn'}">${t.chg}</span>
+      </span>`).join('');
+
+    // ── DISCLAIMER ───────────────────────────────────────
+    const backdrop = document.getElementById('modalBackdrop');
+    document.getElementById('agreeBtn').addEventListener('click', () => {
+      backdrop.style.opacity = '0';
+      backdrop.style.transition = 'opacity 0.3s ease';
+      setTimeout(() => backdrop.classList.add('hidden'), 300);
+    });
+
+    // ── MODEL DATA ───────────────────────────────────────
+    const models = [
+      {
+        name: 'LSTM',
+        full: 'Long Short-Term Memory',
+        badge: 'Deep Learning',
+        badgeClass: 'badge-deep',
+        bgLetter: 'L',
+        desc: 'A recurrent neural network designed to learn long-term dependencies in sequential data. It uses gating mechanisms to decide what to remember and what to forget across many time steps.',
+        strength: 'Captures long-range temporal patterns in price history',
+        weakness: 'Slow to train; sensitive to hyperparameter choices',
+        bestFor: 'Trend-following predictions over longer horizons',
+        complexity: 4,
+        svgColor: '#1A56DB',
+        link: 'model_lstm.html'
+      },
+      {
+        name: 'Random Forest',
+        full: 'Ensemble Decision Trees',
+        badge: 'Ensemble',
+        badgeClass: 'badge-ensemble',
+        bgLetter: 'RF',
+        desc: 'Builds hundreds of decision trees on random subsets of training data, then averages their outputs. This reduces overfitting and handles noisy financial data well.',
+        strength: 'Robust against outliers; built-in feature importance',
+        weakness: 'Cannot extrapolate beyond the training range',
+        bestFor: 'Stable medium-term predictions with interpretable outputs',
+        complexity: 2,
+        svgColor: '#92400E',
+        link: 'model-rf.html'
+      },
+      {
+        name: 'XGBoost',
+        full: 'Extreme Gradient Boosting',
+        badge: 'Ensemble',
+        badgeClass: 'badge-ensemble',
+        bgLetter: 'XG',
+        desc: 'Builds trees sequentially, with each new tree correcting the errors of the previous one. Known for high accuracy on tabular data with relatively fast training.',
+        strength: 'High accuracy; handles missing values natively',
+        weakness: 'More hyperparameters to tune than simpler models',
+        bestFor: 'Short-term precision where feature engineering is strong',
+        complexity: 3,
+        svgColor: '#B45309',
+        link: 'model-xgb.html'
+      },
+      {
+        name: 'Linear Reg.',
+        full: 'Linear Regression (Baseline)',
+        badge: 'Linear',
+        badgeClass: 'badge-linear',
+        bgLetter: 'LR',
+        desc: 'The simplest model — fits a straight line through historical price data to predict future values. Serves as a performance baseline that all other models must beat.',
+        strength: 'Fully interpretable; very fast to train',
+        weakness: 'Cannot capture non-linear relationships in market data',
+        bestFor: 'Establishing a baseline; understanding feature correlations',
+        complexity: 1,
+        svgColor: '#374151',
+        link: 'model-lr.html'
+      },
+      {
+        name: 'SVR',
+        full: 'Support Vector Regression',
+        badge: 'Kernel Method',
+        badgeClass: 'badge-kernel',
+        bgLetter: 'SV',
+        desc: 'Uses a kernel function to map data into a higher-dimensional space where non-linear relationships become linear. Effective when the dataset is clean and well-scaled.',
+        strength: 'Strong generalisation on smaller datasets',
+        weakness: 'Sensitive to feature scaling; slow on large datasets',
+        bestFor: 'Situations where data is limited but clean',
+        complexity: 3,
+        svgColor: '#5B21B6',
+        link: 'model-svr.html'
+      },
+      {
+        name: 'ANN',
+        full: 'Artificial Neural Network',
+        badge: 'Deep Learning',
+        badgeClass: 'badge-deep',
+        bgLetter: 'A',
+        desc: 'A feedforward network that learns non-linear relationships between features and price outputs through multiple hidden layers and backpropagation.',
+        strength: 'Flexible — can model complex non-linear relationships',
+        weakness: 'Requires more data and careful regularisation to avoid overfitting',
+        bestFor: 'Complex feature interactions across many technical indicators',
+        complexity: 3,
+        svgColor: '#1D4ED8',
+        link: 'model-ann.html'
+      },
+    ];
+
+    // ── MINI CHART GENERATOR ─────────────────────────────
+    // Draws a simple sparkline-style chart unique to each model
+    function generateMiniChart(model, index) {
+      const seeds = [
+        [40,55,45,60,52,70,65,80,72,85],
+        [60,55,62,58,65,60,70,67,74,72],
+        [45,50,55,52,65,70,68,78,75,82],
+        [50,52,54,53,56,55,58,57,60,62],
+        [40,48,44,52,48,56,53,60,57,65],
+        [35,45,55,50,65,60,75,70,80,78],
+      ];
+      const pts = seeds[index % seeds.length];
+      const W = 220, H = 110;
+      const min = Math.min(...pts) - 5;
+      const max = Math.max(...pts) + 5;
+      const toX = i => (i / (pts.length - 1)) * W;
+      const toY = v => H - ((v - min) / (max - min)) * H;
+
+      const points = pts.map((v, i) => `${toX(i)},${toY(v)}`).join(' ');
+      const areaPoints = `0,${H} ` + points + ` ${W},${H}`;
+
+      const c = model.svgColor;
+      return `
+        <svg viewBox="0 0 ${W} ${H}" fill="none" xmlns="http://www.w3.org/2000/svg" class="card-visual-svg">
+          <defs>
+            <linearGradient id="grad${index}" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="${c}" stop-opacity="0.12"/>
+              <stop offset="100%" stop-color="${c}" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <polygon points="${areaPoints}" fill="url(#grad${index})"/>
+          <polyline points="${points}" stroke="${c}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          ${pts.map((v, i) => i === pts.length - 1
+            ? `<circle cx="${toX(i)}" cy="${toY(v)}" r="4" fill="${c}"/>`
+            : '').join('')}
+        </svg>`;
+    }
+
+    // ── CAROUSEL LOGIC ───────────────────────────────────
+    let current = 0;
+
+    function renderCard(index, direction = null) {
+      const m = models[index];
+      const card = document.getElementById('modelCard');
+      const complexityDots = Array.from({length: 4}, (_, i) =>
+        `<span class="${i < m.complexity ? 'filled' : ''}"></span>`
+      ).join('');
+
+      if (direction) {
+        card.classList.add(direction === 'left' ? 'slide-out-left' : 'slide-out-right');
+        setTimeout(() => {
+          card.classList.remove('slide-out-left', 'slide-out-right');
+          card.classList.add('slide-in');
+          card.innerHTML = buildCardHTML(m, index, complexityDots);
+          setTimeout(() => card.classList.remove('slide-in'), 300);
+        }, 200);
+      } else {
+        card.innerHTML = buildCardHTML(m, index, complexityDots);
+      }
+
+      // Update dots
+      document.querySelectorAll('.dot').forEach((d, i) => {
+        d.classList.toggle('active', i === index);
+      });
+    }
+
+    function buildCardHTML(m, index, complexityDots) {
+      return `
+        <div class="card-visual">
+          <div class="card-visual-bg">${m.bgLetter}</div>
+          <span class="card-type-badge ${m.badgeClass}">${m.badge}</span>
+          ${generateMiniChart(m, index)}
+        </div>
+        <div class="card-info">
+          <div class="card-top">
+            <div class="card-model-name">${m.name}</div>
+            <div class="card-model-full">${m.full}</div>
+            <p class="card-desc">${m.desc}</p>
+            <div class="card-attrs">
+              <div class="card-attr">
+                <span class="attr-label">Strength</span>
+                <span class="attr-val green">${m.strength}</span>
+              </div>
+              <div class="card-attr">
+                <span class="attr-label">Weakness</span>
+                <span class="attr-val red">${m.weakness}</span>
+              </div>
+              <div class="card-attr">
+                <span class="attr-label">Best for</span>
+                <span class="attr-val">${m.bestFor}</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-bottom">
+            <div class="complexity-row">
+              <span class="complexity-label">Complexity</span>
+              <div class="complexity-dots">${complexityDots}</div>
+            </div>
+            <a href="${m.link}" class="btn-select">
+              Select <span class="arrow">→</span>
+            </a>
+          </div>
+        </div>`;
+    }
+
+    // Build dots
+    const dotsContainer = document.getElementById('dotsContainer');
+    models.forEach((_, i) => {
+      const dot = document.createElement('span');
+      dot.className = 'dot' + (i === 0 ? ' active' : '');
+      dot.addEventListener('click', () => {
+        const dir = i > current ? 'left' : 'right';
+        current = i;
+        renderCard(current, dir);
+      });
+      dotsContainer.appendChild(dot);
+    });
+
+    document.getElementById('prevBtn').addEventListener('click', () => {
+      current = (current - 1 + models.length) % models.length;
+      renderCard(current, 'right');
+    });
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      current = (current + 1) % models.length;
+      renderCard(current, 'left');
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft')  document.getElementById('prevBtn').click();
+      if (e.key === 'ArrowRight') document.getElementById('nextBtn').click();
+    });
+
+    // Initial render
+    renderCard(0);
+  </script>
+</body>
+</html>

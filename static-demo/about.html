@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --off-white: #F7F6F2;
+      --ink: #111110;
+      --muted: #6B6B65;
+      --accent-green: #1A7A4A;
+      --accent-red: #C0392B;
+      --border: #E2E0D8;
+      --ticker-bg: #EFEDE6;
+      --card-bg: #ffffff;
+    }
+
+    body { font-family: 'DM Sans', sans-serif; background: var(--off-white); color: var(--ink); min-height: 100vh; }
+
+    /* ── NAVBAR ─────────────────────────────── */
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 64px; border-bottom: 1px solid var(--border);
+      background: var(--off-white); position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 500; font-size: 0.95rem; text-decoration: none; color: var(--ink); }
+    .logo-bars { display: flex; align-items: flex-end; gap: 2.5px; height: 18px; }
+    .logo-bars span { width: 4px; border-radius: 1px; background: var(--accent-green); }
+    .logo-bars span:nth-child(1) { height: 8px; }
+    .logo-bars span:nth-child(2) { height: 14px; }
+    .logo-bars span:nth-child(3) { height: 10px; background: var(--accent-red); }
+    .logo-bars span:nth-child(4) { height: 18px; }
+    .logo-bars span:nth-child(5) { height: 12px; background: var(--accent-red); }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.875rem; font-weight: 400; letter-spacing: 0.02em; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a.active { color: var(--ink); font-weight: 500; }
+    .nav-cta { background: var(--ink); color: var(--off-white) !important; padding: 8px 18px; border-radius: 6px; font-weight: 500 !important; transition: opacity 0.2s !important; }
+    .nav-cta:hover { opacity: 0.75; }
+
+    /* ── TICKER ─────────────────────────────── */
+    .ticker-wrap { overflow: hidden; background: var(--ticker-bg); border-bottom: 1px solid var(--border); padding: 8px 0; }
+    .ticker-track { display: flex; animation: ticker 30s linear infinite; width: max-content; }
+    .ticker-item { display: flex; align-items: center; gap: 6px; padding: 0 28px; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.04em; border-right: 1px solid var(--border); white-space: nowrap; }
+    .ticker-item .sym { color: var(--muted); font-weight: 300; }
+    .ticker-item .val { color: var(--ink); }
+    .ticker-item .chg.up { color: var(--accent-green); }
+    .ticker-item .chg.dn { color: var(--accent-red); }
+    @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* ── PAGE ───────────────────────────────── */
+    .page {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - 104px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Left — intro */
+    .about-left {
+      padding: 80px 64px 80px 48px;
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.1s forwards;
+    }
+    .page-eyebrow {
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 20px;
+    }
+    .about-left h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      line-height: 1.1; letter-spacing: -0.02em;
+      color: var(--ink); margin-bottom: 24px;
+    }
+    .about-left h1 em { font-style: italic; color: var(--muted); }
+    .about-lead {
+      font-size: 1rem; line-height: 1.75; color: var(--muted);
+      font-weight: 300; max-width: 460px; margin-bottom: 40px;
+    }
+
+    /* Team chips */
+    .team-section {}
+    .team-label {
+      font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 14px;
+    }
+    .team-grid {
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .team-chip {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 8px 14px;
+      font-size: 0.82rem; font-weight: 400; color: var(--ink);
+      transition: border-color 0.2s;
+    }
+    .team-chip:hover { border-color: #C8C6BE; }
+    .team-initial {
+      width: 26px; height: 26px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem; font-weight: 500; color: var(--off-white);
+      flex-shrink: 0;
+    }
+    .team-role { font-size: 0.72rem; color: var(--muted); font-weight: 300; }
+
+    /* Stat strip */
+    .stat-strip {
+      display: flex; gap: 32px;
+      margin-top: 48px; padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+    .stat { display: flex; flex-direction: column; gap: 4px; }
+    .stat-val { font-family: 'DM Serif Display', serif; font-size: 1.5rem; letter-spacing: -0.02em; color: var(--ink); }
+    .stat-label { font-size: 0.72rem; color: var(--muted); font-weight: 300; text-transform: uppercase; letter-spacing: 0.08em; }
+
+    /* Right — content cards */
+    .about-right {
+      padding: 80px 48px 80px 64px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      background: #FAFAF7;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.22s forwards;
+    }
+
+    .about-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 28px;
+    }
+    .about-card-label {
+      font-size: 0.68rem; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 10px;
+    }
+    .about-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem; letter-spacing: -0.01em; color: var(--ink);
+      margin-bottom: 10px;
+    }
+    .about-card p {
+      font-size: 0.85rem; line-height: 1.75; color: var(--muted); font-weight: 300;
+    }
+    .about-card p strong { color: var(--ink); font-weight: 500; }
+
+    /* Stack card */
+    .stack-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+    .stack-chip {
+      font-size: 0.72rem; padding: 5px 12px; border-radius: 6px;
+      border: 1px solid var(--border); color: var(--muted);
+      font-weight: 400; background: var(--off-white);
+    }
+    .stack-chip.highlight { border-color: var(--ink); color: var(--ink); background: var(--off-white); }
+
+    /* Ethics card */
+    .ethics-card { background: var(--ink); color: var(--off-white); }
+    .ethics-card .about-card-label { opacity: 0.5; color: var(--off-white); }
+    .ethics-card h3 { color: var(--off-white); }
+    .ethics-card p { color: rgba(247,246,242,0.7); }
+    .ethics-card p strong { color: var(--off-white); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-bars"><span></span><span></span><span></span><span></span><span></span></div>
+    Stock Market Prediction
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Overview</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="model_selection.html">Models</a></li>
+    <li><a href="evaluations.html">Forecast</a></li>
+    <li><a href="faq.html" class="nav-cta">FAQ</a></li>
+  </ul>
+</nav>
+
+<div class="ticker-wrap">
+  <div class="ticker-track" id="ticker"></div>
+</div>
+
+<div class="page">
+
+  <!-- LEFT -->
+  <div class="about-left">
+    <div class="page-eyebrow">Team 45 · COMP208 · University of Liverpool</div>
+    <h1>Built to learn.<br><em>Designed to predict.</em></h1>
+    <p class="about-lead">
+      This system was developed as part of a second year Group Software Project. It applies machine learning to weekly S&P 500 price prediction, not as a trading tool, but as an exploration of how historical data can be used to model market behaviour.
+    </p>
+
+    <div class="team-section">
+      <div class="team-label">The team</div>
+      <div class="team-grid" id="teamGrid"></div>
+    </div>
+
+    <div class="stat-strip">
+      <div class="stat">
+        <span class="stat-val">6</span>
+        <span class="stat-label">ML Models</span>
+      </div>
+      <div class="stat">
+        <span class="stat-val">100yr</span>
+        <span class="stat-label">of S&P Data</span>
+      </div>
+      <div class="stat">
+        <span class="stat-val">7</span>
+        <span class="stat-label">Team Members</span>
+      </div>
+      <div class="stat">
+        <span class="stat-val">15wk</span>
+        <span class="stat-label">Build Time</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="about-right">
+
+    <div class="about-card">
+      <div class="about-card-label">What this project does</div>
+      <h3>Weekly S&P 500 Prediction</h3>
+      <p>
+        The system collects historical S&P 500 index data, trains multiple machine learning models on it, and presents weekly price predictions through this interactive interface. Users can explore forecasts, compare model accuracy, and understand the reasoning behind each prediction.
+        <br><br>
+        Predictions cover a <strong>52-week forward horizon</strong>, generated from models trained on data spanning back to 1926.
+      </p>
+    </div>
+
+    <div class="about-card">
+      <div class="about-card-label">Technology stack</div>
+      <h3>How it's built</h3>
+      <p>The system has three layers that pass data through a shared MySQL database.</p>
+      <div class="stack-chips">
+        <span class="stack-chip highlight">Python</span>
+        <span class="stack-chip highlight">scikit-learn</span>
+        <span class="stack-chip highlight">TensorFlow</span>
+        <span class="stack-chip">yfinance</span>
+        <span class="stack-chip">WRDS</span>
+        <span class="stack-chip">Pandas / NumPy</span>
+        <span class="stack-chip highlight">MySQL</span>
+        <span class="stack-chip highlight">Node.js</span>
+        <span class="stack-chip highlight">React</span>
+        <span class="stack-chip">Chart.js</span>
+      </div>
+    </div>
+
+    <div class="about-card">
+      <div class="about-card-label">Data sources</div>
+      <h3>Where the data comes from</h3>
+      <p>
+        Historical S&P 500 data from <strong>1926 to 2024</strong> is sourced from Wharton Research Data Services (WRDS). Data from 2025 onwards uses the <strong>yfinance</strong> package via the Yahoo Finance API. Both sources are publicly accessible and permission has been confirmed for academic use.
+      </p>
+    </div>
+
+    <div class="about-card ethics-card">
+      <div class="about-card-label">Ethics & limitations</div>
+      <h3>This is not financial advice.</h3>
+      <p>
+        All predictions are generated for <strong>academic and educational purposes only</strong>. Markets are affected by geopolitical events, policy changes, and unforeseen shocks that no historical model can anticipate. Do not use this system to make real investment decisions. Model limitations are documented transparently throughout the interface.
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const tickers = [
+    { sym: 'S&P 500', val: '5,642.30', chg: '+1.20%', up: true },
+    { sym: 'AAPL',    val: '213.49',   chg: '+0.84%', up: true },
+    { sym: 'MSFT',    val: '415.32',   chg: '-0.31%', up: false },
+    { sym: 'AMZN',    val: '197.12',   chg: '+2.11%', up: true },
+    { sym: 'NVDA',    val: '875.43',   chg: '+3.45%', up: true },
+    { sym: 'GOOGL',   val: '173.88',   chg: '-0.62%', up: false },
+    { sym: 'META',    val: '524.71',   chg: '+1.07%', up: true },
+    { sym: 'TSLA',    val: '191.22',   chg: '-1.88%', up: false },
+  ];
+  document.getElementById('ticker').innerHTML =
+    [...tickers, ...tickers].map(t =>
+      `<span class="ticker-item"><span class="sym">${t.sym}</span><span class="val">${t.val}</span><span class="chg ${t.up?'up':'dn'}">${t.chg}</span></span>`
+    ).join('');
+
+  const team = [
+    { name: 'Avin',       role: 'Data Pipeline',  color: '#1A7A4A' },
+    { name: 'Safiya',     role: 'Data Pipeline',  color: '#1A7A4A' },
+    { name: 'Tom',        role: 'ML Models',      color: '#1A56DB' },
+    { name: 'Prisha',     role: 'ML Models',      color: '#1A56DB' },
+    { name: 'Lysandra',   role: 'ML Models',      color: '#1A56DB' },
+    { name: 'Haps',       role: 'Web App',        color: '#C0392B' },
+    { name: 'Billy',      role: 'Web App',        color: '#C0392B' },
+  ];
+  document.getElementById('teamGrid').innerHTML = team.map(m => `
+    <div class="team-chip">
+      <span class="team-initial" style="background:${m.color}">${m.name[0]}</span>
+      <span>
+        <div>${m.name}</div>
+        <div class="team-role">${m.role}</div>
+      </span>
+    </div>`).join('');
+</script>
+</body>
+</html>
