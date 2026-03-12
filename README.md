@@ -69,7 +69,7 @@ Homebrew is a package manager for macOS. Skip this step if you are on Windows.
 
 After installation, follow any instructions printed in the terminal to add Homebrew to your PATH.
 
-Verify it works:
+**Verify** it works:
 ```bash
 brew --version
 ```
@@ -88,7 +88,7 @@ brew install git
 Download and install from [https://git-scm.com/download/win](https://git-scm.com/download/win).
 During installation, select "Git from the command line and also from 3rd-party software" when prompted.
 
-Verify:
+**Verify**:
 ```bash
 git --version
 ```
@@ -131,7 +131,7 @@ nvm install --lts
 nvm use --lts
 ```
 
-Verify:
+**Verify**:
 ```bash
 node --version
 npm --version
@@ -212,7 +212,7 @@ All web development work happens on the `web` branch. Never work directly on `ma
 git checkout web
 ```
 
-Verify you are on the right branch:
+**Verify** you are on the right branch:
 ```bash
 git branch
 ```
