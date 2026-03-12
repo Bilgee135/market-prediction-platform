@@ -9,7 +9,7 @@ Built with Python, MySQL, Node.js, and React.
 
 [Full application deployment](https://student.csc.liv.ac.uk/~sgbtuvsh/team45/)
 
----
+
 
 ## Project Structure
 
@@ -38,12 +38,12 @@ team45/
 └── README.md
 ```
 
----
+
 
 ## Branching Strategy
 
 | Branch    | Purpose                                         |
-|-----------|-------------------------------------------------|
+|--|-|
 | `main`    | Stable, deployed version                        |
 | `develop` | Integration branch — target for all pull requests |
 | `web`     | Frontend and backend development                |
@@ -51,13 +51,13 @@ team45/
 
 **Never push directly to `main` or `develop`.** Always work on `web` (or `ml`) and open a pull request to `develop` when your changes are ready.
 
----
+
 
 ## Prerequisites
 
 Before setting up the project, install the following tools in order.
 
----
+
 
 ### Step 1 — Install Homebrew (macOS only)
 
@@ -74,7 +74,7 @@ Verify it works:
 brew --version
 ```
 
----
+
 
 ### Step 2 — Install Git
 
@@ -99,7 +99,7 @@ git config --global user.name "Your Name"
 git config --global user.email "your@email.com"
 ```
 
----
+
 
 ### Step 3 — Install NVM and Node.js
 
@@ -137,7 +137,7 @@ node --version
 npm --version
 ```
 
----
+
 
 ### Step 4 — Install MySQL
 
@@ -171,7 +171,7 @@ mysql -u root -p
 
 Enter your root password. You should see the MySQL shell. Type `exit` to leave.
 
----
+
 
 ### Step 5 — Create the Project Database and User
 
@@ -191,7 +191,7 @@ EXIT;
 
 Keep a note of the password you chose. You will need it for the `.env` file.
 
----
+
 
 ## Project Setup
 
@@ -202,7 +202,7 @@ git clone https://github.com/Bilgee135/team45.git
 cd team45
 ```
 
----
+
 
 ### Step 7 — Switch to the Web Branch
 
@@ -219,7 +219,7 @@ git branch
 
 The currently active branch is marked with a `*`.
 
----
+
 
 ### Step 8 — Backend Setup
 
@@ -256,7 +256,7 @@ http://localhost:5000/api/health
 
 You should see: `{ "status": "Server is running", "team": "Team 45" }`
 
----
+
 
 ### Step 9 — Load the Database Schema
 
@@ -267,7 +267,7 @@ mysql -u team45user -p team45 < database/schema.sql
 
 Enter the password you set in Step 5. This creates all required tables.
 
----
+
 
 ### Step 10 — Frontend Setup
 
@@ -294,7 +294,7 @@ npm run dev
 
 The frontend runs at `http://localhost:5173`. Open that URL in a browser.
 
----
+
 
 ## Daily Git Workflow
 
@@ -366,7 +366,7 @@ To see recent commits on the current branch:
 git log --oneline
 ```
 
----
+
 
 ## Running Both Servers
 
@@ -384,18 +384,18 @@ cd frontend
 npm run dev
 ```
 
----
+
 
 ## API Endpoints
 
 | Method | Endpoint                   | Description                               |
-|--------|----------------------------|-------------------------------------------|
+|--|-|-|
 | GET    | `/api/health`              | Server status check                       |
 | GET    | `/api/historical?weeks=26` | OHLCV rows for the chart                  |
 | GET    | `/api/predictions/:model`  | Predicted close and trend for a model     |
 | GET    | `/api/models`              | All model evaluation metrics              |
 
----
+
 
 ## Deployment
 
@@ -416,12 +416,12 @@ chgrp -R apache ~/public_html/team45/
 chmod -R 755 ~/public_html/team45/
 ```
 
----
+
 
 ## Tech Stack
 
 | Layer         | Technology                                         |
-|---------------|----------------------------------------------------|
+||-|
 | Frontend      | React 19, Vite, Tailwind CSS v4, React Router DOM  |
 | Backend       | Node.js, Express 5, CORS                           |
 | Database      | MySQL, mysql2                                      |
