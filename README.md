@@ -59,7 +59,7 @@ Before setting up the project, install the following tools in order.
 
 
 
-### Step 1 — Install Homebrew (macOS only)
+### Step 1: Install Homebrew (macOS only)
 
 Homebrew is a package manager for macOS. Skip this step if you are on Windows.
 
@@ -76,7 +76,7 @@ brew --version
 
 
 
-### Step 2 — Install Git
+### Step 2: Install Git
 
 **macOS:**
 ```bash
@@ -101,7 +101,7 @@ git config --global user.email "your@email.com"
 
 
 
-### Step 3 — Install NVM and Node.js
+### Step 3: Install NVM and Node.js
 
 NVM (Node Version Manager) lets you install and switch between Node.js versions cleanly.
 
@@ -139,7 +139,7 @@ npm --version
 
 
 
-### Step 4 — Install MySQL
+### Step 4: Install MySQL
 
 **macOS:**
 ```bash
@@ -173,7 +173,7 @@ Enter your root password. You should see the MySQL shell. Type `exit` to leave.
 
 
 
-### Step 5 — Create the Project Database and User
+### Step 5: Create the Project Database and User
 
 Log into MySQL:
 ```bash
@@ -195,7 +195,7 @@ Keep a note of the password you chose. You will need it for the `.env` file.
 
 ## Project Setup
 
-### Step 6 — Clone the Repository
+### Step 6: Clone the Repository
 
 ```bash
 git clone https://github.com/Bilgee135/team45.git
@@ -204,7 +204,7 @@ cd team45
 
 
 
-### Step 7 — Switch to the Web Branch
+### Step 7: Switch to the Web Branch
 
 All web development work happens on the `web` branch. Never work directly on `main`.
 
@@ -221,7 +221,7 @@ The currently active branch is marked with a `*`.
 
 
 
-### Step 8 — Backend Setup
+### Step 8: Backend Setup
 
 ```bash
 cd backend
@@ -258,7 +258,7 @@ You should see: `{ "status": "Server is running", "team": "Team 45" }`
 
 
 
-### Step 9 — Load the Database Schema
+### Step 9: Load the Database Schema
 
 Open a new terminal tab, navigate back to the project root, and run:
 ```bash
@@ -269,7 +269,7 @@ Enter the password you set in Step 5. This creates all required tables.
 
 
 
-### Step 10 — Frontend Setup
+### Step 10: Frontend Setup
 
 Open a new terminal tab and navigate to the frontend:
 ```bash
@@ -421,7 +421,7 @@ chmod -R 755 ~/public_html/team45/
 ## Tech Stack
 
 | Layer         | Technology                                         |
-||-|
+|---------------|----------------------------------------------------|
 | Frontend      | React 19, Vite, Tailwind CSS v4, React Router DOM  |
 | Backend       | Node.js, Express 5, CORS                           |
 | Database      | MySQL, mysql2                                      |
