@@ -26,7 +26,7 @@ team45/
 │       │   ├── forecast/      # ControlsBar, PredictionPanel, RecentDataTable
 │       │   └── evaluations/   # AccuracyTable, ComplexityTable, BestOverallCard
 │       ├── data/              # Static model metadata (non-API content)
-│       └── services/          # api.js — all fetch() calls live here
+│       └── services/          # api.js: all fetch() calls live here
 │
 ├── backend/
 │   ├── db/                    # MySQL connection pool
@@ -45,7 +45,7 @@ team45/
 | Branch    | Purpose                                         |
 |--|-|
 | `main`    | Stable, deployed version                        |
-| `develop` | Integration branch — target for all pull requests |
+| `develop` | Integration branch: target for all pull requests |
 | `web`     | Frontend and backend development                |
 | `ml`      | Data pipeline and ML models                     |
 
@@ -300,7 +300,7 @@ The frontend runs at `http://localhost:5173`. Open that URL in a browser.
 
 This is the workflow to follow every time you work on the project.
 
-### Before starting work — pull the latest changes
+### Before starting work, pull the latest changes
 
 Always pull before you start to avoid conflicts:
 ```bash
