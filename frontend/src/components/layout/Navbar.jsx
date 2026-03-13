@@ -61,11 +61,11 @@ const navLinks = [
 function TheLogoBars() {
   return (
     <div className="flex items-end gap-[2.5px] h-[18px]">
-      <span className="w-1 bg-[#00C076]" style={{ height: "8px"  }}></span>
-      <span className="w-1 bg-[#00C076]" style={{ height: "14px" }}></span>
-      <span className="w-1 bg-[#FF4D4D]" style={{ height: "10px" }}></span>
-      <span className="w-1 bg-[#00C076]" style={{ height: "18px" }}></span>
-      <span className="w-1 bg-[#FF4D4D]" style={{ height: "12px" }}></span>
+      <span className="w-1 bg-accent-green" style={{ height: "8px"  }}></span>
+      <span className="w-1 bg-accent-green" style={{ height: "14px" }}></span>
+      <span className="w-1 bg-accent-red" style={{ height: "10px" }}></span>
+      <span className="w-1 bg-accent-green" style={{ height: "18px" }}></span>
+      <span className="w-1 bg-accent-red" style={{ height: "12px" }}></span>
     </div>
   );
 }
@@ -74,7 +74,6 @@ function TheLogoBars() {
 export default function Navbar() {
 
 //location pathname will give us the current url for example "/about"
- 
   const location = useLocation();
 
 //going to return true if the link matches to the current page user is on
@@ -97,10 +96,9 @@ export default function Navbar() {
   }
   
   return (
-    <nav className="flex items-center justify-between px-12 h-16 bg-[#f8f7f4] border-b border-[#e0ddd6] sticky top-0 z-[100]">
-      
+    <nav className="flex items-center justify-between px-12 h-16 bg-off-white border-b border-border sticky top-0 z-[100]">
       {/* this is the logo and the app name */}
-      <div className="flex items-center gap-[10px] font-medium text-[0.95rem] tracking-[0.01em]">
+      <div className="flex items-center gap-[10px] font-medium text-[0.95rem] tracking-[0.01em] text-ink">
         <TheLogoBars />
         Stock Market Prediction
       </div>
@@ -121,8 +119,8 @@ export default function Navbar() {
               to={link.path}
               className={`no-underline text-sm tracking-[0.02em] transition-colors duration-200 ${
                 isActive(link.path)
-                  ? "text-[#111] font-semibold"
-                  : "text-[#888] hover:text-[#111]"
+                  ? "text-ink font-semibold"
+                  : "text-muted hover:text-ink"
               }`}
             >
               {link.name}
@@ -136,8 +134,8 @@ export default function Navbar() {
             to="/faq"
             className={`no-underline px-[18px] py-2 rounded-md text-sm font-medium transition-opacity duration-200 ${
               isActive("/faq")
-                ? "bg-[#333] text-[#f8f7f4]"
-                : "bg-[#111] text-[#f8f7f4] hover:opacity-75"
+                ? "bg-ink text-off-white"
+                : "bg-ink text-off-white hover:opacity-75"
             }`}
           >
             FAQ
