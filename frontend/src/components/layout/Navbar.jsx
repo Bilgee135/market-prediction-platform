@@ -56,11 +56,11 @@ const navLinks = [
 function TheLogoBars() {
   return (
     <div className="flex items-end gap-[2.5px] h-[18px]">
-      <span className="w-1 rounded-sm bg-[#1D9E75]" style={{ height: "8px"  }}></span>
-      <span className="w-1 rounded-sm bg-[#1D9E75]" style={{ height: "14px" }}></span>
-      <span className="w-1 rounded-sm bg-[#e05c5c]" style={{ height: "10px" }}></span>
-      <span className="w-1 rounded-sm bg-[#1D9E75]" style={{ height: "18px" }}></span>
-      <span className="w-1 rounded-sm bg-[#e05c5c]" style={{ height: "12px" }}></span>
+      <span className="w-1 bg-[#1D9E75]" style={{ height: "8px"  }}></span>
+      <span className="w-1 bg-[#1D9E75]" style={{ height: "14px" }}></span>
+      <span className="w-1 bg-[#e05c5c]" style={{ height: "10px" }}></span>
+      <span className="w-1 bg-[#1D9E75]" style={{ height: "18px" }}></span>
+      <span className="w-1 bg-[#e05c5c]" style={{ height: "12px" }}></span>
 
     </div>
   );
@@ -76,6 +76,11 @@ export default function Navbar() {
   function isActive(path) {
     if (path === "/") {
       return location.pathname === "/";
+    }
+
+    //I also encountered another issue which I have fixed now. because the models lstm started with models it was making both models and forecast bold when i clicked on forecast but now i fixed it by doing two different if statements
+    if (path === "/models") {
+      return location.pathname === "/models";
     }
 
     return location.pathname.startsWith(path);
@@ -96,9 +101,11 @@ export default function Navbar() {
           <li key={link.name}>
             <Link
               to={link.path}
-              className={`no-underline text-[#888] text-sm font-normal tracking-[0.02em] transition-colors duration-200 ${
+
+              //initally I did face an issue with the boldness but realised that the bold might not have been showing due to tailwind conflicting so i changed to semibold instead of medium and also removed font normal
+              className={`no-underline text-sm tracking-[0.02em] transition-colors duration-200 ${
                 isActive(link.path)
-                ? "text-[#111] font-medium"
+                ? "text-[#111] font-semibold"
                 : "text-[#888] hover:text-[#111]"
               }`}
             >
