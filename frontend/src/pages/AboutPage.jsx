@@ -21,3 +21,10 @@
  *   Build near the end. No data dependencies and no complex components.
  *   Straightforward layout work.
  */
+
+
+//sanity check done and removed it now
+export default function AboutPage() {
+    return <div></div>;
+}
+

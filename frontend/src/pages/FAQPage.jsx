@@ -27,3 +27,10 @@
  * Development order:
  *   Build last. No dependencies on API or other complex components.
  */
+
+
+//sanity check was done with faq page once it worked i removed it
+export default function FAQPage() {
+    return <div></div>;
+}
+
