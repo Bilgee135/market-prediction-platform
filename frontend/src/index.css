@@ -32,12 +32,20 @@
 
 @theme {
     --color-off-white:    #f8f7f4;
+    --color-ticker-bg:    #EFEDE6;
     --color-ink:          #111110;
     --color-muted:        #888;
     --color-accent-green: #00C076;
     --color-accent-red:   #FF4D4D;
     --color-border:       #e0ddd6;
     --color-card-bg:      #ffffff;
+
+    --animate-ticker: ticker 30s linear infinite;
+
+    @keyframes ticker {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
 }
 
 body {

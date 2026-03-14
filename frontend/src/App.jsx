@@ -30,6 +30,7 @@
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
+import TickerTape from "./components/layout/TickerTape";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import EvaluationsPage from "./pages/EvaluationsPage";
@@ -45,6 +46,7 @@ function App() {
       {/*the browserrouter will enable routing throughout all of it */}
     
       <Navbar />
+      <TickerTape />
 
     {/* route will check the url and show the matching page */}
     
