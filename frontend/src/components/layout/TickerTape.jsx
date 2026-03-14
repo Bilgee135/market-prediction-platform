@@ -36,15 +36,17 @@ const TICKER_DATA = [
     { symbol: 'JPM', price: 160.50, change: +1.50 },
 ];
 
+/* 
+* Concatenate the ticker data with itself to create a seamless loop effect. 
+* The CSS animation will scroll the entire width of the container, and by having 
+* two copies of the data back-to-back, it will appear continuous. 
+* The hover effect allows users to pause the ticker if they want to read the details. 
+*/
+
 function TickerTape() {
     return (
         <div className="overflow-hidden bg-ticker-bg border-b border-border py-2">
             <div className="flex animate-ticker w-max hover:[animation-play-state:paused]">
-
-                /* Concatenate the ticker data with itself to create a seamless loop effect. 
-                The CSS animation will scroll the entire width of the container, and by having two copies of the data back-to-back, it 
-                will appear continuous. The hover effect allows users to pause the ticker if they want to read the details. */
-
                 {TICKER_DATA.concat(TICKER_DATA).map((item, index) => (
                     <div key={index} className="flex items-center gap-1 px-7 text-sm font-medium tracking-wide border-r border-border whitespace-nowrap">
                         <span className="text-muted font-light">{item.symbol}</span>
