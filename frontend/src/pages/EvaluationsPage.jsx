@@ -27,3 +27,10 @@
  *   Build after ModelForecastPage. Requires the API metrics endpoint
  *   to be available or mocked.
  */
+
+
+//done sanity check and removed it after it worked
+export default function EvaluationsPage() {
+    return <div></div>;
+}
+

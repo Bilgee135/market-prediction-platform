@@ -27,14 +27,43 @@
  *   confirm routing works, then build pages one by one.
  */
 
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/layout/Navbar";
+import TickerTape from "./components/layout/TickerTape";
+import HomePage from "./pages/HomePage";
+import AboutPage from "./pages/AboutPage";
+import EvaluationsPage from "./pages/EvaluationsPage";
+import ModelsPage from "./pages/ModelsPage";
+import ModelForecastPage from "./pages/ModelForecastPage";
+import FAQPage from "./pages/FAQPage";
+
 function App() {
   return (
-    <div className="p-8">
-      <h1 className="text-2xl font-bold">S&P 500 Prediction Platform</h1>
-      <p className="text-gray-500 mt-2">Team 45</p>
-    </div>
-  )
+
+    <BrowserRouter>
+    
+      {/*the browserrouter will enable routing throughout all of it */}
+    
+      <Navbar />
+      <TickerTape />
+
+    {/* route will check the url and show the matching page */}
+    
+      <Routes>
+        {/* path will equal to the URL, element is equal to the page to show */}
+
+        <Route path="/"                   element={<HomePage />} />
+        <Route path="/about"              element={<AboutPage />} />
+        <Route path="/evaluations"        element={<EvaluationsPage />} />
+        <Route path="/models"             element={<ModelsPage />} />
+        <Route path="/models/:modelName"  element={<ModelForecastPage />} />
+        <Route path="/faq"                element={<FAQPage />} />
+      </Routes>
+
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
 

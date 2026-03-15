@@ -22,3 +22,10 @@
  *   Build after HomePage. Depends on DisclaimerModal, ModelCarousel,
  *   ModelCard, and Sparkline all being ready first.
  */
+
+
+//used to say models page for a sanity check but i removed it.
+
+export default function ModelsPage() {
+    return <div></div>;
+}

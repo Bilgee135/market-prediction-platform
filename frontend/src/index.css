@@ -26,6 +26,34 @@
  *   Fill this in first, before any component. Every component depends on
  *   these tokens and fonts being available.
  */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap');
 
 @import "tailwindcss";
+
+@theme {
+    --color-off-white:    #f8f7f4;
+    --color-ticker-bg:    #EFEDE6;
+    --color-ink:          #111110;
+    --color-muted:        #888;
+    --color-accent-green: #00C076;
+    --color-accent-red:   #FF4D4D;
+    --color-border:       #e0ddd6;
+    --color-card-bg:      #ffffff;
+
+    --animate-ticker: ticker 30s linear infinite;
+
+    @keyframes ticker {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: var(--color-off-white);
+    color: var(--color-ink);
+    margin: 0;
+}
+
+
 

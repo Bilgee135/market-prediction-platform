@@ -30,3 +30,9 @@
  *   Build after ModelsPage. This is the most complex page — build
  *   and test each sub-component separately before assembling here.
  */
+
+//it used to say forecast page for a sanity check but i removed it
+export default function ModelForecastPage() {
+    return <div></div>;
+}
+
