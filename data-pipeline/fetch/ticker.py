@@ -1,12 +1,21 @@
-import yfinance as yf
-import json 
+"""
+This script fetches the latest price and percentage change for a predefined 
+list of stock symbols using the yfinance library. The results are printed in 
+JSON format, which can be consumed by the frontend to display a ticker tape.
+"""
+
+import json
 import sys
+import yfinance as yf
 
 SYMBOLS = ['SPY', 'AAPL', 'MSFT', 'AMZN', 'NVDA', 'GOOGL', 'META', 'TSLA', 'JPM']
 
 # SPY is the S&P 500 ETF, which tracks the performance of the S&P 500 index.
 
 def fetch_ticker_data():
+    """
+    Fetches the latest price and percentage change for each symbol in SYMBOLS.
+    """
     results = []
 
     try:
@@ -18,8 +27,8 @@ def fetch_ticker_data():
             period='5d',
             group_by='ticker',
             auto_adjust=True,
-            progress=False,  # suppresses the download progress bar from polluting stdout
-            threads=False # prevents requests to trigger rate limiting 
+            progress=False, # suppresses the download progress bar from polluting stdout
+            threads=False # prevents requests to trigger rate limiting
         )
 
         for symbol in SYMBOLS:
@@ -38,7 +47,7 @@ def fetch_ticker_data():
                     })
                     continue
 
-                last_price = close_prices.iloc[-1] 
+                last_price = close_prices.iloc[-1]
                 previous_close = close_prices.iloc[-2]
                 change_percent = ((last_price - previous_close) / previous_close) * 100
 
