@@ -41,11 +41,27 @@
     --color-card-bg:      #ffffff;
 
     --animate-ticker: ticker 30s linear infinite;
+    --animate-loading-dots: loading-dots 1s steps(4) infinite;
 
     @keyframes ticker {
         0% { transform: translateX(0); }
         100% { transform: translateX(-50%); }
     }
+
+    @keyframes loading-dots {
+        to { clip-path: inset(0 -1ch 0 0); }
+    }
+}
+
+.ticker-loading {
+    font-family: monospace;
+    font-size: 0.78rem;
+    clip-path: inset(0 3ch 0 0);
+    animation: var(--animate-loading-dots);
+}
+
+.ticker-loading::before {
+    content: "Loading market data...";
 }
 
 body {
@@ -54,6 +70,7 @@ body {
     color: var(--color-ink);
     margin: 0;
 }
+
 
 
 

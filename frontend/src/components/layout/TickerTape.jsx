@@ -83,8 +83,8 @@ function TickerTape() {
 
     if (loading) {
         return (
-            <div className="border-b border-border bg-ticker-bg py-2 px-12 text-left text-sm text-muted">
-                Loading market data...
+            <div className="border-b border-border bg-ticker-bg py-2 px-12">
+                <span className="ticker-loading text-muted" />
             </div>
         );
     }
