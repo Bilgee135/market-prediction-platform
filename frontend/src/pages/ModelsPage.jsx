@@ -26,7 +26,7 @@
 
 import { useState } from "react";
 
-//i'm going up two folders
+//i'm going up folders
 import DisclaimerModal from "../components/ui/DisclaimerModal";
 // disclaimer model is now its own seperate componenet file
 
