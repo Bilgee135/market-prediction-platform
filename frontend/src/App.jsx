@@ -27,7 +27,7 @@
  *   confirm routing works, then build pages one by one.
  */
 
-
+import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import TickerTape from "./components/layout/TickerTape";
@@ -39,6 +39,8 @@ import ModelForecastPage from "./pages/ModelForecastPage";
 import FAQPage from "./pages/FAQPage";
 
 function App() {
+
+  const [disclaimerConfirmed, setDisclaimerConfirmed] = useState(false);
   return (
 
     <BrowserRouter>
@@ -56,7 +58,7 @@ function App() {
         <Route path="/"                   element={<HomePage />} />
         <Route path="/about"              element={<AboutPage />} />
         <Route path="/evaluations"        element={<EvaluationsPage />} />
-        <Route path="/models"             element={<ModelsPage />} />
+        <Route path="/models"             element={<ModelsPage disclaimerConfirmed={disclaimerConfirmed} setDisclaimerConfirmed={setDisclaimerConfirmed} />} />
         <Route path="/models/:modelName"  element={<ModelForecastPage />} />
         <Route path="/faq"                element={<FAQPage />} />
       </Routes>

@@ -40,7 +40,7 @@ export default function DisclaimerModal({ onAgree }) {
 
         // the dark overlay that covers the whole screen
 
-    <div className="fixed inset-0 bg-black/50 z-[200] flex items-center justify-center p-6">
+    <div className="fixed inset-0 bg-black/50 z-[999] flex items-center justify-center p-6">
         
         {/* white box in the middle of the screen when clicking the models page */}
         <div className="bg-[var(--color-card-bg)] rounded-2xl max-w-lg w-full p-10">

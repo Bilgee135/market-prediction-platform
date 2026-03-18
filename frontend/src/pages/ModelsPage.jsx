@@ -26,6 +26,8 @@
 
 import { useState } from "react";
 
+
+
 //i'm going up folders
 import DisclaimerModal from "../components/ui/DisclaimerModal";
 import { Link } from "react-router-dom";
@@ -137,25 +139,26 @@ const theSixModels = [
 
 ];
 
-export default function ModelsPage() {
+export default function ModelsPage({disclaimerConfirmed, setDisclaimerConfirmed }) {
 
     //so false means modal (pop-up) shows and true means modal hidden
     //will start as false so the modal pops up straight away when you click the models page
-    const [disclaimerConfirmed, setDisclaimerConfirmed] = useState(false);
+  
     
     //now this is going to track which model car is showing basically 0 means ltsm 1 means random forest etc
-    const [userSelectedModel, setUserSelectedModel] = useState(0);
     
-    return (    
+    const [userSelectedModel, setUserSelectedModel] = useState(0);
+    return (
         <div className="min-h-screen bg-[var(--color-off-white)]">
+            {!disclaimerConfirmed && (
+                <DisclaimerModal onAgree={() => setDisclaimerConfirmed(true)} />
+            )}
+  
 
 
 
             {/* the ! means if not confirmed then show the modal */}
             {/* when the use clicks agree the disclaimerConfirmed is now true and the modal disappears */}
-            {!disclaimerConfirmed && ( 
-                <DisclaimerModal onAgree={() => setDisclaimerConfirmed(true)} />
-            )}
 
 
             {/* this here the two column layout so the left sidebar and then the right carousel these are side by side */}
@@ -364,10 +367,9 @@ export default function ModelsPage() {
                     ></button>
                 ))}
             </div>
-
+            
+            {/* right arrow will go to the next model */}
             <button 
-
-            //right arrow will go to the next model
                 onClick={() => setUserSelectedModel((prev) => (prev === theSixModels.length - 1 ? 0 : prev + 1))}
                 className="w-10 h-10 rounded-full border border-[var(--color-border)] bg-[var(--color-card-bg)] flex items-center justify-center hover:opacity-75 transition-opacity"
             >
