@@ -199,7 +199,7 @@ Keep a note of the password you chose. You will need it for the `.env` file.
 
 ```bash
 git clone https://github.com/Bilgee135/market-prediction-platform.git
-cd team45
+cd market-prediction-platform
 ```
 
 
