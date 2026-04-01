@@ -209,9 +209,9 @@ export default function AboutPage() {
                         <h2 className="text-xl font-bold text-[var(--color-off-white)] mb-4">
                             This is not financial advice.
                         </h2>
-                        <p className="text-sm text-[var(--color-off-white)] leading-relaxed">
+                        <p className="text-sm text-[var(--color-off-white)] opacity-75 leading-relaxed">
                             All predictions are generated for{" "}
-                            <strong className="text-[var(--color-off-white)] opacity-100">
+                            <strong className="font-bold">
                             academic and educational purposes only
                             </strong>
                             . Markets are affected by geopolitical events, policy changes and unforeseen shocks that no historical model can anticipate. Do not use this system to make real investment decisions. Model limitations are documented transparently throughout the interface.
