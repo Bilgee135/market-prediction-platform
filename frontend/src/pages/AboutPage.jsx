@@ -152,7 +152,7 @@ export default function AboutPage() {
                             Users can explore forecasts, compare model accuracy and understand the reasoning behind each prediction.
                         </p>
 
-                        <p className="text-m text-[var(--color-muted)] leading-relaxed">
+                        <p className="text-sm text-[var(--color-muted)] leading-relaxed">
                             Predictions cover a {" "}
                             <strong className="text-[var(--color-ink)]">52-week forward horizon</strong>
                             , generated from models trained on data spanning back to 1926.
@@ -168,7 +168,7 @@ export default function AboutPage() {
                             How it's built
                         </h2>
                         <p className="text-sm text-[var(--color-muted)] leading-relaxed mb-5">
-                            The system has three layers that pass data through a shared MySQl database.
+                            The system has three layers that pass data through a shared MySQL database.
                         </p>
 
                         <div className="flex flex-wrap gap-2">
@@ -196,7 +196,7 @@ export default function AboutPage() {
                             <strong className="text-[var(--color-ink)]">1926 to 2024</strong>
                             {" "} is sourced from Wharton Research Data Services (WRDS). Data from 2025 onwards uses the {" "}
                             <strong className="text-[var(--color-ink)]">yfinance</strong>
-                            {" "}package via the Yahoo Finance API. Both Sources are publicaly accessible and permission has been confirmed for academic use.
+                            {" "}package via the Yahoo Finance API. Both Sources are publicly accessible and permission has been confirmed for academic use.
                         </p>
                     </div>
                     
@@ -209,10 +209,10 @@ export default function AboutPage() {
                         <h2 className="text-xl font-bold text-[var(--color-off-white)] mb-4">
                             This is not financial advice.
                         </h2>
-                        <p className="text-m text-[var(--color-muted)] leading-relaxed">
-                            All predictions are generted for{" "}
+                        <p className="text-sm text-[var(--color-off-white)] leading-relaxed">
+                            All predictions are generated for{" "}
                             <strong className="text-[var(--color-off-white)] opacity-100">
-                            academic and educations purposes only
+                            academic and educational purposes only
                             </strong>
                             . Markets are affected by geopolitical events, policy changes and unforeseen shocks that no historical model can anticipate. Do not use this system to make real investment decisions. Model limitations are documented transparently throughout the interface.
                         </p>
