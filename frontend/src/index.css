@@ -30,6 +30,8 @@
 
 @import "tailwindcss";
 
+
+
 @theme {
     --color-off-white:    #f8f7f4;
     --color-ticker-bg:    #EFEDE6;
@@ -51,7 +53,33 @@
     @keyframes loading-dots {
         to { clip-path: inset(0 -1ch 0 0); }
     }
+
+    --animate-fade-up: fadeUp 0.5s ease forwards;
+
+  @keyframes fadeUp {
+    from { 
+      opacity: 0; 
+      transform: translateY(14px); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
+  }
+  
 }
+
+
+@layer base {
+    *, *::before, *::after { 
+      box-sizing: border-box; 
+    }
+    
+    /* Ensure the DM Serif Display is available as a utility class */
+    h1, .font-serif {
+      font-family: 'DM Serif Display', serif;
+    }
+  }
 
 .ticker-loading {
     font-family: monospace;
