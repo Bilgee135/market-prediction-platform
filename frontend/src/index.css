@@ -44,12 +44,14 @@
 
 
     /* here I have added the team chip colours for the about page */ 
-
     --color-ml-models: #1d4ed8;
     --color-ml-models-bg: #dbeafe;
     --color-web-app: #7f1d1d;
     --color-web-app-bg: #fee2e2;
 
+    /* here is the colour for the models pages */
+    --color-category-text: #2563eb;
+    --color-category-bg: #eff6ff;
 
     --animate-ticker: ticker 30s linear infinite;
     --animate-loading-dots: loading-dots 1s steps(4) infinite;

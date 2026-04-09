@@ -267,7 +267,7 @@ export default function ModelsPage({disclaimerConfirmed, setDisclaimerConfirmed 
                     <div className="w-80 bg-[var(--color-off-white)] flex items-center justify-center p-8 border-r border-[var(--color-border)]">
                     
                     <div className="absolute top-4 left-4">
-                        <span className="text-xs font-semibold tracking-widest uppercase text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
+                        <span className="text-xs font-semibold tracking-widest uppercase text-[var(--color-category-text)] bg-[var(--color-category-bg)] px-3 py-1 rounded-full">
                             {theSixModels[userSelectedModel].category}
                         </span>
                     </div>
