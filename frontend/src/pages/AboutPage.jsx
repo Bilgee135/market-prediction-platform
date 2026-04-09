@@ -42,7 +42,7 @@ export default function AboutPage() {
 
                     <div>
                         <p className="text-xs font-semibold tracking-widest text-[var(--color-muted)] uppercase mb-3">
-                            TEAM 45 • COMP 208 • University of Liverpool 
+                            TEAM 45 • COMP 208 • UNIVERSITY OF LIVERPOOL
                         </p>
                         <h1 className="text-2xl font-bold text-[var(--color-ink)] mb-3">
                             Built to learn. Designed to predict.
@@ -64,51 +64,53 @@ export default function AboutPage() {
 
                         <div className="flex flex-col gap-2">
 
-                            {/* data pipeline */}
+                            {/* the ml models in blue using the global variables i added to index css */}
                             <div className="flex items-center gap-2">
-                                <span className="w-7 h-7 rounded-full bg-green-900 text-white text-xs font-semibold flex items-center justify-center shrink-0">A</span>
-                                <span className="text-sm text-[var(--color-ink)]">Avin</span>
-                                <span className="text-xs text-green-900 bg-green-100 px-2 py-0.5 rounded-full ml-auto">Data Pipeline</span>
-                            </div>
-
-                            <div className="flex items-center gap-2">
-                                <span className="w-7 h-7 rounded-full bg-green-900 text-white text-xs font-semibold flex items-center justify-center shrink-0">S</span>
-                                <span className="text-sm text-[var(--color-ink)]">Safiya</span>
-                                <span className="text-xs text-green-900 bg-green-100 px-2 py-0.5 rounded-full ml-auto">Data Pipeline</span>
-                            </div>
-
-                            {/* the ml models in blue */}
-                            <div className="flex items-center gap-2">
-                                <span className="w-7 h-7 rounded-full bg-blue-700 text-white text-xs font-semibold flex items-center justify-center shrink-0">T</span>
+                                <span className="w-7 h-7 rounded-full bg-[var(--color-ml-models)] text-white text-xs font-semibold flex items-center justify-center shrink-0">T</span>
                                 <span className="text-sm text-[var(--color-ink)]">Tom</span>
-                                <span className="text-xs text-blue-700 bg-blue-100 px-2 py-0.5 rounded-full ml-auto">ML Models</span>
+                                <span className="text-xs text-[var(--color-ml-models)] bg-[var(--color-ml-models-bg)] px-2 py-0.5 rounded-full ml-auto">ML Models</span>
                             </div>
 
-                            <div className="flex items-center gap-2">
-                                <span className="w-7 h-7 rounded-full bg-blue-700 text-white text-xs font-semibold flex items-center justify-center shrink-0">P</span>
-                                <span className="text-sm text-[var(--color-ink)]">Prisha</span>
-                                <span className="text-xs text-blue-700 bg-blue-100 px-2 py-0.5 rounded-full ml-auto">ML Models</span>
+                             <div className="flex items-center gap-2">
+                                <span className="w-7 h-7 rounded-full bg-[var(--color-ml-models)] text-white text-xs font-semibold flex items-center justify-center shrink-0">A</span>
+                                <span className="text-sm text-[var(--color-ink)]">Avin</span>
+                                <span className="text-xs text-[var(--color-ml-models)] bg-[var(--color-ml-models-bg)] px-2 py-0.5 rounded-full ml-auto">ML Models</span>
                             </div>
 
-                            <div className="flex items-center gap-2">
-                                <span className="w-7 h-7 rounded-full bg-blue-700 text-white text-xs font-semibold flex items-center justify-center shrink-0">L</span>
+                             <div className="flex items-center gap-2">
+                                <span className="w-7 h-7 rounded-full bg-[var(--color-ml-models)] text-white text-xs font-semibold flex items-center justify-center shrink-0">L</span>
                                 <span className="text-sm text-[var(--color-ink)]">Lysandra</span>
-                                <span className="text-xs text-blue-700 bg-blue-100 px-2 py-0.5 rounded-full ml-auto">ML Models</span>
+                                <span className="text-xs text-[var(--color-ml-models)] bg-[var(--color-ml-models-bg)] px-2 py-0.5 rounded-full ml-auto">ML Models</span>
                             </div>
 
-                            {/* the web app in dark red */}
+                             <div className="flex items-center gap-2">
+                                <span className="w-7 h-7 rounded-full bg-[var(--color-ml-models)] text-white text-xs font-semibold flex items-center justify-center shrink-0">P</span>
+                                <span className="text-sm text-[var(--color-ink)]">Prisha</span>
+                                <span className="text-xs text-[var(--color-ml-models)] bg-[var(--color-ml-models-bg)] px-2 py-0.5 rounded-full ml-auto">ML Models</span>
+                            </div>
+
+                             <div className="flex items-center gap-2">
+                                <span className="w-7 h-7 rounded-full bg-[var(--color-ml-models)] text-white text-xs font-semibold flex items-center justify-center shrink-0">S</span>
+                                <span className="text-sm text-[var(--color-ink)]">Safiya</span>
+                                <span className="text-xs text-[var(--color-ml-models)] bg-[var(--color-ml-models-bg)] px-2 py-0.5 rounded-full ml-auto">ML Models</span>
+                            </div>
+
+                            
+
+                            {/* the web app in dark red. i've added the variables to the index css */}
 
                             <div className="flex items-center gap-2">
-                                <span className="w-7 h-7 rounded-full bg-red-900 text-white text-xs font-semibold flex items-center justify-center shrink-0">H</span>
+                                <span className="w-7 h-7 rounded-full bg-[var(--color-web-app)] text-white text-xs font-semibold flex items-center justify-center shrink-0">H</span>
                                 <span className="text-sm text-[var(--color-ink)]">Haps</span>
-                                <span className="text-xs text-red-900 bg-red-100 px-2 py-0.5 rounded-full ml-auto">Web App</span>
+                                <span className="text-xs text-[var(--color-web-app)] bg-[var(--color-web-app-bg)] px-2 py-0.5 rounded-full ml-auto">Web App</span>
                             </div>
 
                             <div className="flex items-center gap-2">
-                                <span className="w-7 h-7 rounded-full bg-red-900 text-white text-xs font-semibold flex items-center justify-center shrink-0">B</span>
+                                <span className="w-7 h-7 rounded-full bg-[var(--color-web-app)] text-white text-xs font-semibold flex items-center justify-center shrink-0">B</span>
                                 <span className="text-sm text-[var(--color-ink)]">Billy</span>
-                                <span className="text-xs text-red-900 bg-red-100 px-2 py-0.5 rounded-full ml-auto">Web App</span>
+                                <span className="text-xs text-[var(--color-web-app)] bg-[var(--color-web-app-bg)] px-2 py-0.5 rounded-full ml-auto">Web App</span>
                             </div>
+
 
                         </div>
                     </div>
@@ -134,7 +136,7 @@ export default function AboutPage() {
 
                 </div>
 
-                {/* now here the right hand side */}
+                {/* now here the right hand side with the four contents */}
                 <div className="flex-1 flex flex-col gap-4">
                     
                     {/* this is the first one what the project does */}
@@ -147,10 +149,14 @@ export default function AboutPage() {
                         </h2>
 
 
+                        {/* this is the short description of what the project is */}
+
                         <p className="text-sm text-[var(--color-muted)] leading-relaxed mb-3">
                             The system collects historical S&P 500 index data, trains multiple machine learning models on it and presents weekly pricely predicitons through this interactive interface.
                             Users can explore forecasts, compare model accuracy and understand the reasoning behind each prediction.
                         </p>
+
+                        {/* I added the "" because it adds a space before the bold text so it does not stick to the word before it */}
 
                         <p className="text-sm text-[var(--color-muted)] leading-relaxed">
                             Predictions cover a {" "}
@@ -209,6 +215,9 @@ export default function AboutPage() {
                         <h2 className="text-xl font-bold text-[var(--color-off-white)] mb-4">
                             This is not financial advice.
                         </h2>
+
+
+                        {/* opacity at 75 so that the text fades to white but the bold parts are full white */}
                         <p className="text-sm text-[var(--color-off-white)] opacity-75 leading-relaxed">
                             All predictions are generated for{" "}
                             <strong className="font-bold">
