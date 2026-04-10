@@ -43,7 +43,7 @@ function App() {
   const [disclaimerConfirmed, setDisclaimerConfirmed] = useState(false);
   return (
 
-    <BrowserRouter>
+    <BrowserRouter basename="/~sgbtuvsh/team45/">
     
       {/*the browserrouter will enable routing throughout all of it */}
     

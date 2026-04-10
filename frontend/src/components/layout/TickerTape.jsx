@@ -82,12 +82,14 @@ function TickerTape() {
     }, []); // Empty dependency array means this effect runs once on mount and sets up the interval
 
     if (loading) {
-        return (
-            <div className="border-b border-border bg-ticker-bg py-2 px-12">
-                <span className="ticker-loading text-muted" />
+    return (
+        <div className="overflow-hidden bg-[var(--color-ticker-bg)] border-b border-[var(--color-border)] py-2">
+            <div className="flex items-center px-7" style={{ height: '28px' }}>
+                <span className="ticker-loading" style={{ color: 'var(--color-muted)' }} />
             </div>
-        );
-    }
+        </div>
+    );
+}
 
     /* 
     * Concatenate the ticker data with itself to create a seamless loop effect. 
@@ -97,8 +99,8 @@ function TickerTape() {
     */
 
     return (
-        <div className="overflow-hidden bg-ticker-bg border-b border-border py-2">
-            <div className="flex animate-ticker w-max hover:[animation-play-state:paused]">
+        <div className="overflow-hidden bg-[var(--color-ticker-bg)] border-b border-[var(--color-border)] py-2">
+            <div className="flex animate-ticker w-max hover:[animation-play-state:paused]" style={{ height: '28px' }}>
                 {tickerData.concat(tickerData).map((item, index) => (
                     <div key={index} className="flex items-center gap-1 px-7 text-sm font-medium tracking-wide border-r border-border whitespace-nowrap">
                         <span className="text-muted font-light">{item.symbol}</span>

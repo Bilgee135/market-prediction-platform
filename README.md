@@ -1,4 +1,4 @@
-# Team 45 S&P 500 Weekly Prediction Platform
+# Weekly Stock Market Prediction Using Various Machine Learning Techniques
 
 A machine learning web application that predicts weekly S&P 500 price movements.
 Built with Python, MySQL, Node.js, and React.
@@ -14,7 +14,7 @@ Built with Python, MySQL, Node.js, and React.
 ## Project Structure
 
 ```
-team45/
+market-prediction-platform/
 ├── frontend/
 │   └── src/
 │       ├── pages/             # Full page components (one per route)

@@ -41,6 +41,11 @@
     --color-accent-red:   #FF4D4D;
     --color-border:       #e0ddd6;
     --color-card-bg:      #ffffff;
+    --color-disclaimer-bg:     #FFFBF0;
+    --color-disclaimer-border: #D4A017;
+    --color-disclaimer-icon:   #B8860B;
+    --color-disclaimer-text:   #7A5C00;
+    --color-disclaimer-strong: #5C4400;
 
 
     /* here I have added the team chip colours for the about page */ 
@@ -56,30 +61,53 @@
     --animate-ticker: ticker 30s linear infinite;
     --animate-loading-dots: loading-dots 1s steps(4) infinite;
 
-    @keyframes ticker {
+    --animate-fade-up: fadeUp 0.5s ease forwards;
+}
+
+@keyframes ticker {
         0% { transform: translateX(0); }
         100% { transform: translateX(-50%); }
     }
 
-    @keyframes loading-dots {
-        to { clip-path: inset(0 -1ch 0 0); }
-    }
-
-    --animate-fade-up: fadeUp 0.5s ease forwards;
-
-  @keyframes fadeUp {
-    from { 
-      opacity: 0; 
-      transform: translateY(14px); 
-    }
-    to { 
-      opacity: 1; 
-      transform: translateY(0); 
-    }
-  }
-  
+@keyframes loading-dots {
+    to { clip-path: inset(0 -1ch 0 0); }
 }
 
+@keyframes fadeUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(14px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+} 
+
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes overlayOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.95) translateY(8px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0); }
+}
+
+@keyframes modalOut {
+  from { opacity: 1; transform: scale(1)    translateY(0); }
+  to   { opacity: 0; transform: scale(0.95) translateY(8px); }
+}
 
 @layer base {
     *, *::before, *::after { 
