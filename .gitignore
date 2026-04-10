@@ -24,3 +24,6 @@ data-pipeline/venv/
 # IDE
 .vscode/
 .idea/
+
+# Other
+static-demo/
