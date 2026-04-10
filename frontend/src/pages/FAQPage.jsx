@@ -30,7 +30,85 @@
 
 
 //sanity check was done with faq page once it worked i removed it
+
+import { groups } from '../data/FAQData.js'
+import '../css/FAQPage.css'
+import {useState} from 'react';
+
 export default function FAQPage() {
-    return <div></div>;
+
+    const totalQuestions = groups.reduce((acc,group) => acc + group.items.length, 0);
+
+    const [activeCat, setActiveCat] = useState("all");
+
+    const visibleGroups = activeCat === "all" ? groups :  groups.filter(group => group.cat.toLowerCase() === activeCat.toLowerCase()); 
+
+    const [openItem, setOpenItem] = useState(null);
+
+    console.log("Active Category:", activeCat);
+    console.log("Visible Groups:", visibleGroups);
+    return (
+    <div className='page'>
+        <div className='faq-left'>
+        <div className='faq-left-top'>
+            <p className='page-eyebrow'>help & answers</p>
+            <h1 className='faq-left h1'>FAQ</h1>
+            <p className='faq-left p'>Common questions about the predictions, models, data, and how to use the platform.</p>
+            <div className='cat-filters'>
+            <div className='cat-label'>FILTER BY TOPIC</div>
+            <button className={activeCat === 'all' ? 'cat-btn active' :
+                'cat-btn'} onClick={() => setActiveCat("all")}>All questions
+                <span className='cat-count'>{totalQuestions}</span>
+                </button>
+            {groups.map((group) => (
+                <button key={group.cat}
+                className={activeCat === group.cat ? 'cat-btn active' : 'cat-btn'}
+                onClick={() => setActiveCat(group.cat)}>
+                    {group.label}
+                    <span className='cat-count'>{group.items.length}</span>
+                </button>
+            ))}
+            </div>
+            </div>
+            <div className='faq-left-bottom'>
+            Still have questions?
+            View the 
+            <a href="/about"> About page </a>
+            for project background and team information.
+            </div>
+        </div>
+        {/* left section ended */}
+        <div className='faq-right'>
+            {visibleGroups.map((group) => (
+            <div key={group.cat} 
+            className='faq-group'>{/*FAQ group begins*/}
+            <div className='faq-group-label'>{group.label}
+            </div>
+            {group.items.map((item, index) => {
+                const itemID = `${group.cat}-${index}`;
+                const isOpen = openItem == itemID;
+                return (
+                    <div key={itemID}
+                    className={`faq-item ${isOpen?'open':''}`}>
+                        <button class="faq-question"
+                        onClick={()=>setOpenItem(isOpen?null:itemID)}>{item.q}
+                        <span class="faq-icon">
+                        {isOpen?'-':'+'}
+                        </span>
+                        </button>
+                        <div className='faq-answer'>
+                        <div 
+                        className='faq-answer-inner'
+                        dangerouslySetInnerHTML={{ __html: item.a }}/>
+                        </div>
+                    </div>
+                );
+            })}
+            </div> 
+            ))}
+            {/* outer map ends */}
+        </div>
+    </div>
+    );
 }
 
