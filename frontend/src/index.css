@@ -30,6 +30,8 @@
 
 @import "tailwindcss";
 
+
+
 @theme {
     --color-off-white:    #f8f7f4;
     --color-ticker-bg:    #EFEDE6;
@@ -39,13 +41,94 @@
     --color-accent-red:   #FF4D4D;
     --color-border:       #e0ddd6;
     --color-card-bg:      #ffffff;
+    --color-disclaimer-bg:     #FFFBF0;
+    --color-disclaimer-border: #D4A017;
+    --color-disclaimer-icon:   #B8860B;
+    --color-disclaimer-text:   #7A5C00;
+    --color-disclaimer-strong: #5C4400;
+
+
+    /* here I have added the team chip colours for the about page */ 
+    --color-ml-models: #1d4ed8;
+    --color-ml-models-bg: #dbeafe;
+    --color-web-app: #7f1d1d;
+    --color-web-app-bg: #fee2e2;
+
+    /* here is the colour for the models pages */
+    --color-category-text: #2563eb;
+    --color-category-bg: #eff6ff;
 
     --animate-ticker: ticker 30s linear infinite;
+    --animate-loading-dots: loading-dots 1s steps(4) infinite;
 
-    @keyframes ticker {
+    --animate-fade-up: fadeUp 0.5s ease forwards;
+}
+
+@keyframes ticker {
         0% { transform: translateX(0); }
         100% { transform: translateX(-50%); }
     }
+
+@keyframes loading-dots {
+    to { clip-path: inset(0 -1ch 0 0); }
+}
+
+@keyframes fadeUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(14px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+} 
+
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes overlayOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.95) translateY(8px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0); }
+}
+
+@keyframes modalOut {
+  from { opacity: 1; transform: scale(1)    translateY(0); }
+  to   { opacity: 0; transform: scale(0.95) translateY(8px); }
+}
+
+@layer base {
+    *, *::before, *::after { 
+      box-sizing: border-box; 
+    }
+    
+    /* Ensure the DM Serif Display is available as a utility class */
+    h1, .font-serif {
+      font-family: 'DM Serif Display', serif;
+    }
+  }
+
+.ticker-loading {
+    font-family: monospace;
+    font-size: 0.78rem;
+    clip-path: inset(0 3ch 0 0);
+    animation: var(--animate-loading-dots);
+}
+
+.ticker-loading::before {
+    content: "Loading market data...";
 }
 
 body {
@@ -54,6 +137,7 @@ body {
     color: var(--color-ink);
     margin: 0;
 }
+
 
 
 

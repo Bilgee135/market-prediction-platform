@@ -61,11 +61,11 @@ const navLinks = [
 function TheLogoBars() {
   return (
     <div className="flex items-end gap-[2.5px] h-[18px]">
-      <span className="w-1 bg-accent-green" style={{ height: "8px"  }}></span>
-      <span className="w-1 bg-accent-green" style={{ height: "14px" }}></span>
-      <span className="w-1 bg-accent-red" style={{ height: "10px" }}></span>
-      <span className="w-1 bg-accent-green" style={{ height: "18px" }}></span>
-      <span className="w-1 bg-accent-red" style={{ height: "12px" }}></span>
+      <span className="w-1 bg-[var(--color-accent-green)]" style={{ height: "8px"  }}></span>
+      <span className="w-1 bg-[var(--color-accent-green)]" style={{ height: "14px" }}></span>
+      <span className="w-1 bg-[var(--color-accent-red)]" style={{ height: "10px" }}></span>
+      <span className="w-1 bg-[var(--color-accent-green)]" style={{ height: "18px" }}></span>
+      <span className="w-1 bg-[var(--color-accent-red)]" style={{ height: "12px" }}></span>
     </div>
   );
 }
@@ -96,9 +96,9 @@ export default function Navbar() {
   }
   
   return (
-    <nav className="flex items-center justify-between px-12 h-16 bg-off-white border-b border-border sticky top-0 z-[100]">
+    <nav className="flex items-center justify-between px-12 h-16 bg-[var(--color-off-white)] border-b border-[var(--color-border)] sticky top-0 z-[100]">
       {/* this is the logo and the app name */}
-      <div className="flex items-center gap-[10px] font-medium text-[0.95rem] tracking-[0.01em] text-ink">
+      <div className="flex items-center gap-[10px] font-medium text-[0.95rem] tracking-[0.01em] text-[var(--color-ink)]">
         <TheLogoBars />
         Stock Market Prediction
       </div>
@@ -119,8 +119,8 @@ export default function Navbar() {
               to={link.path}
               className={`no-underline text-sm tracking-[0.02em] transition-colors duration-200 ${
                 isActive(link.path)
-                  ? "text-ink font-semibold"
-                  : "text-muted hover:text-ink"
+                  ? "text-[var(--color-ink)] font-semibold"
+                  : "text-[var(--color-muted)] hover:text-[var(--color-ink)]"
               }`}
             >
               {link.name}
@@ -134,8 +134,8 @@ export default function Navbar() {
             to="/faq"
             className={`no-underline px-[18px] py-2 rounded-md text-sm font-medium transition-opacity duration-200 ${
               isActive("/faq")
-                ? "bg-ink text-off-white"
-                : "bg-ink text-off-white hover:opacity-75"
+                ? "bg-[var(--color-ink)] text-[var(--color-off-white)]"
+                : "bg-[var(--color-ink)] text-[var(--color-off-white)] hover:opacity-75"
             }`}
           >
             FAQ
