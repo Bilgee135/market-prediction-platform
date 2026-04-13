@@ -23,6 +23,7 @@
  *   ModelCard, and Sparkline all being ready first.
  */
 
+import Sparkline from "../components/charts/Sparkline";
 
 import { useState } from "react";
 
@@ -75,6 +76,8 @@ const theSixModels = [
         modelWeaknesses: "Slow to train and sensitive to hyperparamteter choices",
         modelBestFor: "Trend-following predicitons over longer horizons",
         modelComplexity: 4,
+        sparklineColour: "#2563eb",
+        sparklineData: [100, 108, 98, 112, 105, 118, 110, 125, 118, 130, 122, 138],
     },
 
     {
@@ -87,6 +90,8 @@ const theSixModels = [
         modelWeaknesses: "Cannot extrapolate beyond the training range",
         modelBestFor: "Stable medium-term predictions with interpretable outputs",
         modelComplexity: 2,
+        sparklineColour: "#c2410c",
+        sparklineData: [100, 105, 95, 110, 102, 115, 108, 120, 113, 125, 118, 128],
     },
 
     {
@@ -99,6 +104,8 @@ const theSixModels = [
         modelWeaknesses: "More hyperparamters to tune than simpler models",
         modelBestFor: "Short-term precision where feature engineering is strong",
         modelComplexity: 3,
+        sparklineColour: "#c2410c",
+        sparklineData: [100, 104, 101, 108, 106, 112, 110, 116, 114, 120, 118, 125],
     },
 
     {
@@ -111,6 +118,8 @@ const theSixModels = [
         modelWeaknesses: "Cannot capture non-linear relationships in market data",
         modelBestFor: "Establishing a baseline and understanding feature correlations",
         modelComplexity: 1,
+        sparklineColour: "#1e293b",
+        sparklineData: [100, 103, 101, 105, 104, 107, 106, 109, 108, 111, 110, 114],
     },
 
     {
@@ -123,6 +132,8 @@ const theSixModels = [
         modelWeaknesses: "Sensitive to feature scaling and slow on large datasets",
         modelBestFor: "Situations where data is limited but clean",
         modelComplexity: 3,
+        sparklineColour: "#6d28d9",
+        sparklineData: [100, 106, 98, 114, 106, 120, 112, 126, 118, 130, 122, 135],
     },
 
     {
@@ -135,6 +146,8 @@ const theSixModels = [
         modelWeaknesses: "Requires more data and careful regularisaitons to avoid overfitting",
         modelBestFor: "Complex feature interactions across many technical indicators",
         modelComplexity: 3,
+        sparklineColour: "#2563eb",
+        sparklineData: [100, 107, 103, 112, 108, 116, 113, 120, 117, 123, 120, 126],
     }
 
 ];
@@ -264,16 +277,17 @@ export default function ModelsPage({disclaimerConfirmed, setDisclaimerConfirmed 
                     
                     
                     {/* the left side of the card should be the chart */} 
-                    <div className="w-80 bg-[var(--color-off-white)] flex items-center justify-center p-8 border-r border-[var(--color-border)]">
-                    
-                    <div className="absolute top-4 left-4">
+                    <div className="w-80 bg-[var(--color-off-white)] flex flex-col items-start justify-center p-8 border-r border-[var(--color-border)]">
                         <span className="text-xs font-semibold tracking-widest uppercase text-[var(--color-category-text)] bg-[var(--color-category-bg)] px-3 py-1 rounded-full">
                             {theSixModels[userSelectedModel].category}
                         </span>
+                        <Sparkline 
+                            data={theSixModels[userSelectedModel].sparklineData}
+                            color={theSixModels[userSelectedModel].sparklineColour}
+                            width={200}
+                            height={100}
+                        />
                     </div>
-                    <p className="text-[var(--color-muted)] text-sm"> Uhh so would charts go here?</p>
-                
-                </div>
 
                 <div className="flex-1 p-8 flex flex-col gap-4">
                     <div>
