@@ -33,6 +33,7 @@
 import { groups } from '../data/FAQData.js'
 import '../css/FAQPage.css'
 import {useState} from 'react';
+import { Link } from "react-router-dom";
 
 export default function FAQPage() {
 
@@ -72,7 +73,7 @@ export default function FAQPage() {
             <div className='faq-left-bottom'>
             Still have questions?
             View the 
-            <a href="/about"> About page </a>
+            <Link to="/about"> About page </Link>
             for project background and team information.
             </div>
         </div>
