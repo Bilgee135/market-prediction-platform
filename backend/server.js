@@ -4,6 +4,7 @@ const cors = require('cors')
 const app = express()
 const PORT = process.env.PORT || 5000
 const tickerRouter = require('./routes/ticker')
+const historicalRoutes = require('./routes/historical');
 
 // CORS configuration to allow requests from the frontend development server
 app.use(cors({
@@ -19,9 +20,9 @@ app.get('/api/health', (req, res) => {
 
 app.use('/api', tickerRouter) // Full path will be /api/ticker 
 
+app.use('/api/historical', historicalRoutes); // Full path will be /api/historical?weeks=26 (weeks is optional, defaults to 26)
+
 app.listen(PORT, () => {
     console.log(`Backend running on http://localhost:${PORT}`)
 })
-
-
 
