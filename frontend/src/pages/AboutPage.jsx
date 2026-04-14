@@ -86,16 +86,18 @@ export default function AboutPage() {
                                 <span className="text-xs text-[var(--color-ml-models)] bg-[var(--color-ml-models-bg)] px-2 py-0.5 rounded-full ml-auto">ML Models</span>
                             </div>
 
-                             <div className="flex items-center gap-2">
-                                <span className="w-7 h-7 rounded-full bg-[var(--color-ml-models)] text-white text-xs font-semibold flex items-center justify-center shrink-0">P</span>
-                                <span className="text-sm text-[var(--color-ink)]">Prisha</span>
-                                <span className="text-xs text-[var(--color-ml-models)] bg-[var(--color-ml-models-bg)] px-2 py-0.5 rounded-full ml-auto">ML Models</span>
-                            </div>
 
                              <div className="flex items-center gap-2">
                                 <span className="w-7 h-7 rounded-full bg-[var(--color-ml-models)] text-white text-xs font-semibold flex items-center justify-center shrink-0">S</span>
                                 <span className="text-sm text-[var(--color-ink)]">Safiya</span>
                                 <span className="text-xs text-[var(--color-ml-models)] bg-[var(--color-ml-models-bg)] px-2 py-0.5 rounded-full ml-auto">ML Models</span>
+                            </div>
+
+                            <div className="flex items-center gap-2">
+                                <span className="w-7 h-7 rounded-full bg-[var(--color-ml-models)] text-white text-xs font-semibold flex items-center justify-center shrink-0">P</span>
+                                <span className="text-sm text-[var(--color-ink)]">Prisha</span>
+                                <span className="text-xs text-[var(--color-ml-models)] bg-[var(--color-ml-models-bg)] px-2 py-0.5 rounded-full ml-auto">ML Models</span>
+                                <span className="text-xs text-[var(--color-web-app)] bg-[var(--color-web-app-bg)] px-2 py-0.5 rounded-full ml-auto">Web App</span>
                             </div>
 
                             {/* the web app in dark red. i've added the variables to the index css */}
