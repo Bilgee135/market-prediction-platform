@@ -33,6 +33,5 @@
 
 //it used to say forecast page for a sanity check but i removed it
 export default function ModelForecastPage() {
-    return <div></div>;
+  return <div></div>;
 }
-
