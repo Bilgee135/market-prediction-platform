@@ -65,6 +65,7 @@ export default function EvaluationsPage() {
                     to="/models"
                     className="text-sm text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors"
                 >
+                    {/* the left arrow which when you click it you will go back to the models page */}
                     &larr; Back to models
                 </Link>
             </div>

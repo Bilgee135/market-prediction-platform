@@ -24,11 +24,11 @@
 
 
 
-//here is all the tech chips shown in the technology known card
+//what we used
 //looping through this array to create each chip
 const theTechnologyStack = [ "Python", "scikit-learn", "TensorFlow", "yfinance", "WRDS", "Pandas / NumPy", "MySQL", "Node.js", "React", "Chart.js"]
 
-//sanity check done and removed it now
+
 export default function AboutPage() {
     return (
         <div className="min-h-screen bg-[var(--color-off-white)] px-12 py-10">
@@ -41,12 +41,17 @@ export default function AboutPage() {
                 <div className="w-64 shrink-0 flex flex-col gap-6">
 
                     <div>
+                        {/* the heading the team number, the module and the uni */}
                         <p className="text-xs font-semibold tracking-widest text-[var(--color-muted)] uppercase mb-3">
                             TEAM 45 • COMP 208 • UNIVERSITY OF LIVERPOOL
                         </p>
+
+                        {/* just a nice catchphrase lol */}
                         <h1 className="text-2xl font-bold text-[var(--color-ink)] mb-3">
                             Built to learn. Designed to predict.
                         </h1>
+
+                        {/* a little explanation of the website */}
                         <p className="text-sm text-[var(--color-muted)] leading-relaxed">
                             This system was developed as part of a second year Group Software Project. It applies machine learning to weekly S&P 500 price prediction, not as a trading tools, but as an exploration of how historical data can be used to model market behaviour.
                         </p>
@@ -59,12 +64,10 @@ export default function AboutPage() {
                         </p>
 
                         {/* the members name and their role*/}
-                        {/* dark green is data pipeline, blue is ML Models, dark red is Web App */}
-                        {/* not 100% can get changed */}
-
+                        {/* blue is ML Models, dark red is Web App */}
                         <div className="flex flex-col gap-2">
 
-                            {/* the ml models in blue using the global variables i added to index css */}
+                            {/* the ml models in blue using the global variables i added to the index css */}
                             <div className="flex items-center gap-2">
                                 <span className="w-7 h-7 rounded-full bg-[var(--color-ml-models)] text-white text-xs font-semibold flex items-center justify-center shrink-0">T</span>
                                 <span className="text-sm text-[var(--color-ink)]">Tom</span>
@@ -94,8 +97,6 @@ export default function AboutPage() {
                                 <span className="text-sm text-[var(--color-ink)]">Safiya</span>
                                 <span className="text-xs text-[var(--color-ml-models)] bg-[var(--color-ml-models-bg)] px-2 py-0.5 rounded-full ml-auto">ML Models</span>
                             </div>
-
-                            
 
                             {/* the web app in dark red. i've added the variables to the index css */}
 
@@ -165,7 +166,7 @@ export default function AboutPage() {
                         </p>
                     </div>
                     
-                    {/* this is the second one the technology stack */}
+                    {/* this is the second one the technology stack, so we are discussing how its build */}
                     <div className="bg-[var(--color-card-bg)] rounded-2xl border border-[var(--color-border)] p-8">
                         <p className="text-xs font-semibold tracking-widest text-[var(--color-muted)] uppercase mb-2">
                             Technology Stack
@@ -189,7 +190,7 @@ export default function AboutPage() {
                             </div>
                         </div>
                         
-                        {/* third one is the data sources */}
+                        {/* third one is the data sources so we are talking about where the data comes from */}
                         <div className="bg-[var(--color-card-bg)] rounded-2xl border border-[var(--color-border)] p-8">
                             <p className="text-xs font-semibold tracking-widest text-[var(--color-muted)] uppercase mb-2">
                             Data Sources
