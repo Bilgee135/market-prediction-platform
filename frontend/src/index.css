@@ -33,35 +33,32 @@
 
 
 @theme {
-    --color-off-white:    #f8f7f4;
-    --color-ticker-bg:    #EFEDE6;
-    --color-ink:          #111110;
-    --color-muted:        #888;
-    --color-accent-green: #00C076;
-    --color-accent-red:   #FF4D4D;
-    --color-border:       #e0ddd6;
-    --color-card-bg:      #ffffff;
-    --color-disclaimer-bg:     #FFFBF0;
-    --color-disclaimer-border: #D4A017;
-    --color-disclaimer-icon:   #B8860B;
-    --color-disclaimer-text:   #7A5C00;
-    --color-disclaimer-strong: #5C4400;
+    --color-off-white:    #F9F9F7;
+    --color-ticker-bg:    #F2F2F0;
+    --color-ink:          #111111;
+    --color-muted:        #888888;
+    --color-accent-green: #1A7A4A;
+    --color-accent-red:   #C0392B;
+    --color-border:       #E4E4E0;
+    --color-card-bg:      #FFFFFF;
 
+    --color-disclaimer-bg:     #FAFAF8;
+    --color-disclaimer-border: #D0CFC9;
+    --color-disclaimer-icon:   #888888;
+    --color-disclaimer-text:   #666666;
+    --color-disclaimer-strong: #111111;
 
-    /* here I have added the team chip colours for the about page */ 
-    --color-ml-models: #1d4ed8;
-    --color-ml-models-bg: #dbeafe;
-    --color-web-app: #7f1d1d;
-    --color-web-app-bg: #fee2e2;
+    --color-ml-models:    #111111;
+    --color-ml-models-bg: #F2F2F0;
+    --color-web-app:      #555555;
+    --color-web-app-bg:   #EBEBEB;
 
-    /* here is the colour for the models pages */
-    --color-category-text: #2563eb;
-    --color-category-bg: #eff6ff;
+    --color-category-text: #111111;
+    --color-category-bg:   #F2F2F0;
 
-    --animate-ticker: ticker 30s linear infinite;
+    --animate-ticker:       ticker 30s linear infinite;
     --animate-loading-dots: loading-dots 1s steps(4) infinite;
-
-    --animate-fade-up: fadeUp 0.5s ease forwards;
+    --animate-fade-up:      fadeUp 0.5s ease forwards;
 }
 
 @keyframes ticker {

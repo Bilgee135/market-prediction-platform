@@ -14,7 +14,6 @@
  *   - Category filter buttons (All / Predictions / Models / Data / Platform)
  *     control which questions are visible
  *   - Accordion items open and close on click, only one open at a time
- *     (or multiple — decide during build)
  *
  * State:
  *   activeCategory   string filter controlling visible questions

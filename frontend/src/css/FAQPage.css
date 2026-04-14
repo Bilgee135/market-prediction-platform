@@ -132,7 +132,6 @@ faq-left {
 
 .faq-right {
   padding: 48px 64px 80px 56px;
-  animation: fadeUp 0.6s ease 0.2s forwards;
   flex-grow: 1;
 }
 

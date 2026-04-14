@@ -45,7 +45,7 @@ import { Link, useLocation } from "react-router-dom";
 const navLinks = [
   { name: "Overview", path: "/" },
   { name: "Models", path: "/models" },
-  { name: "Forecast", path: "/models/lstm" },
+  { name: "Evaluations", path: "/evaluations" },
   { name: "About", path: "/about" },
 
 // sorry i was not sure if the evaluations needed to be here as the html does not have it so i removed it

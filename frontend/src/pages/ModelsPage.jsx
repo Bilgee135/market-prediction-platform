@@ -1,402 +1,276 @@
 /*
  * pages/ModelsPage.jsx
  *
- * What this is:
- *   The model selection page where users browse all six ML models
- *   before choosing one to explore.
- *
- * Where it is used:
- *   App.jsx at route /models
- *
- * What it should contain:
- *   - DisclaimerModal fired on mount, blocks content until confirmed
- *   - Two column layout after confirmation
- *   - Left: live S&P index pill, about text, three-step how-it-works
- *   - Right: ModelCarousel with all six model cards
- *   - Bottom CTA linking to /evaluations
- *
- * State:
- *   disclaimerConfirmed   boolean, controls whether modal shows
- *
- * Development order:
- *   Build after HomePage. Depends on DisclaimerModal, ModelCarousel,
- *   ModelCard, and Sparkline all being ready first.
+ * Centered single-column layout. Compact carousel cards.
+ * DisclaimerModal fires on mount.
  */
 
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import DisclaimerModal from '../components/ui/DisclaimerModal';
 
-import { useState } from "react";
-
-
-
-//i'm going up folders
-import DisclaimerModal from "../components/ui/DisclaimerModal";
-import { Link } from "react-router-dom";
-// disclaimer model is now its own seperate componenet file
-
-
-
-// right here are the three steps show on the left side bar the step 1 step 2 step 3
-const howSelectionWorks = [
-    {
-        number: 1,
-        title: "Select a model",
-        description: "Browse the carousel and click Select on any model to view its full predictions."
-    },
-
-    {
-        number: 2,
-        title: "View predictions",
-        description: "Explore interactive charts with weekly forecasts, actual vs predicted trends, and key statistics."
-    },
-
-    {
-        number: 3,
-        title: "Compare models",
-        description: "Visit the evaluations page to see all models ranked side by side on accuray metrics."
-    },
+const MODELS = [
+  {
+    modelId:          'lstm',
+    category:         'Deep Learning',
+    modelName:        'LSTM',
+    modelFullName:    'Long Short-Term Memory',
+    modelDescription: 'A recurrent neural network designed to learn long-term dependencies in sequential data. Uses gating mechanisms to decide what to remember and what to forget across many time steps.',
+    modelStrengths:   'Captures long-range temporal patterns in price history',
+    modelWeaknesses:  'Slow to train and sensitive to hyperparameter choices',
+    modelBestFor:     'Trend-following predictions over longer horizons',
+    modelComplexity:  4,
+  },
+  {
+    modelId:          'random-forest',
+    category:         'Ensemble',
+    modelName:        'Random Forest',
+    modelFullName:    'Ensemble Decision Trees',
+    modelDescription: 'Builds hundreds of decision trees on random subsets of training data, then averages their outputs. Reduces overfitting and handles noisy financial data well.',
+    modelStrengths:   'Robust against outliers with built-in feature importance',
+    modelWeaknesses:  'Cannot extrapolate beyond the training range',
+    modelBestFor:     'Stable medium-term predictions with interpretable outputs',
+    modelComplexity:  2,
+  },
+  {
+    modelId:          'xgboost',
+    category:         'Ensemble',
+    modelName:        'XGBoost',
+    modelFullName:    'Extreme Gradient Boosting',
+    modelDescription: 'Builds trees sequentially, each correcting the errors of the previous one. Known for high accuracy on tabular data with relatively fast training.',
+    modelStrengths:   'High accuracy, handles missing values natively',
+    modelWeaknesses:  'More hyperparameters to tune than simpler models',
+    modelBestFor:     'Short-term precision where feature engineering is strong',
+    modelComplexity:  3,
+  },
+  {
+    modelId:          'linear-regression',
+    category:         'Linear',
+    modelName:        'Linear Regression',
+    modelFullName:    'Linear Regression (Baseline)',
+    modelDescription: 'Fits a straight line through historical price data to predict future values. Serves as the performance baseline that all other models must beat.',
+    modelStrengths:   'Fully interpretable and very fast to train',
+    modelWeaknesses:  'Cannot capture non-linear relationships in market data',
+    modelBestFor:     'Establishing a baseline and understanding feature correlations',
+    modelComplexity:  1,
+  },
+  {
+    modelId:          'svr',
+    category:         'Kernel Method',
+    modelName:        'SVR',
+    modelFullName:    'Support Vector Regression',
+    modelDescription: 'Uses a kernel function to map data into a higher-dimensional space where non-linear relationships become linear. Effective when the dataset is clean and well-scaled.',
+    modelStrengths:   'Strong generalisation on smaller datasets',
+    modelWeaknesses:  'Sensitive to feature scaling and slow on large datasets',
+    modelBestFor:     'Situations where data is limited but clean',
+    modelComplexity:  3,
+  },
+  {
+    modelId:          'ann',
+    category:         'Deep Learning',
+    modelName:        'ANN',
+    modelFullName:    'Artificial Neural Network',
+    modelDescription: 'A feedforward network that learns non-linear relationships between features and price outputs through multiple hidden layers and backpropagation.',
+    modelStrengths:   'Flexible, can model complex non-linear relationships',
+    modelWeaknesses:  'Requires more data and careful regularisation to avoid overfitting',
+    modelBestFor:     'Complex feature interactions across many technical indicators',
+    modelComplexity:  3,
+  },
 ];
 
+export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed }) {
+  const [active, setActive] = useState(0);
+  const model = MODELS[active];
 
-/*
-* now this part with the const six models lol it was actually kinda fun! but was veryyy long typing
-* idk just listing them like this was quite interesting  
-* each model has the id, the category, the model name, model description, the model strengths, the model weakness, model best for, and model complexity
-*/
+  const prev = () => setActive(i => (i === 0 ? MODELS.length - 1 : i - 1));
+  const next = () => setActive(i => (i === MODELS.length - 1 ? 0 : i + 1));
 
-const theSixModels = [
+  return (
+    <div className="mx-auto px-8 py-14 pb-32" style={{ maxWidth: '900px' }}>
 
-    {
-        modelId: "ltsm",
-        category: "Deep Learning",
-        modelName: "LSTM",
-        modelFullName: "Long Short-Term Memory",
-        modelDescription: "A recurrent neural network designed to learn long-term dependencies in sequential data. It uses gating mechanisms to decide what to remember and what to forget across many time steps.",
-        modelStrengths: "Captures long-range temporal patterns in price history",
-        modelWeaknesses: "Slow to train and sensitive to hyperparamteter choices",
-        modelBestFor: "Trend-following predicitons over longer horizons",
-        modelComplexity: 4,
-    },
+      {!disclaimerConfirmed && (
+        <DisclaimerModal onAgree={() => setDisclaimerConfirmed(true)} />
+      )}
 
-    {
-        modelId: "randomforest",
-        category: "Ensemble",
-        modelName: "Random Forest",
-        modelFullName: "Ensemble Decision Trees",
-        modelDescription: "Builds hundreds of decision trees on random subsets of training data, then averages their outputs. This reduces overfitting and handles noisy financial data well.",
-        modelStrengths: "Robust against outliers and built-in feature importance",
-        modelWeaknesses: "Cannot extrapolate beyond the training range",
-        modelBestFor: "Stable medium-term predictions with interpretable outputs",
-        modelComplexity: 2,
-    },
+      {/* ── Page header ── */}
+      <div
+        className="mb-10 pb-8 border-b flex items-end justify-between"
+        style={{ borderColor: 'var(--color-border)' }}
+      >
+        <div>
+          <p
+            className="text-[0.78rem] font-medium tracking-[0.12em] uppercase mb-3"
+            style={{ color: 'var(--color-muted)' }}
+          >
+            6 ML Models
+          </p>
+          <h1
+            className="font-serif tracking-tight"
+            style={{ fontSize: 'clamp(2.2rem, 3.5vw, 3rem)', lineHeight: 1.1, color: 'var(--color-ink)' }}
+          >
+            Browse &amp; select a model
+          </h1>
+        </div>
+        <Link
+          to="/evaluations"
+          className="text-[0.9rem] font-light"
+          style={{ color: 'var(--color-muted)', textDecoration: 'none' }}
+          onMouseEnter={e => e.currentTarget.style.color = 'var(--color-ink)'}
+          onMouseLeave={e => e.currentTarget.style.color = 'var(--color-muted)'}
+        >
+          View all evaluations →
+        </Link>
+      </div>
 
-    {
-        modelId: "xgboost",
-        category: "Ensemble",
-        modelName: "XGBoost",
-        modelFullName: "Extreme Gradient Boosting",
-        modelDescription: "Build trees sequentially, with each new tree correcting the errors of the previous one. Known for high accuracy on tabular data with relatively fast training.",
-        modelStrengths: "High accuracy that handles missing values natively",
-        modelWeaknesses: "More hyperparamters to tune than simpler models",
-        modelBestFor: "Short-term precision where feature engineering is strong",
-        modelComplexity: 3,
-    },
-
-    {
-        modelId: "linearregression",
-        category: "Linear",
-        modelName: "Linear Regression",
-        modelFullName: "Linear Regression (Baseline)",
-        modelDescription: "The simplest model fits a straight line through historical price data to predict future values. Serves as a performance baseline that all other models must best.",
-        modelStrengths: "Fully interpretable and very fast to train",
-        modelWeaknesses: "Cannot capture non-linear relationships in market data",
-        modelBestFor: "Establishing a baseline and understanding feature correlations",
-        modelComplexity: 1,
-    },
-
-    {
-        modelId: "svr",
-        category: "Kernel Method",
-        modelName: "SVR",
-        modelFullName: "Support Vector Regression",
-        modelDescription: "Uses a kernal function to map data into a higher-dimensional space where non-linear relationships become linear. Effctive when the dataset is clean and well-scaled.",
-        modelStrengths: "Strong generalisation on smaller datasets",
-        modelWeaknesses: "Sensitive to feature scaling and slow on large datasets",
-        modelBestFor: "Situations where data is limited but clean",
-        modelComplexity: 3,
-    },
-
-    {
-        modelId: "ann",
-        category: "Deep Learning",
-        modelName: "ANN",
-        modelFullName: "Artificial Neural Network",
-        modelDescription: "A feedforward network that learns on-linear relationships between features and price outputs through multiple hidden layers and backpropagations.",
-        modelStrengths: "Flexible and can model complex non-linear relationships",
-        modelWeaknesses: "Requires more data and careful regularisaitons to avoid overfitting",
-        modelBestFor: "Complex feature interactions across many technical indicators",
-        modelComplexity: 3,
-    }
-
-];
-
-export default function ModelsPage({disclaimerConfirmed, setDisclaimerConfirmed }) {
-
-    //so false means modal (pop-up) shows and true means modal hidden
-    //will start as false so the modal pops up straight away when you click the models page
-  
-    
-    //now this is going to track which model car is showing basically 0 means ltsm 1 means random forest etc
-    
-    const [userSelectedModel, setUserSelectedModel] = useState(0);
-    return (
-        <div className="min-h-screen bg-[var(--color-off-white)]">
-            {!disclaimerConfirmed && (
-                <DisclaimerModal onAgree={() => setDisclaimerConfirmed(true)} />
-            )}
-  
-
-
-
-            {/* the ! means if not confirmed then show the modal */}
-            {/* when the use clicks agree the disclaimerConfirmed is now true and the modal disappears */}
-
-
-            {/* this here the two column layout so the left sidebar and then the right carousel these are side by side */}
-            <div className="flex gap-8 px-12 py-10">
-
-                {/* this is just a placeholder right now the white box */}
-                {/* here is left sidebar, the S&P, about text and how it works steps */}
-                <div className="w-64 shrink-0 flex flex-col gap-6">
-
-
-                    {/* here is the s&p 500 box just has the name in it right now */}
-                    <div className="bg-[var(--color-card-bg)] rounded-2xl p-4 border border-[var(--color-border)]">
-
-                        <div className="flex items-center gap-2">
-
-                            {/* right here is the small green dot */}
-                            <span className="w-2 h-2 rounded-full bg-[var(--color-accent-green)]"></span>
-                            <p className="text-xs font-semibold tracking-widest text-[var(--color-muted)] uppercase">
-                                S&P 500 Index
-                            </p>
-                        </div>
-                    </div>
-
-
-                {/* again this page seciton right here */}
-                {/* contains the 6 models like flipping through them */}
-
-                <div>
-                    <p className="text-xs font-semibold tracking-widest text-[var(--color-muted)] uppercase mb-2">
-                        About this page
-                    </p>
-                    <h2 className="text-xl font-bold text-[var(--color-ink)] mb-3">
-                        Choose your model
-                    </h2>
-                    <p className="text-sm text-[var(--color-muted)] leading-relaxed">
-                        Each model uses a different approach to learn from historical S&P 500 data.
-                        Browse the carousel to understand how each one works, its strengths, and what it's best suited for.
-                    </p>
-                </div>
-
-                <div>
-
-                    {/* how each of the steps work */}
-                    <p className="text-xs font-semibold tracking-widest text-[var(--color-muted)] uppercase mb-4">
-                        How it works
-                    </p>
-
-
-
-                    {/* looping through the steps array to create a row for each one */}
-                    <div className="flex flex-col gap-4">
-                        {howSelectionWorks.map((step) => (
-                            <div key={step.number} className="flex gap-3">
-                                
-
-                                {/* here step number on the left */}
-                                <span className="text-sm font-medium text-[var(--color-muted)] w-4 shrink-0">
-                                    {step.number}
-                                </span>
-
-                                <div>
-
-                                    {/* title and description on the right */}
-                                    <p className="text-sm font-semibold text-[var(--color-ink)] mb-1">
-                                        {step.title}
-                                    </p>
-                                    <p className="text-xs text-[var(--color-muted)] leading-relaxed">
-                                        {step.description}                      
-                                    </p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-
-
-            {/* this is the model carousel on the right */}
-
-            <div className="flex-1 flex flex-col gap-4">
-                <div className="flex items-center justify-between">
-                    <div>
-
-                        {/* right here is the header the 6 models label and the browse heading */}
-                        <p className="text-xs font-semibold tracking-widest text-[var(--color-muted)] uppercase mb-1">
-                            6 ML Models
-                        </p>
-                        <h1 className="text-2xl font-bold text-[var(--color-ink)]">
-                            Browse & select a model
-                        </h1>
-                    </div>
-                    <Link
-                        to="/evaluations"
-                        className="text-sm text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors"
-                    >
-                        View all evaluations &rarr;
-                    </Link>
-                </div>
-
-                {/* the model card which shows whatever model the user has currently selected */}
-
-                <div className="bg-[var(--color-card-bg)] rounded-2xl border border-[var(--color-border)] flex overflow-hidden">
-                    
-                    
-                    {/* the left side of the card should be the chart */} 
-                    <div className="w-80 bg-[var(--color-off-white)] flex items-center justify-center p-8 border-r border-[var(--color-border)]">
-                    
-                    <div className="absolute top-4 left-4">
-                        <span className="text-xs font-semibold tracking-widest uppercase text-[var(--color-category-text)] bg-[var(--color-category-bg)] px-3 py-1 rounded-full">
-                            {theSixModels[userSelectedModel].category}
-                        </span>
-                    </div>
-                    <p className="text-[var(--color-muted)] text-sm"> Uhh so would charts go here?</p>
-                
-                </div>
-
-                <div className="flex-1 p-8 flex flex-col gap-4">
-                    <div>
-
-                        {/* here is the modal name and the model full name */}
-                        <h2 className="text-2xl font-bold text-[var(--color-ink)]">
-                            {theSixModels[userSelectedModel].modelName}
-                        </h2>
-                        <p className="text-sm text-[var(--color-muted)]">
-                            {theSixModels[userSelectedModel].modelFullName}
-                        </p>
-                    </div>
-                    
-                    {/* the model description */}
-                    <p className="text-sm text-[var(--color-muted)] leading-relaxed">
-                        {theSixModels[userSelectedModel].modelDescription}
-                    </p>
-
-                    {/* model strengths, weaknesses and best for */}
-                    <div className="flex flex-col gap-2">
-                        <div className="flex gap-3 items-start">
-                            <span className="text-xs font-semibold tracking-widest text-[var(--color-muted)] uppercase w-20 shrink-0 pt-0.5">Strength</span>
-                            <p className="text-sm text-[var(--color-accent-green)]">{theSixModels[userSelectedModel].modelStrengths}</p>
-                        </div>
-                        <div className="flex gap-3 items-start">
-                            <span className="text-xs font-semibold tracking-widest text-[var(--color-muted)] uppercase w-20 shrink-0 pt-0.5">Weakness</span>
-                            <p className="text-sm text-[var(--color-accent-red)]">{theSixModels[userSelectedModel].modelWeaknesses}</p>
-                        </div>
-                        <div className="flex gap-3 items-start">
-                            <span className="text-xs font-semibold tracking-widest text-[var(--color-muted)] uppercase w-20 shrink-0 pt-0.5">Best for</span>
-                            <p className="text-sm text-[var(--color-ink)]">{theSixModels[userSelectedModel].modelBestFor}</p>
-                        </div>
-                    </div>
-
-                    <div className="flex items-center justify-between mt-auto">
-                        <div>
-                            <p className="text-xs font-semibold tracking-widest text-[var(--color-muted)] uppercase mb-2">
-                                Complexity
-                            </p>
-
-                            {/* loops through 1-4 and fills dots up to the complexity number */}
-
-                            {/* for example the ltsm has a complexity of 4 so all 4 dots are filled up */}
-
-                            <div className ="flex gap-1">
-                                {[1, 2, 3, 4].map((dot) => (
-                                    <span
-                                    key={dot}
-                                    className={`w-3 h-3 rounded-full ${
-                                        dot <= theSixModels[userSelectedModel].modelComplexity
-                                        ? "bg-[var(--color-ink)]"
-                                        : "bg-[var(--color-border)]"
-                                    }`}
-                                ></span>
-                                ))}
-                            </div>
-                        </div>
-                    
-                    <Link
-                    to={`/models/${theSixModels[userSelectedModel].modelId}`}
-                    className="bg-[var(--color-ink)] text-[var(--color-off-white)] px-6 py-3 rounded-xl text-sm font-medium hover:opacity-75 transition-opacity"
-                    >
-
-                        {/* the select button uses the model id to go to the right forecast page */}
-                        Select &rarr;
-                    </Link>
-                </div>
-            </div>
+      {/* ── Model card ── */}
+      <div
+        className="border rounded-xl overflow-hidden mb-6"
+        style={{ borderColor: 'var(--color-border)', background: 'var(--color-card-bg)' }}
+      >
+        {/* Card header bar */}
+        <div
+          className="flex items-center justify-between px-7 py-4 border-b"
+          style={{ borderColor: 'var(--color-border)', background: 'var(--color-off-white)' }}
+        >
+          <span
+            className="text-[0.72rem] font-medium tracking-[0.1em] uppercase px-3 py-1.5 rounded-full border"
+            style={{ color: 'var(--color-muted)', borderColor: 'var(--color-border)', background: 'var(--color-card-bg)' }}
+          >
+            {model.category}
+          </span>
+          <span className="text-[0.82rem] font-light" style={{ color: 'var(--color-muted)' }}>
+            {active + 1} / {MODELS.length}
+          </span>
         </div>
 
-        <div className="flex items-center justify-between">
-            <button 
-                onClick={() => setUserSelectedModel((prev) => (prev === 0 ? theSixModels.length - 1 : prev - 1))}
-                className="w-10 h-10 rounded-full border border-[var(--color-border)] bg-[var(--color-card-bg)] flex items-center justify-center hover:opacity-75 transition-opacity"
-            >
-                {/* left arrow will go to previous arrow */}
+        {/* Card body */}
+        <div className="px-7 py-8">
 
-                &larr;
-            </button>
-                   
-            <div className="flex gap-2">
-                {theSixModels.map((_, index) => (
-                    <button
-                        key={index}
-                        onClick={() => setUserSelectedModel(index)}
-                        className={`w-2 h-2 rounded-full transition-colors ${
-                            index === userSelectedModel
-                                ? "bg-[var(--color-ink)]"
-                                : "bg-[var(--color-border)]"
-                        }`}
-                    ></button>
-                ))}
-            </div>
-            
-            {/* right arrow will go to the next model */}
-            <button 
-                onClick={() => setUserSelectedModel((prev) => (prev === theSixModels.length - 1 ? 0 : prev + 1))}
-                className="w-10 h-10 rounded-full border border-[var(--color-border)] bg-[var(--color-card-bg)] flex items-center justify-center hover:opacity-75 transition-opacity"
-            >
-                &rarr;
-            </button>
-        </div>
-    </div>
-</div>
+          <h2
+            className="font-serif tracking-tight mb-1"
+            style={{ fontSize: '1.9rem', color: 'var(--color-ink)' }}
+          >
+            {model.modelName}
+          </h2>
+          <p className="text-[0.88rem] font-light mb-5" style={{ color: 'var(--color-muted)' }}>
+            {model.modelFullName}
+          </p>
 
-            {/* this is at the bottom of the screen. like the very bottom of that page. it's not in the two column layout area */}
+          <p className="text-[0.95rem] font-light leading-relaxed mb-8" style={{ color: 'var(--color-muted)' }}>
+            {model.modelDescription}
+          </p>
 
-            <div className="fixed bottom-0 left-0 right-0 bg-[var(--color-card-bg)] border-t border-[var(--color-border)] px-12 py-4 flex items-center justify-between">
-        
-                <p className="text-sm text-[var(--color-muted)]">
-                    Want to compare all models at once? {" "}
-                    <strong className="text-[var(--color-ink)]">
-                        See accuracy metrics, training time and more.
-                    </strong>
-                </p>
-
-                <Link
-                    to="/evaluations"
-                    className="bg-[var(--color-ink)] text-[var(--color-off-white)] px-6 py-3 rounded-xl text-sm font-medium hover:opacity-75 transition-opacity"
+          {/* Strength / Weakness / Best for */}
+          <div className="flex flex-col gap-3.5 mb-8">
+            {[
+              { label: 'Strength', value: model.modelStrengths,  color: 'var(--color-accent-green)' },
+              { label: 'Weakness', value: model.modelWeaknesses, color: 'var(--color-accent-red)'   },
+              { label: 'Best for', value: model.modelBestFor,    color: 'var(--color-ink)'          },
+            ].map(({ label, value, color }) => (
+              <div key={label} className="flex items-start gap-4">
+                <span
+                  className="text-[0.68rem] font-medium tracking-[0.08em] uppercase pt-0.5 shrink-0"
+                  style={{ color: 'var(--color-muted)', width: '62px' }}
                 >
-                    Go to Models Evaluations &rarr;
-                </Link>
+                  {label}
+                </span>
+                <span className="text-[0.92rem] font-light" style={{ color }}>{value}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Complexity + Select */}
+          <div
+            className="flex items-center justify-between pt-6 border-t"
+            style={{ borderColor: 'var(--color-border)' }}
+          >
+            <div>
+              <p
+                className="text-[0.7rem] font-medium tracking-[0.1em] uppercase mb-2.5"
+                style={{ color: 'var(--color-muted)' }}
+              >
+                Complexity
+              </p>
+              <div className="flex gap-2">
+                {[1, 2, 3, 4].map(dot => (
+                  <span
+                    key={dot}
+                    className="w-3 h-3 rounded-full"
+                    style={{
+                      background: dot <= model.modelComplexity
+                        ? 'var(--color-ink)'
+                        : 'var(--color-border)',
+                    }}
+                  />
+                ))}
+              </div>
             </div>
-            </div>
-    );
+
+            <Link
+              to={`/models/${model.modelId}`}
+              className="px-7 py-3 rounded-lg text-[0.92rem] font-medium transition-opacity hover:opacity-75"
+              style={{ background: 'var(--color-ink)', color: 'var(--color-off-white)', textDecoration: 'none' }}
+            >
+              Select →
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Navigation ── */}
+      <div className="flex items-center justify-between mb-12">
+        <button
+          onClick={prev}
+          className="w-11 h-11 rounded-full border flex items-center justify-center transition-opacity hover:opacity-60 cursor-pointer"
+          style={{ borderColor: 'var(--color-border)', background: 'var(--color-card-bg)', color: 'var(--color-ink)', fontFamily: 'inherit', fontSize: '1rem' }}
+        >
+          ←
+        </button>
+
+        <div className="flex gap-2.5">
+          {MODELS.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setActive(i)}
+              className="w-2.5 h-2.5 rounded-full cursor-pointer transition-colors"
+              style={{
+                background: i === active ? 'var(--color-ink)' : 'var(--color-border)',
+                border: 'none',
+                padding: 0,
+              }}
+            />
+          ))}
+        </div>
+
+        <button
+          onClick={next}
+          className="w-11 h-11 rounded-full border flex items-center justify-center transition-opacity hover:opacity-60 cursor-pointer"
+          style={{ borderColor: 'var(--color-border)', background: 'var(--color-card-bg)', color: 'var(--color-ink)', fontFamily: 'inherit', fontSize: '1rem' }}
+        >
+          →
+        </button>
+      </div>
+
+      {/* ── Fixed bottom bar ── */}
+      <div
+        className="fixed bottom-0 left-0 right-0 flex items-center justify-between px-10 py-5 border-t"
+        style={{ background: 'var(--color-card-bg)', borderColor: 'var(--color-border)' }}
+      >
+        <p className="text-[0.88rem] font-light" style={{ color: 'var(--color-muted)' }}>
+          Want to compare all models at once?{' '}
+          <strong style={{ color: 'var(--color-ink)', fontWeight: 500 }}>
+            See accuracy metrics and more.
+          </strong>
+        </p>
+        <Link
+          to="/evaluations"
+          className="px-6 py-3 rounded-lg text-[0.9rem] font-medium transition-opacity hover:opacity-75"
+          style={{ background: 'var(--color-ink)', color: 'var(--color-off-white)', textDecoration: 'none' }}
+        >
+          Go to Model Evaluations →
+        </Link>
+      </div>
+
+    </div>
+  );
 }

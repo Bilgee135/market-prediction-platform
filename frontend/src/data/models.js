@@ -1,31 +1,131 @@
 /*
  * data/models.js
  *
- * What this is:
- *   Static metadata about each ML model. This is not API data. It is
- *   UI-level information that never changes at runtime and does not
- *   come from the database.
+ * Static metadata about each ML model. This is UI-level information
+ * that does not come from the database.
  *
- * Where it is used:
- *   - ModelCard.jsx to render each card in the carousel
- *   - MiniModelCard.jsx on the evaluations page
- *   - ModelForecastPage.jsx to look up model display info by URL param
- *
- * What it should contain:
- *   An exported array of objects, one per model, each with:
- *     name          short identifier used in URLs  e.g. "lstm"
- *     displayName   full readable name             e.g. "LSTM"
- *     fullName      expanded name                  e.g. "Long Short-Term Memory"
- *     type          category badge                 e.g. "Deep Learning"
- *     description   one or two sentence summary
- *     strength      what the model does well
- *     weakness      where the model falls short
- *     bestFor       ideal use case description
- *     complexity    number from 1 to 4
- *     color         accent hex color for this model
- *
- * Development order:
- *   Fill this in early. ModelCard and ModelCarousel depend on it directly.
- *   Prediction metrics (MAE, RMSE, directional accuracy) do NOT go here.
- *   Those come from the API via api.js because they will be real computed values.
+ * Evaluation metrics (mae, mape, rmse, dir) are hardcoded here for now.
+ * Replace with real values from the ML team once the API is ready.
+ * speedPips is 1 (slowest) to 5 (fastest) — used on EvaluationsPage.
  */
+
+export const MODELS = [
+  {
+    name:        'lstm',
+    displayName: 'LSTM',
+    fullName:    'Long Short-Term Memory',
+    type:        'Deep Learning',
+    description: 'A recurrent neural network designed to learn long-term dependencies in sequential data. It uses gating mechanisms to decide what to remember and what to forget across many time steps.',
+    strength:    'Captures long-range temporal patterns in price history',
+    weakness:    'Slow to train and sensitive to hyperparameter choices',
+    bestFor:     'Trend-following predictions over longer horizons',
+    complexity:  4,
+    color:       '#1A56DB',
+    mae:         38,
+    mape:        '0.80%',
+    rmse:        54,
+    dir:         75,
+    speedPips:   1,
+    speedLabel:  'Slowest',
+    sparkSeed:   [40,55,45,60,52,70,65,80,72,85],
+  },
+  {
+    name:        'random-forest',
+    displayName: 'Random Forest',
+    fullName:    'Ensemble Decision Trees',
+    type:        'Ensemble',
+    description: 'An ensemble of decision trees trained on random subsets of the data. Each tree votes on the prediction and the majority result wins, reducing overfitting compared to a single tree.',
+    strength:    'Robust to noise and handles non-linear relationships well',
+    weakness:    'Can struggle with extrapolating beyond seen price ranges',
+    bestFor:     'Stable short-term predictions with mixed feature types',
+    complexity:  3,
+    color:       '#92400E',
+    mae:         41,
+    mape:        '0.90%',
+    rmse:        58,
+    dir:         71,
+    speedPips:   3,
+    speedLabel:  'Medium',
+    sparkSeed:   [60,55,62,58,65,60,70,67,74,72],
+  },
+  {
+    name:        'xgboost',
+    displayName: 'XGBoost',
+    fullName:    'Extreme Gradient Boosting',
+    type:        'Ensemble',
+    description: 'A gradient boosting algorithm that builds trees sequentially, each one correcting the errors of the last. Highly effective on structured tabular data and widely used in competitive forecasting.',
+    strength:    'Best overall accuracy with fast training relative to deep models',
+    weakness:    'Requires careful feature engineering to reach full potential',
+    bestFor:     'General-purpose weekly prediction with engineered features',
+    complexity:  3,
+    color:       '#B45309',
+    mae:         33,
+    mape:        '0.70%',
+    rmse:        51,
+    dir:         78,
+    speedPips:   2,
+    speedLabel:  'Slow',
+    sparkSeed:   [48,52,50,58,55,64,62,72,70,78],
+  },
+  {
+    name:        'svr',
+    displayName: 'SVR',
+    fullName:    'Support Vector Regression',
+    type:        'Kernel',
+    description: 'Finds the optimal boundary around the data that maximises the margin of tolerance. Works well in high-dimensional spaces and is effective when the number of features is close to the number of samples.',
+    strength:    'Effective in high-dimensional feature spaces',
+    weakness:    'Does not scale well to very large datasets',
+    bestFor:     'Predictions with a compact, well-normalised feature set',
+    complexity:  2,
+    color:       '#5B21B6',
+    mae:         47,
+    mape:        '1.00%',
+    rmse:        64,
+    dir:         68,
+    speedPips:   2,
+    speedLabel:  'Slow',
+    sparkSeed:   [40,48,44,52,48,56,53,60,57,65],
+  },
+  {
+    name:        'ann',
+    displayName: 'ANN',
+    fullName:    'Artificial Neural Network',
+    type:        'Deep Learning',
+    description: 'A feedforward neural network with fully connected layers. Learns non-linear mappings from input features to price predictions through backpropagation.',
+    strength:    'Flexible architecture capable of learning complex patterns',
+    weakness:    'Prone to overfitting without sufficient regularisation',
+    bestFor:     'Non-linear regression with a large number of input features',
+    complexity:  3,
+    color:       '#1D4ED8',
+    mae:         51,
+    mape:        '1.10%',
+    rmse:        68,
+    dir:         65,
+    speedPips:   2,
+    speedLabel:  'Slow',
+    sparkSeed:   [35,45,55,50,65,60,75,70,80,78],
+  },
+  {
+    name:        'linear-regression',
+    displayName: 'Linear Reg.',
+    fullName:    'Linear Regression (Baseline)',
+    type:        'Linear',
+    description: 'A classical statistical model that fits a straight line through the data to minimise squared errors. Included as a baseline — any model that cannot beat it needs further work.',
+    strength:    'Extremely fast to train and easy to interpret',
+    weakness:    'Cannot capture non-linear price dynamics',
+    bestFor:     'Establishing a performance baseline for all other models',
+    complexity:  1,
+    color:       '#374151',
+    mae:         55,
+    mape:        '1.20%',
+    rmse:        72,
+    dir:         63,
+    speedPips:   5,
+    speedLabel:  'Very fast',
+    sparkSeed:   [50,52,54,53,56,55,58,57,60,62],
+  },
+];
+
+// The model with the best overall performance.
+// Update this when real metrics come in from the ML team.
+export const BEST_MODEL = MODELS.find(m => m.name === 'xgboost');
