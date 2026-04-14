@@ -30,17 +30,17 @@ export default function BestOverallCard({ model }) {
           className="text-[0.82rem] font-light leading-relaxed max-w-sm"
           style={{ color: 'rgba(247,246,242,0.72)' }}
         >
-          Strongest combination of directional accuracy ({model.dir}%) and error
-          rate across the test set. Trains significantly faster than LSTM while
-          matching its predictive capability on weekly S&P 500 data.
+          Strongest combination of directional accuracy ({model.dir}%) and error rate across the
+          test set. Trains significantly faster than LSTM while matching its predictive capability
+          on weekly S&P 500 data.
         </p>
       </div>
 
       <div className="flex gap-6 flex-shrink-0">
         {[
           { val: `${model.dir}%`, key: 'Dir. Acc.' },
-          { val: model.mae,       key: 'MAE'       },
-          { val: model.rmse,      key: 'RMSE'      },
+          { val: model.mae, key: 'MAE' },
+          { val: model.rmse, key: 'RMSE' },
         ].map(({ val, key }) => (
           <div key={key} className="flex flex-col gap-1">
             <span

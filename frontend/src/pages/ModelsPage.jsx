@@ -11,70 +11,76 @@ import DisclaimerModal from '../components/ui/DisclaimerModal';
 
 const MODELS = [
   {
-    modelId:          'lstm',
-    category:         'Deep Learning',
-    modelName:        'LSTM',
-    modelFullName:    'Long Short-Term Memory',
-    modelDescription: 'A recurrent neural network designed to learn long-term dependencies in sequential data. Uses gating mechanisms to decide what to remember and what to forget across many time steps.',
-    modelStrengths:   'Captures long-range temporal patterns in price history',
-    modelWeaknesses:  'Slow to train and sensitive to hyperparameter choices',
-    modelBestFor:     'Trend-following predictions over longer horizons',
-    modelComplexity:  4,
+    modelId: 'lstm',
+    category: 'Deep Learning',
+    modelName: 'LSTM',
+    modelFullName: 'Long Short-Term Memory',
+    modelDescription:
+      'A recurrent neural network designed to learn long-term dependencies in sequential data. Uses gating mechanisms to decide what to remember and what to forget across many time steps.',
+    modelStrengths: 'Captures long-range temporal patterns in price history',
+    modelWeaknesses: 'Slow to train and sensitive to hyperparameter choices',
+    modelBestFor: 'Trend-following predictions over longer horizons',
+    modelComplexity: 4,
   },
   {
-    modelId:          'random-forest',
-    category:         'Ensemble',
-    modelName:        'Random Forest',
-    modelFullName:    'Ensemble Decision Trees',
-    modelDescription: 'Builds hundreds of decision trees on random subsets of training data, then averages their outputs. Reduces overfitting and handles noisy financial data well.',
-    modelStrengths:   'Robust against outliers with built-in feature importance',
-    modelWeaknesses:  'Cannot extrapolate beyond the training range',
-    modelBestFor:     'Stable medium-term predictions with interpretable outputs',
-    modelComplexity:  2,
+    modelId: 'random-forest',
+    category: 'Ensemble',
+    modelName: 'Random Forest',
+    modelFullName: 'Ensemble Decision Trees',
+    modelDescription:
+      'Builds hundreds of decision trees on random subsets of training data, then averages their outputs. Reduces overfitting and handles noisy financial data well.',
+    modelStrengths: 'Robust against outliers with built-in feature importance',
+    modelWeaknesses: 'Cannot extrapolate beyond the training range',
+    modelBestFor: 'Stable medium-term predictions with interpretable outputs',
+    modelComplexity: 2,
   },
   {
-    modelId:          'xgboost',
-    category:         'Ensemble',
-    modelName:        'XGBoost',
-    modelFullName:    'Extreme Gradient Boosting',
-    modelDescription: 'Builds trees sequentially, each correcting the errors of the previous one. Known for high accuracy on tabular data with relatively fast training.',
-    modelStrengths:   'High accuracy, handles missing values natively',
-    modelWeaknesses:  'More hyperparameters to tune than simpler models',
-    modelBestFor:     'Short-term precision where feature engineering is strong',
-    modelComplexity:  3,
+    modelId: 'xgboost',
+    category: 'Ensemble',
+    modelName: 'XGBoost',
+    modelFullName: 'Extreme Gradient Boosting',
+    modelDescription:
+      'Builds trees sequentially, each correcting the errors of the previous one. Known for high accuracy on tabular data with relatively fast training.',
+    modelStrengths: 'High accuracy, handles missing values natively',
+    modelWeaknesses: 'More hyperparameters to tune than simpler models',
+    modelBestFor: 'Short-term precision where feature engineering is strong',
+    modelComplexity: 3,
   },
   {
-    modelId:          'linear-regression',
-    category:         'Linear',
-    modelName:        'Linear Regression',
-    modelFullName:    'Linear Regression (Baseline)',
-    modelDescription: 'Fits a straight line through historical price data to predict future values. Serves as the performance baseline that all other models must beat.',
-    modelStrengths:   'Fully interpretable and very fast to train',
-    modelWeaknesses:  'Cannot capture non-linear relationships in market data',
-    modelBestFor:     'Establishing a baseline and understanding feature correlations',
-    modelComplexity:  1,
+    modelId: 'linear-regression',
+    category: 'Linear',
+    modelName: 'Linear Regression',
+    modelFullName: 'Linear Regression (Baseline)',
+    modelDescription:
+      'Fits a straight line through historical price data to predict future values. Serves as the performance baseline that all other models must beat.',
+    modelStrengths: 'Fully interpretable and very fast to train',
+    modelWeaknesses: 'Cannot capture non-linear relationships in market data',
+    modelBestFor: 'Establishing a baseline and understanding feature correlations',
+    modelComplexity: 1,
   },
   {
-    modelId:          'svr',
-    category:         'Kernel Method',
-    modelName:        'SVR',
-    modelFullName:    'Support Vector Regression',
-    modelDescription: 'Uses a kernel function to map data into a higher-dimensional space where non-linear relationships become linear. Effective when the dataset is clean and well-scaled.',
-    modelStrengths:   'Strong generalisation on smaller datasets',
-    modelWeaknesses:  'Sensitive to feature scaling and slow on large datasets',
-    modelBestFor:     'Situations where data is limited but clean',
-    modelComplexity:  3,
+    modelId: 'svr',
+    category: 'Kernel Method',
+    modelName: 'SVR',
+    modelFullName: 'Support Vector Regression',
+    modelDescription:
+      'Uses a kernel function to map data into a higher-dimensional space where non-linear relationships become linear. Effective when the dataset is clean and well-scaled.',
+    modelStrengths: 'Strong generalisation on smaller datasets',
+    modelWeaknesses: 'Sensitive to feature scaling and slow on large datasets',
+    modelBestFor: 'Situations where data is limited but clean',
+    modelComplexity: 3,
   },
   {
-    modelId:          'ann',
-    category:         'Deep Learning',
-    modelName:        'ANN',
-    modelFullName:    'Artificial Neural Network',
-    modelDescription: 'A feedforward network that learns non-linear relationships between features and price outputs through multiple hidden layers and backpropagation.',
-    modelStrengths:   'Flexible, can model complex non-linear relationships',
-    modelWeaknesses:  'Requires more data and careful regularisation to avoid overfitting',
-    modelBestFor:     'Complex feature interactions across many technical indicators',
-    modelComplexity:  3,
+    modelId: 'ann',
+    category: 'Deep Learning',
+    modelName: 'ANN',
+    modelFullName: 'Artificial Neural Network',
+    modelDescription:
+      'A feedforward network that learns non-linear relationships between features and price outputs through multiple hidden layers and backpropagation.',
+    modelStrengths: 'Flexible, can model complex non-linear relationships',
+    modelWeaknesses: 'Requires more data and careful regularisation to avoid overfitting',
+    modelBestFor: 'Complex feature interactions across many technical indicators',
+    modelComplexity: 3,
   },
 ];
 
@@ -82,15 +88,12 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
   const [active, setActive] = useState(0);
   const model = MODELS[active];
 
-  const prev = () => setActive(i => (i === 0 ? MODELS.length - 1 : i - 1));
-  const next = () => setActive(i => (i === MODELS.length - 1 ? 0 : i + 1));
+  const prev = () => setActive((i) => (i === 0 ? MODELS.length - 1 : i - 1));
+  const next = () => setActive((i) => (i === MODELS.length - 1 ? 0 : i + 1));
 
   return (
     <div className="mx-auto px-8 py-14 pb-32" style={{ maxWidth: '900px' }}>
-
-      {!disclaimerConfirmed && (
-        <DisclaimerModal onAgree={() => setDisclaimerConfirmed(true)} />
-      )}
+      {!disclaimerConfirmed && <DisclaimerModal onAgree={() => setDisclaimerConfirmed(true)} />}
 
       {/* ── Page header ── */}
       <div
@@ -106,7 +109,11 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
           </p>
           <h1
             className="font-serif tracking-tight"
-            style={{ fontSize: 'clamp(2.2rem, 3.5vw, 3rem)', lineHeight: 1.1, color: 'var(--color-ink)' }}
+            style={{
+              fontSize: 'clamp(2.2rem, 3.5vw, 3rem)',
+              lineHeight: 1.1,
+              color: 'var(--color-ink)',
+            }}
           >
             Browse &amp; select a model
           </h1>
@@ -115,8 +122,8 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
           to="/evaluations"
           className="text-[0.9rem] font-light"
           style={{ color: 'var(--color-muted)', textDecoration: 'none' }}
-          onMouseEnter={e => e.currentTarget.style.color = 'var(--color-ink)'}
-          onMouseLeave={e => e.currentTarget.style.color = 'var(--color-muted)'}
+          onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-ink)')}
+          onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-muted)')}
         >
           View all evaluations →
         </Link>
@@ -134,7 +141,11 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
         >
           <span
             className="text-[0.72rem] font-medium tracking-[0.1em] uppercase px-3 py-1.5 rounded-full border"
-            style={{ color: 'var(--color-muted)', borderColor: 'var(--color-border)', background: 'var(--color-card-bg)' }}
+            style={{
+              color: 'var(--color-muted)',
+              borderColor: 'var(--color-border)',
+              background: 'var(--color-card-bg)',
+            }}
           >
             {model.category}
           </span>
@@ -145,7 +156,6 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
 
         {/* Card body */}
         <div className="px-7 py-8">
-
           <h2
             className="font-serif tracking-tight mb-1"
             style={{ fontSize: '1.9rem', color: 'var(--color-ink)' }}
@@ -156,16 +166,23 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
             {model.modelFullName}
           </p>
 
-          <p className="text-[0.95rem] font-light leading-relaxed mb-8" style={{ color: 'var(--color-muted)' }}>
+          <p
+            className="text-[0.95rem] font-light leading-relaxed mb-8"
+            style={{ color: 'var(--color-muted)' }}
+          >
             {model.modelDescription}
           </p>
 
           {/* Strength / Weakness / Best for */}
           <div className="flex flex-col gap-3.5 mb-8">
             {[
-              { label: 'Strength', value: model.modelStrengths,  color: 'var(--color-accent-green)' },
-              { label: 'Weakness', value: model.modelWeaknesses, color: 'var(--color-accent-red)'   },
-              { label: 'Best for', value: model.modelBestFor,    color: 'var(--color-ink)'          },
+              {
+                label: 'Strength',
+                value: model.modelStrengths,
+                color: 'var(--color-accent-green)',
+              },
+              { label: 'Weakness', value: model.modelWeaknesses, color: 'var(--color-accent-red)' },
+              { label: 'Best for', value: model.modelBestFor, color: 'var(--color-ink)' },
             ].map(({ label, value, color }) => (
               <div key={label} className="flex items-start gap-4">
                 <span
@@ -174,7 +191,9 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
                 >
                   {label}
                 </span>
-                <span className="text-[0.92rem] font-light" style={{ color }}>{value}</span>
+                <span className="text-[0.92rem] font-light" style={{ color }}>
+                  {value}
+                </span>
               </div>
             ))}
           </div>
@@ -192,14 +211,13 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
                 Complexity
               </p>
               <div className="flex gap-2">
-                {[1, 2, 3, 4].map(dot => (
+                {[1, 2, 3, 4].map((dot) => (
                   <span
                     key={dot}
                     className="w-3 h-3 rounded-full"
                     style={{
-                      background: dot <= model.modelComplexity
-                        ? 'var(--color-ink)'
-                        : 'var(--color-border)',
+                      background:
+                        dot <= model.modelComplexity ? 'var(--color-ink)' : 'var(--color-border)',
                     }}
                   />
                 ))}
@@ -209,7 +227,11 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
             <Link
               to={`/models/${model.modelId}`}
               className="px-7 py-3 rounded-lg text-[0.92rem] font-medium transition-opacity hover:opacity-75"
-              style={{ background: 'var(--color-ink)', color: 'var(--color-off-white)', textDecoration: 'none' }}
+              style={{
+                background: 'var(--color-ink)',
+                color: 'var(--color-off-white)',
+                textDecoration: 'none',
+              }}
             >
               Select →
             </Link>
@@ -222,7 +244,13 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
         <button
           onClick={prev}
           className="w-11 h-11 rounded-full border flex items-center justify-center transition-opacity hover:opacity-60 cursor-pointer"
-          style={{ borderColor: 'var(--color-border)', background: 'var(--color-card-bg)', color: 'var(--color-ink)', fontFamily: 'inherit', fontSize: '1rem' }}
+          style={{
+            borderColor: 'var(--color-border)',
+            background: 'var(--color-card-bg)',
+            color: 'var(--color-ink)',
+            fontFamily: 'inherit',
+            fontSize: '1rem',
+          }}
         >
           ←
         </button>
@@ -245,7 +273,13 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
         <button
           onClick={next}
           className="w-11 h-11 rounded-full border flex items-center justify-center transition-opacity hover:opacity-60 cursor-pointer"
-          style={{ borderColor: 'var(--color-border)', background: 'var(--color-card-bg)', color: 'var(--color-ink)', fontFamily: 'inherit', fontSize: '1rem' }}
+          style={{
+            borderColor: 'var(--color-border)',
+            background: 'var(--color-card-bg)',
+            color: 'var(--color-ink)',
+            fontFamily: 'inherit',
+            fontSize: '1rem',
+          }}
         >
           →
         </button>
@@ -265,12 +299,15 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
         <Link
           to="/evaluations"
           className="px-6 py-3 rounded-lg text-[0.9rem] font-medium transition-opacity hover:opacity-75"
-          style={{ background: 'var(--color-ink)', color: 'var(--color-off-white)', textDecoration: 'none' }}
+          style={{
+            background: 'var(--color-ink)',
+            color: 'var(--color-off-white)',
+            textDecoration: 'none',
+          }}
         >
           Go to Model Evaluations →
         </Link>
       </div>
-
     </div>
   );
 }

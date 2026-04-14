@@ -34,7 +34,12 @@ export default function AccuracyTable({ models }) {
       {/* Table */}
       <table className="w-full border-collapse" style={{ background: 'var(--color-card-bg)' }}>
         <thead>
-          <tr style={{ background: 'var(--color-off-white)', borderBottom: `1px solid var(--color-border)` }}>
+          <tr
+            style={{
+              background: 'var(--color-off-white)',
+              borderBottom: `1px solid var(--color-border)`,
+            }}
+          >
             {['Model', 'MAE', 'MAPE', 'RMSE', 'Dir. Acc.'].map((h, i) => (
               <th
                 key={h}
@@ -52,16 +57,28 @@ export default function AccuracyTable({ models }) {
         <tbody>
           {models.map((m, i) => {
             const rankColors = ['#EAF7EF', '#EDF2FF', '#FFF3BF', '#F3F4F6', '#F3F4F6', '#F3F4F6'];
-            const rankText   = ['var(--color-accent-green)', '#3B5BDB', '#E67700',
-                                'var(--color-muted)', 'var(--color-muted)', 'var(--color-muted)'];
+            const rankText = [
+              'var(--color-accent-green)',
+              '#3B5BDB',
+              '#E67700',
+              'var(--color-muted)',
+              'var(--color-muted)',
+              'var(--color-muted)',
+            ];
 
-            const dirColor = m.dir >= 75 ? 'var(--color-accent-green)'
-                           : m.dir >= 68 ? '#E67700'
-                           : 'var(--color-accent-red)';
+            const dirColor =
+              m.dir >= 75
+                ? 'var(--color-accent-green)'
+                : m.dir >= 68
+                  ? '#E67700'
+                  : 'var(--color-accent-red)';
 
-            const maeColor = m.mae <= 38 ? 'var(--color-accent-green)'
-                           : m.mae <= 47 ? '#E67700'
-                           : 'var(--color-accent-red)';
+            const maeColor =
+              m.mae <= 38
+                ? 'var(--color-accent-green)'
+                : m.mae <= 47
+                  ? '#E67700'
+                  : 'var(--color-accent-red)';
 
             const isLast = i === models.length - 1;
 
@@ -72,8 +89,8 @@ export default function AccuracyTable({ models }) {
                   borderBottom: isLast ? 'none' : `1px solid var(--color-border)`,
                   transition: 'background 0.15s',
                 }}
-                onMouseEnter={e => e.currentTarget.style.background = 'var(--color-off-white)'}
-                onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+                onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--color-off-white)')}
+                onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
               >
                 {/* Model name + rank badge */}
                 <td className="px-4 py-2.5 text-[0.82rem]" style={{ color: 'var(--color-ink)' }}>
@@ -121,14 +138,21 @@ export default function AccuracyTable({ models }) {
         style={{ borderColor: 'var(--color-border)', background: 'var(--color-card-bg)' }}
       >
         {[
-          { key: 'MAE',   val: 'Average absolute error in index points. Lower is better.' },
-          { key: 'MAPE',  val: 'Mean absolute percentage error. Normalised across price levels.' },
-          { key: 'RMSE',  val: 'Penalises large errors more heavily. Use alongside MAE.' },
-          { key: 'Dir.',  val: '% of weeks the model correctly called up or down. Above 50% beats a coin flip.' },
+          { key: 'MAE', val: 'Average absolute error in index points. Lower is better.' },
+          { key: 'MAPE', val: 'Mean absolute percentage error. Normalised across price levels.' },
+          { key: 'RMSE', val: 'Penalises large errors more heavily. Use alongside MAE.' },
+          {
+            key: 'Dir.',
+            val: '% of weeks the model correctly called up or down. Above 50% beats a coin flip.',
+          },
         ].map(({ key, val }) => (
           <div key={key} className="flex items-start gap-2 text-[0.72rem]">
-            <span className="font-medium min-w-[36px]" style={{ color: 'var(--color-ink)' }}>{key}</span>
-            <span className="font-light leading-relaxed" style={{ color: 'var(--color-muted)' }}>{val}</span>
+            <span className="font-medium min-w-[36px]" style={{ color: 'var(--color-ink)' }}>
+              {key}
+            </span>
+            <span className="font-light leading-relaxed" style={{ color: 'var(--color-muted)' }}>
+              {val}
+            </span>
           </div>
         ))}
       </div>

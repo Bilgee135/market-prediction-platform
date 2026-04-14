@@ -30,26 +30,26 @@
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 export async function getHistorical(weeks = 26) {
-    const res = await fetch(`${BASE_URL}/api/historical?weeks=${weeks}`);
-    if (!res.ok) throw new Error(`Historical fetch failed: ${res.status}`);
-    return res.json(); // returns array of { date, open, high, low, close, volume }
+  const res = await fetch(`${BASE_URL}/api/historical?weeks=${weeks}`);
+  if (!res.ok) throw new Error(`Historical fetch failed: ${res.status}`);
+  return res.json(); // returns array of { date, open, high, low, close, volume }
 }
 
 export async function getTickers() {
-    const res = await fetch(`${BASE_URL}/api/ticker`);
-    if (!res.ok) throw new Error(`Ticker fetch failed: ${res.status}`);
-    return res.json();
+  const res = await fetch(`${BASE_URL}/api/ticker`);
+  if (!res.ok) throw new Error(`Ticker fetch failed: ${res.status}`);
+  return res.json();
 }
 
 // Stubs for when the ML team delivers their endpoints
 export async function getPredictions(modelName) {
-    const res = await fetch(`${BASE_URL}/api/predictions/${modelName}`);
-    if (!res.ok) throw new Error(`Predictions fetch failed: ${res.status}`);
-    return res.json();
+  const res = await fetch(`${BASE_URL}/api/predictions/${modelName}`);
+  if (!res.ok) throw new Error(`Predictions fetch failed: ${res.status}`);
+  return res.json();
 }
 
 export async function getModels() {
-    const res = await fetch(`${BASE_URL}/api/models`);
-    if (!res.ok) throw new Error(`Models fetch failed: ${res.status}`);
-    return res.json();
+  const res = await fetch(`${BASE_URL}/api/models`);
+  if (!res.ok) throw new Error(`Models fetch failed: ${res.status}`);
+  return res.json();
 }

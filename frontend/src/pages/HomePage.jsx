@@ -11,44 +11,48 @@ import CandlestickChart from '../components/charts/CandlestickChart';
 import { getHistorical } from '../services/api';
 
 const ML_MODELS = [
-  { name: 'LSTM',              type: 'Deep Learning', note: 'learns long-term patterns in price sequences'    },
-  { name: 'Random Forest',     type: 'Ensemble',      note: 'aggregates many decision trees to reduce noise'  },
-  { name: 'XGBoost',           type: 'Ensemble',      note: 'gradient boosting, best overall accuracy'        },
-  { name: 'SVR',               type: 'Kernel',        note: 'support vector regression on engineered features' },
-  { name: 'ANN',               type: 'Deep Learning', note: 'feedforward neural network baseline'             },
-  { name: 'Linear Regression', type: 'Linear',        note: 'statistical baseline all other models beat'      },
+  { name: 'LSTM', type: 'Deep Learning', note: 'learns long-term patterns in price sequences' },
+  {
+    name: 'Random Forest',
+    type: 'Ensemble',
+    note: 'aggregates many decision trees to reduce noise',
+  },
+  { name: 'XGBoost', type: 'Ensemble', note: 'gradient boosting, best overall accuracy' },
+  { name: 'SVR', type: 'Kernel', note: 'support vector regression on engineered features' },
+  { name: 'ANN', type: 'Deep Learning', note: 'feedforward neural network baseline' },
+  { name: 'Linear Regression', type: 'Linear', note: 'statistical baseline all other models beat' },
 ];
 
 export default function HomePage() {
   const navigate = useNavigate();
-  const [candles, setCandles]   = useState([]);
-  const [loading, setLoading]   = useState(true);
-  const [error, setError]       = useState(null);
+  const [candles, setCandles] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     getHistorical(26)
-      .then(data => {
+      .then((data) => {
         setCandles(data);
         setLoading(false);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
         setError('Could not load chart data.');
         setLoading(false);
       });
   }, []);
 
-  const latest      = candles[candles.length - 1] ?? null;
-  const prev        = candles[candles.length - 2] ?? null;
-  const latestClose = latest ? latest.close.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '—';
-  const weekChange  = latest && prev
-    ? (((latest.close - prev.close) / prev.close) * 100).toFixed(2)
-    : null;
-  const changeUp    = weekChange !== null ? parseFloat(weekChange) >= 0 : null;
+  const latest = candles[candles.length - 1] ?? null;
+  const prev = candles[candles.length - 2] ?? null;
+  const latestClose = latest
+    ? latest.close.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+    : '—';
+  const weekChange =
+    latest && prev ? (((latest.close - prev.close) / prev.close) * 100).toFixed(2) : null;
+  const changeUp = weekChange !== null ? parseFloat(weekChange) >= 0 : null;
 
   return (
     <div className="mx-auto px-6 py-16" style={{ maxWidth: '900px' }}>
-
       {/* ── Hero ── */}
       <div className="mb-12 pb-10 border-b" style={{ borderColor: 'var(--color-border)' }}>
         <p
@@ -67,8 +71,10 @@ export default function HomePage() {
             fontWeight: 700,
           }}
         >
-          Weekly S&amp;P 500 price<br />
-          predictions, powered by<br />
+          Weekly S&amp;P 500 price
+          <br />
+          predictions, powered by
+          <br />
           <em style={{ color: 'var(--color-muted)' }}>machine learning.</em>
         </h1>
 
@@ -76,17 +82,17 @@ export default function HomePage() {
           className="text-[1rem] font-light leading-relaxed mb-2"
           style={{ color: 'var(--color-muted)', maxWidth: '600px' }}
         >
-          The S&amp;P 500 is a stock market index tracking the 500 largest
-          publicly traded companies in the United States. It is the most widely
-          used benchmark for the overall health of the US stock market.
+          The S&amp;P 500 is a stock market index tracking the 500 largest publicly traded companies
+          in the United States. It is the most widely used benchmark for the overall health of the
+          US stock market.
         </p>
         <p
           className="text-[1rem] font-light leading-relaxed"
           style={{ color: 'var(--color-muted)', maxWidth: '600px' }}
         >
-          This platform applies six machine learning models to historical S&amp;P
-          500 data to generate weekly price forecasts. It was built as an academic
-          project and is not intended as financial advice.
+          This platform applies six machine learning models to historical S&amp;P 500 data to
+          generate weekly price forecasts. It was built as an academic project and is not intended
+          as financial advice.
         </p>
       </div>
 
@@ -95,7 +101,11 @@ export default function HomePage() {
         <button
           onClick={() => navigate('/models')}
           className="px-6 py-2.5 rounded-lg text-[0.88rem] font-medium cursor-pointer transition-opacity hover:opacity-75"
-          style={{ background: 'var(--color-ink)', color: 'var(--color-off-white)', border: 'none' }}
+          style={{
+            background: 'var(--color-ink)',
+            color: 'var(--color-off-white)',
+            border: 'none',
+          }}
         >
           Browse Models →
         </button>
@@ -103,8 +113,8 @@ export default function HomePage() {
           onClick={() => navigate('/evaluations')}
           className="text-[0.88rem] font-light cursor-pointer"
           style={{ background: 'none', border: 'none', color: 'var(--color-muted)', padding: 0 }}
-          onMouseEnter={e => e.currentTarget.style.color = 'var(--color-ink)'}
-          onMouseLeave={e => e.currentTarget.style.color = 'var(--color-muted)'}
+          onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-ink)')}
+          onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-muted)')}
         >
           View model evaluations ↗
         </button>
@@ -143,7 +153,8 @@ export default function HomePage() {
                 color: changeUp ? 'var(--color-accent-green)' : 'var(--color-accent-red)',
               }}
             >
-              {changeUp ? '+' : ''}{weekChange}% this week
+              {changeUp ? '+' : ''}
+              {weekChange}% this week
             </span>
           )}
         </div>
@@ -184,10 +195,7 @@ export default function HomePage() {
         </div>
 
         {/* Card footer */}
-        <div
-          className="px-5 py-2.5 border-t"
-          style={{ borderColor: 'var(--color-border)' }}
-        >
+        <div className="px-5 py-2.5 border-t" style={{ borderColor: 'var(--color-border)' }}>
           <p className="text-[0.7rem] font-light" style={{ color: 'var(--color-muted)' }}>
             {candles.length > 0
               ? `Showing ${candles.length} weeks of live S&P 500 data via Yahoo Finance.`
@@ -204,13 +212,21 @@ export default function HomePage() {
           background: 'var(--color-disclaimer-bg)',
         }}
       >
-        <span style={{ color: 'var(--color-disclaimer-icon)', fontSize: '0.8rem', lineHeight: 1.2 }}>⚠</span>
-        <p className="text-[0.72rem] font-light leading-relaxed" style={{ color: 'var(--color-disclaimer-text)' }}>
+        <span
+          style={{ color: 'var(--color-disclaimer-icon)', fontSize: '0.8rem', lineHeight: 1.2 }}
+        >
+          ⚠
+        </span>
+        <p
+          className="text-[0.72rem] font-light leading-relaxed"
+          style={{ color: 'var(--color-disclaimer-text)' }}
+        >
           Predictions are for{' '}
           <strong style={{ color: 'var(--color-disclaimer-strong)', fontWeight: 500 }}>
             academic purposes only
           </strong>{' '}
-          and do not constitute financial advice. Past performance does not guarantee future results.
+          and do not constitute financial advice. Past performance does not guarantee future
+          results.
         </p>
       </div>
 
@@ -242,10 +258,7 @@ export default function HomePage() {
                 >
                   {m.name}
                 </span>
-                <span
-                  className="text-[0.8rem] font-light"
-                  style={{ color: 'var(--color-muted)' }}
-                >
+                <span className="text-[0.8rem] font-light" style={{ color: 'var(--color-muted)' }}>
                   {m.note}
                 </span>
               </div>
@@ -265,15 +278,12 @@ export default function HomePage() {
       </div>
 
       {/* ── Stat strip ── */}
-      <div
-        className="flex gap-12 pt-8 border-t"
-        style={{ borderColor: 'var(--color-border)' }}
-      >
+      <div className="flex gap-12 pt-8 border-t" style={{ borderColor: 'var(--color-border)' }}>
         {[
-          { val: '6',     label: 'ML Models'   },
-          { val: '100yr', label: 'of S&P Data'  },
-          { val: '52wk',  label: 'Forecasted'   },
-          { val: '7',     label: 'Team Members' },
+          { val: '6', label: 'ML Models' },
+          { val: '100yr', label: 'of S&P Data' },
+          { val: '52wk', label: 'Forecasted' },
+          { val: '7', label: 'Team Members' },
         ].map(({ val, label }) => (
           <div key={label} className="flex flex-col gap-1">
             <span
@@ -291,7 +301,6 @@ export default function HomePage() {
           </div>
         ))}
       </div>
-
     </div>
   );
 }

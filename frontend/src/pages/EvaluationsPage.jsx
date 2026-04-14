@@ -16,21 +16,21 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MODELS, BEST_MODEL } from '../data/models';
-import AccuracyTable   from '../components/evaluations/AccuracyTable';
+import AccuracyTable from '../components/evaluations/AccuracyTable';
 import BestOverallCard from '../components/evaluations/BestOverallCard';
-import ResearchNote    from '../components/evaluations/ResearchNote';
+import ResearchNote from '../components/evaluations/ResearchNote';
 
 // Sort functions keyed by the segment control value
 const SORT_FNS = {
-  dir:  (a, b) => b.dir  - a.dir,
-  mae:  (a, b) => a.mae  - b.mae,
+  dir: (a, b) => b.dir - a.dir,
+  mae: (a, b) => a.mae - b.mae,
   rmse: (a, b) => a.rmse - b.rmse,
 };
 
 const SORT_OPTIONS = [
-  { key: 'dir',  label: 'Directional Accuracy' },
-  { key: 'mae',  label: 'MAE'                  },
-  { key: 'rmse', label: 'RMSE'                 },
+  { key: 'dir', label: 'Directional Accuracy' },
+  { key: 'mae', label: 'MAE' },
+  { key: 'rmse', label: 'RMSE' },
 ];
 
 export default function EvaluationsPage() {
@@ -42,9 +42,11 @@ export default function EvaluationsPage() {
     <div className="min-h-screen pb-24">
       {/* Centered content column */}
       <div className="mx-auto px-6" style={{ maxWidth: '860px' }}>
-
         {/* ── Page header ── */}
-        <div className="pt-10 pb-8 flex items-start justify-between gap-8 border-b" style={{ borderColor: 'var(--color-border)' }}>
+        <div
+          className="pt-10 pb-8 flex items-start justify-between gap-8 border-b"
+          style={{ borderColor: 'var(--color-border)' }}
+        >
           <div>
             <p
               className="text-[0.72rem] font-medium tracking-[0.12em] uppercase mb-2"
@@ -62,9 +64,9 @@ export default function EvaluationsPage() {
               className="text-[0.88rem] font-light leading-relaxed max-w-lg"
               style={{ color: 'var(--color-muted)' }}
             >
-              Compare accuracy metrics and directional performance across all six
-              models. Lower MAE and RMSE is better. Higher directional accuracy
-              means the model correctly called up or down more often.
+              Compare accuracy metrics and directional performance across all six models. Lower MAE
+              and RMSE is better. Higher directional accuracy means the model correctly called up or
+              down more often.
             </p>
           </div>
 
@@ -76,11 +78,11 @@ export default function EvaluationsPage() {
               color: 'var(--color-muted)',
               textDecoration: 'none',
             }}
-            onMouseEnter={e => {
+            onMouseEnter={(e) => {
               e.currentTarget.style.borderColor = 'var(--color-ink)';
               e.currentTarget.style.color = 'var(--color-ink)';
             }}
-            onMouseLeave={e => {
+            onMouseLeave={(e) => {
               e.currentTarget.style.borderColor = 'var(--color-border)';
               e.currentTarget.style.color = 'var(--color-muted)';
             }}
@@ -91,10 +93,7 @@ export default function EvaluationsPage() {
 
         {/* ── Sort control ── */}
         <div className="flex items-center gap-3 pt-6 pb-6">
-          <span
-            className="text-[0.78rem] font-light"
-            style={{ color: 'var(--color-muted)' }}
-          >
+          <span className="text-[0.78rem] font-light" style={{ color: 'var(--color-muted)' }}>
             Sort by
           </span>
           <div
@@ -107,12 +106,13 @@ export default function EvaluationsPage() {
                 onClick={() => setSortBy(opt.key)}
                 className="px-4 py-1.5 text-[0.78rem] transition-colors duration-150 cursor-pointer"
                 style={{
-                  background:  sortBy === opt.key ? 'var(--color-ink)' : 'transparent',
-                  color:       sortBy === opt.key ? 'var(--color-off-white)' : 'var(--color-muted)',
-                  fontWeight:  sortBy === opt.key ? 500 : 400,
-                  border:      'none',
-                  borderRight: i < SORT_OPTIONS.length - 1 ? `1px solid var(--color-border)` : 'none',
-                  fontFamily:  'DM Sans, sans-serif',
+                  background: sortBy === opt.key ? 'var(--color-ink)' : 'transparent',
+                  color: sortBy === opt.key ? 'var(--color-off-white)' : 'var(--color-muted)',
+                  fontWeight: sortBy === opt.key ? 500 : 400,
+                  border: 'none',
+                  borderRight:
+                    i < SORT_OPTIONS.length - 1 ? `1px solid var(--color-border)` : 'none',
+                  fontFamily: 'DM Sans, sans-serif',
                 }}
               >
                 {opt.label}
@@ -123,7 +123,6 @@ export default function EvaluationsPage() {
 
         {/* ── Sections ── */}
         <div className="flex flex-col gap-5">
-
           {/* Accuracy table */}
           <AccuracyTable models={sorted} />
 
@@ -132,7 +131,6 @@ export default function EvaluationsPage() {
 
           {/* Research note */}
           <ResearchNote />
-
         </div>
 
         {/* ── Bottom CTA ── */}
@@ -155,11 +153,11 @@ export default function EvaluationsPage() {
               color: 'var(--color-off-white)',
               textDecoration: 'none',
             }}
-            onMouseEnter={e => {
+            onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'translateY(-2px)';
               e.currentTarget.style.boxShadow = '0 8px 24px rgba(17,17,16,0.18)';
             }}
-            onMouseLeave={e => {
+            onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'translateY(0)';
               e.currentTarget.style.boxShadow = 'none';
             }}
@@ -167,7 +165,6 @@ export default function EvaluationsPage() {
             Browse models →
           </Link>
         </div>
-
       </div>
     </div>
   );

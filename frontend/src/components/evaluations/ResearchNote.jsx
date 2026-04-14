@@ -28,11 +28,10 @@ export default function ResearchNote() {
         <strong style={{ color: 'var(--color-ink)', fontWeight: 500 }}>
           ensemble methods outperform single estimators
         </strong>{' '}
-        on financial time series when the feature set is well-engineered. XGBoost
-        and Random Forest dominate on tabular data tasks, while LSTM models close
-        the gap when longer temporal sequences are available. Linear Regression
-        serves as a critical baseline — if any model cannot significantly beat it,
-        the feature engineering likely needs revisiting.{' '}
+        on financial time series when the feature set is well-engineered. XGBoost and Random Forest
+        dominate on tabular data tasks, while LSTM models close the gap when longer temporal
+        sequences are available. Linear Regression serves as a critical baseline — if any model
+        cannot significantly beat it, the feature engineering likely needs revisiting.{' '}
         <strong style={{ color: 'var(--color-ink)', fontWeight: 500 }}>
           No model should be trusted in isolation.
         </strong>
