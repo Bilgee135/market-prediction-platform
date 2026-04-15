@@ -12,11 +12,11 @@
  * What it should contain:
  *   - A compact SVG line chart
  *   - Generated from a seed value or a small hardcoded data array per model
- *   - Colored to match the model's accent color
+ *   - Coloured to match the model's accent colour
  *
  * Props:
  *   data    array of numbers representing price points
- *   color   hex string for the line color
+ *   chartlineColour   hex string for the line colour
  *   width   optional width override
  *   height  optional height override
  *
@@ -25,7 +25,7 @@
  *   sufficient. No interactivity required.
  */
 
-export default function Sparkline({ data, color = '#2563eb', width = 200, height = 80 }) {
+export default function Sparkline({ data, chartlineColour = '#2563eb', width = 200, height = 80 }) {
   if (!data || data.length === 0) return null;
 
   //here I am finding the smallest and biggest numbers in the data array
@@ -75,14 +75,14 @@ export default function Sparkline({ data, color = '#2563eb', width = 200, height
       <defs>
         {/* using the color id so each model gets its own unique gradient because if not then all models would share the same gradient */}
         <linearGradient
-          id={`sparkline-gradient-${color.replace('#', '')}`}
+          id={`sparkline-gradient-${chartlineColour.replace('#', '')}`}
           x1="0"
           y1="0"
           x2="0"
           y2="1"
         >
-          <stop offset="0%" stopColor={color} stopOpacity="0.2" />
-          <stop offset="100%" stopColor={color} stopOpacity="0" />
+          <stop offset="0%" stopColor={chartlineColour} stopOpacity="0.2" />
+          <stop offset="100%" stopColor={chartlineColour} stopOpacity="0" />
         </linearGradient>
       </defs>
 
@@ -90,14 +90,14 @@ export default function Sparkline({ data, color = '#2563eb', width = 200, height
 
       <polygon
         points={shadedAreaCoordinates}
-        fill={`url(#sparkline-gradient-${color.replace('#', '')})`}
+        fill={`url(#sparkline-gradient-${chartlineColour.replace('#', '')})`}
       />
 
       {/* the actual line the polyline just connects a list of x,y position points with a line */}
       <polyline
         points={points}
         fill="none"
-        stroke={color}
+        stroke={chartlineColour}
         strokeWidth="2"
         strokeLinejoin="round"
         strokeLinecap="round"

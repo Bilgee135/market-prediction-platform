@@ -8,6 +8,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import DisclaimerModal from '../components/ui/DisclaimerModal';
+import Sparkline from '../components/charts/Sparkline';
 
 const MODELS = [
   {
@@ -21,7 +22,10 @@ const MODELS = [
     modelWeaknesses: 'Slow to train and sensitive to hyperparameter choices',
     modelBestFor: 'Trend-following predictions over longer horizons',
     modelComplexity: 4,
+    sparklineColour: "#2563eb",
+    sparklineData: [100, 115, 95, 120, 105, 125, 108, 132, 115, 138, 120, 145],
   },
+
   {
     modelId: 'random-forest',
     category: 'Ensemble',
@@ -33,6 +37,9 @@ const MODELS = [
     modelWeaknesses: 'Cannot extrapolate beyond the training range',
     modelBestFor: 'Stable medium-term predictions with interpretable outputs',
     modelComplexity: 2,
+    sparklineColour: "#c2410c",
+    sparklineData: [100, 95, 90, 98, 105, 112, 108, 118, 114, 122, 118, 128],
+
   },
   {
     modelId: 'xgboost',
@@ -45,6 +52,8 @@ const MODELS = [
     modelWeaknesses: 'More hyperparameters to tune than simpler models',
     modelBestFor: 'Short-term precision where feature engineering is strong',
     modelComplexity: 3,
+    sparklineColour: "#c2410c",
+    sparklineData: [100, 103, 101, 106, 105, 109, 108, 113, 112, 117, 116, 122],
   },
   {
     modelId: 'linear-regression',
@@ -57,6 +66,8 @@ const MODELS = [
     modelWeaknesses: 'Cannot capture non-linear relationships in market data',
     modelBestFor: 'Establishing a baseline and understanding feature correlations',
     modelComplexity: 1,
+    sparklineColour: "#1e293b",
+    sparklineData: [100, 102, 101, 103, 102, 104, 103, 105, 104, 107, 106, 110],
   },
   {
     modelId: 'svr',
@@ -69,6 +80,9 @@ const MODELS = [
     modelWeaknesses: 'Sensitive to feature scaling and slow on large datasets',
     modelBestFor: 'Situations where data is limited but clean',
     modelComplexity: 3,
+    sparklineColour: "#6d28d9",
+    sparklineData: [100, 112, 94, 118, 100, 124, 108, 130, 112, 136, 116, 142],
+
   },
   {
     modelId: 'ann',
@@ -81,6 +95,9 @@ const MODELS = [
     modelWeaknesses: 'Requires more data and careful regularisation to avoid overfitting',
     modelBestFor: 'Complex feature interactions across many technical indicators',
     modelComplexity: 3,
+    sparklineColour: "#2563eb",
+    sparklineData: [100, 104, 108, 112, 116, 118, 116, 120, 118, 122, 120, 126],
+
   },
 ];
 
@@ -172,6 +189,18 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
           >
             {model.modelDescription}
           </p>
+
+          {/* The sparkline chart */}
+          <div className="mb-8">
+            <Sparkline
+                data={model.sparklineData}
+                chartlineColour={model.sparklineColour}
+                width={300}
+                height={100}
+            />
+          </div>
+
+
 
           {/* Strength / Weakness / Best for */}
           <div className="flex flex-col gap-3.5 mb-8">
