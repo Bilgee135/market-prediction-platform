@@ -73,7 +73,7 @@ export default function Sparkline({ data, chartlineColour = '#2563eb', width = 2
       preserveAspectRatio="none"
     >
       <defs>
-        {/* using the color id so each model gets its own unique gradient because if not then all models would share the same gradient */}
+        {/* I am using the color id so each model gets its own unique gradient because if not then all models would share the same gradient */}
         <linearGradient
           id={`sparkline-gradient-${chartlineColour.replace('#', '')}`}
           x1="0"

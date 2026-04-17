@@ -48,7 +48,7 @@ const navLinks = [
 ];
 
 /* The 5 bar chart bars that are next to the stock prediction website name
- * was hard but I just tried matching the logo bars but sorry if the colours are kinda dull for the green and red
+ * was hard sorry if the colours are kinda dull for the green and red
  * In my mind is it that green bars = stock up and red bars mean stock down
  */
 

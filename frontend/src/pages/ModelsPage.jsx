@@ -10,6 +10,8 @@ import { Link } from 'react-router-dom';
 import DisclaimerModal from '../components/ui/DisclaimerModal';
 import Sparkline from '../components/charts/Sparkline';
 
+
+//So here are the models and we have listed the models with the name, category, description, strengths, weaknesses, what the model is best for, the complexity of the model and also a sparkline sorry sparkline is quite bad
 const MODELS = [
   {
     modelId: 'lstm',
@@ -112,7 +114,7 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
     <div className="mx-auto px-8 py-14 pb-32" style={{ maxWidth: '900px' }}>
       {!disclaimerConfirmed && <DisclaimerModal onAgree={() => setDisclaimerConfirmed(true)} />}
 
-      {/* ── Page header ── */}
+      {/* The Page header which appears at the top of the page */}
       <div
         className="mb-10 pb-8 border-b flex items-end justify-between"
         style={{ borderColor: 'var(--color-border)' }}
@@ -142,16 +144,18 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
           onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-ink)')}
           onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-muted)')}
         >
+
+          {/* user is able to view all the evaluations */}
           View all evaluations →
         </Link>
       </div>
 
-      {/* ── Model card ── */}
+      {/* The Model card */}
       <div
         className="border rounded-xl overflow-hidden mb-6"
         style={{ borderColor: 'var(--color-border)', background: 'var(--color-card-bg)' }}
       >
-        {/* Card header bar */}
+        {/* The Card header bar */}
         <div
           className="flex items-center justify-between px-7 py-4 border-b"
           style={{ borderColor: 'var(--color-border)', background: 'var(--color-off-white)' }}
@@ -171,7 +175,7 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
           </span>
         </div>
 
-        {/* Card body */}
+        {/* The Card body */}
         <div className="px-7 py-8">
           <h2
             className="font-serif tracking-tight mb-1"
@@ -202,7 +206,7 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
 
 
 
-          {/* Strength / Weakness / Best for */}
+          {/* Strength, Weakness and Best for */}
           <div className="flex flex-col gap-3.5 mb-8">
             {[
               {
@@ -227,7 +231,7 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
             ))}
           </div>
 
-          {/* Complexity + Select */}
+          {/* Complexity and Select */}
           <div
             className="flex items-center justify-between pt-6 border-t"
             style={{ borderColor: 'var(--color-border)' }}
@@ -268,7 +272,7 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
         </div>
       </div>
 
-      {/* ── Navigation ── */}
+      {/* Navigation */}
       <div className="flex items-center justify-between mb-12">
         <button
           onClick={prev}
@@ -314,7 +318,7 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
         </button>
       </div>
 
-      {/* ── Fixed bottom bar ── */}
+      {/* Fixed bottom bar */}
       <div
         className="fixed bottom-0 left-0 right-0 flex items-center justify-between px-10 py-5 border-t"
         style={{ background: 'var(--color-card-bg)', borderColor: 'var(--color-border)' }}
@@ -334,6 +338,7 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
             textDecoration: 'none',
           }}
         >
+          {/* if the user wants to do to model evaluations */}
           Go to Model Evaluations →
         </Link>
       </div>

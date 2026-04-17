@@ -59,7 +59,7 @@ export default function AboutPage() {
             {/* a little explanation of the website */}
             <p className="text-sm text-[var(--color-muted)] leading-relaxed">
               This system was developed as part of a second year Group Software Project. It applies
-              machine learning to weekly S&P 500 price prediction, not as a trading tools, but as an
+              machine learning to weekly S&P 500 price prediction, not as a trading tool, but as an
               exploration of how historical data can be used to model market behaviour.
             </p>
           </div>
@@ -71,9 +71,9 @@ export default function AboutPage() {
             </p>
 
             {/* the members name and their role*/}
-            {/* blue is ML Models, dark red is Web App */}
+            {/* the ML Models and the Web App */}
             <div className="flex flex-col gap-2">
-              {/* the ml models in blue using the global variables i added to the index css */}
+              {/* the ml models who are doing it is here*/}
               <div className="flex items-center gap-2">
                 <span className="w-7 h-7 rounded-full bg-[var(--color-ml-models)] text-white text-xs font-semibold flex items-center justify-center shrink-0">
                   T
@@ -127,7 +127,7 @@ export default function AboutPage() {
                 </span>
               </div>
 
-              {/* the web app in dark red. i've added the variables to the index css */}
+              {/* this is the web app who is doing the web app*/}
 
               <div className="flex items-center gap-2">
                 <span className="w-7 h-7 rounded-full bg-[var(--color-web-app)] text-white text-xs font-semibold flex items-center justify-center shrink-0">
@@ -183,16 +183,14 @@ export default function AboutPage() {
             </h2>
 
             {/* this is the short description of what the project is */}
-
             <p className="text-sm text-[var(--color-muted)] leading-relaxed mb-3">
               The system collects historical S&P 500 index data, trains multiple machine learning
-              models on it and presents weekly pricely predicitons through this interactive
+              models on it and presents weekly price predicitons through this interactive
               interface. Users can explore forecasts, compare model accuracy and understand the
               reasoning behind each prediction.
             </p>
 
-            {/* I added the "" because it adds a space before the bold text so it does not stick to the word before it */}
-
+            {/* The {' '} I have added just adds a space so the bold text does not squish up against the word before it */}
             <p className="text-sm text-[var(--color-muted)] leading-relaxed">
               Predictions cover a{' '}
               <strong className="text-[var(--color-ink)]">52-week forward horizon</strong>,
@@ -235,7 +233,7 @@ export default function AboutPage() {
               <strong className="text-[var(--color-ink)]">1926 to 2024</strong> is sourced from
               Wharton Research Data Services (WRDS). Data from 2025 onwards uses the{' '}
               <strong className="text-[var(--color-ink)]">yfinance</strong> package via the Yahoo
-              Finance API. Both Sources are publicly accessible and permission has been confirmed
+              Finance API. Both sources are publicly accessible and permission has been confirmed
               for academic use.
             </p>
           </div>
@@ -249,7 +247,8 @@ export default function AboutPage() {
               This is not financial advice.
             </h2>
 
-            {/* opacity at 75 so that the text fades to white but the bold parts are full white */}
+            {/* Now finally here we thought it would be good to keep reminding the user that this is not 100% certain.*/}
+            {/* And we also go over how the market can be affected by lots of things */}
             <p className="text-sm text-[var(--color-off-white)] opacity-75 leading-relaxed">
               All predictions are generated for{' '}
               <strong className="font-bold">academic and educational purposes only</strong>. Markets
