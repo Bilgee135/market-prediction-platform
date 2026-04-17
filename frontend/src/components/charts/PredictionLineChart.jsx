@@ -1,56 +1,56 @@
-import { useEffect, useRef } from 'react'
-import { Chart, registerables } from 'chart.js'
-import 'chartjs-adapter-date-fns'
+import { useEffect, useRef } from 'react';
+import { Chart, registerables } from 'chart.js';
+import 'chartjs-adapter-date-fns';
 
-Chart.register(...registerables)
+Chart.register(...registerables);
 
 // How many prediction rows to show per timeframe
-const TIMEFRAME_WEEKS = { '1M': 4, '3M': 13, '6M': 26, '1Y': 52, 'ALL': null }
+const TIMEFRAME_WEEKS = { '1M': 4, '3M': 13, '6M': 26, '1Y': 52, ALL: null };
 
 export default function PredictionLineChart({ predictions, historical, timeframe }) {
-  const canvasRef = useRef(null)
-  const chartRef  = useRef(null)
+  const canvasRef = useRef(null);
+  const chartRef = useRef(null);
 
   useEffect(() => {
-    if (!predictions || predictions.length === 0) return
+    if (!predictions || predictions.length === 0) return;
 
     if (chartRef.current) {
-      chartRef.current.destroy()
-      chartRef.current = null
+      chartRef.current.destroy();
+      chartRef.current = null;
     }
 
     // Slice predictions based on selected timeframe
-    const weeks    = TIMEFRAME_WEEKS[timeframe]
-    const filtered = weeks ? predictions.slice(-weeks) : predictions
+    const weeks = TIMEFRAME_WEEKS[timeframe];
+    const filtered = weeks ? predictions.slice(-weeks) : predictions;
 
     // Build a date -> close lookup from historical data
     // Historical covers recent live weeks, predictions cover the test set period (2022-2025)
     // They overlap in the later portion - we show actual line only where data exists
-    const actualMap = {}
+    const actualMap = {};
     if (historical) {
-      historical.forEach(h => {
-        const key = new Date(h.date).toISOString().split('T')[0]
-        actualMap[key] = h.close
-      })
+      historical.forEach((h) => {
+        const key = new Date(h.date).toISOString().split('T')[0];
+        actualMap[key] = h.close;
+      });
     }
 
-    const predictedDataset = filtered.map(p => ({
+    const predictedDataset = filtered.map((p) => ({
       x: new Date(p.prediction_date).getTime(),
       y: parseFloat(p.predicted_close),
-    }))
+    }));
 
     // Only include actual points where historical data overlaps with prediction dates
     const actualDataset = filtered
-      .map(p => {
-        const key    = new Date(p.prediction_date).toISOString().split('T')[0]
-        const actual = actualMap[key]
+      .map((p) => {
+        const key = new Date(p.prediction_date).toISOString().split('T')[0];
+        const actual = actualMap[key];
         return actual !== undefined
           ? { x: new Date(p.prediction_date).getTime(), y: actual }
-          : null
+          : null;
       })
-      .filter(Boolean)
+      .filter(Boolean);
 
-    const ctx = canvasRef.current.getContext('2d')
+    const ctx = canvasRef.current.getContext('2d');
 
     chartRef.current = new Chart(ctx, {
       type: 'line',
@@ -68,18 +68,22 @@ export default function PredictionLineChart({ predictions, historical, timeframe
             fill: true,
           },
           // Only add the actual dataset if there is overlap
-          ...(actualDataset.length > 0 ? [{
-            label: 'Actual Close',
-            data: actualDataset,
-            borderColor: '#2563eb',
-            backgroundColor: 'transparent',
-            borderWidth: 2,
-            pointRadius: 0,
-            pointHoverRadius: 4,
-            tension: 0.3,
-            fill: false,
-            borderDash: [5, 4],
-          }] : []),
+          ...(actualDataset.length > 0
+            ? [
+                {
+                  label: 'Actual Close',
+                  data: actualDataset,
+                  borderColor: '#2563eb',
+                  backgroundColor: 'transparent',
+                  borderWidth: 2,
+                  pointRadius: 0,
+                  pointHoverRadius: 4,
+                  tension: 0.3,
+                  fill: false,
+                  borderDash: [5, 4],
+                },
+              ]
+            : []),
         ],
       },
       options: {
@@ -108,10 +112,11 @@ export default function PredictionLineChart({ predictions, historical, timeframe
             bodyColor: '#6B7280',
             padding: 10,
             titleFont: { size: 11, family: 'DM Sans, sans-serif', weight: '500' },
-            bodyFont:  { size: 11, family: 'DM Sans, sans-serif' },
+            bodyFont: { size: 11, family: 'DM Sans, sans-serif' },
             callbacks: {
-              title: items => new Date(items[0].parsed.x).toLocaleDateString('en-GB'),
-              label: item  => `${item.dataset.label}: $${item.parsed.y.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
+              title: (items) => new Date(items[0].parsed.x).toLocaleDateString('en-GB'),
+              label: (item) =>
+                `${item.dataset.label}: $${item.parsed.y.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
             },
           },
         },
@@ -119,33 +124,33 @@ export default function PredictionLineChart({ predictions, historical, timeframe
           x: {
             type: 'time',
             time: { unit: timeframe === '1M' ? 'week' : 'month' },
-            grid:  { color: '#F3F4F6' },
+            grid: { color: '#F3F4F6' },
             ticks: { color: '#9CA3AF', font: { size: 11 }, maxTicksLimit: 8 },
           },
           y: {
             position: 'right',
-            grid:  { color: '#F3F4F6' },
+            grid: { color: '#F3F4F6' },
             ticks: {
               color: '#9CA3AF',
-              font:  { size: 11 },
-              callback: val => `$${val.toLocaleString()}`,
+              font: { size: 11 },
+              callback: (val) => `$${val.toLocaleString()}`,
             },
           },
         },
       },
-    })
+    });
 
     return () => {
       if (chartRef.current) {
-        chartRef.current.destroy()
-        chartRef.current = null
+        chartRef.current.destroy();
+        chartRef.current = null;
       }
-    }
-  }, [predictions, historical, timeframe])
+    };
+  }, [predictions, historical, timeframe]);
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
       <canvas ref={canvasRef} />
     </div>
-  )
+  );
 }

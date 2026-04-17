@@ -42,13 +42,13 @@ export async function getTickers() {
 }
 
 export async function getPredictions(modelName) {
-    const res = await fetch(`${BASE_URL}/api/predictions/${modelName}`)
-    if (!res.ok) throw new Error(`Failed to fetch predictions for ${modelName}`)
-    return res.json()
+  const res = await fetch(`${BASE_URL}/api/predictions/${modelName}`);
+  if (!res.ok) throw new Error(`Failed to fetch predictions for ${modelName}`);
+  return res.json();
 }
 
 export async function getModels() {
-    const res = await fetch(`${BASE_URL}/api/predictions/models`)
-    if (!res.ok) throw new Error('Failed to fetch models list')
-    return res.json()
+  const res = await fetch(`${BASE_URL}/api/predictions/models`);
+  if (!res.ok) throw new Error('Failed to fetch models list');
+  return res.json();
 }

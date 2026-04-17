@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom';
 import DisclaimerModal from '../components/ui/DisclaimerModal';
 import Sparkline from '../components/charts/Sparkline';
 
-
 //So here are the models and we have listed the models with the name, category, description, strengths, weaknesses, what the model is best for, the complexity of the model and also a sparkline sorry sparkline is quite bad
 const MODELS = [
   {
@@ -18,12 +17,13 @@ const MODELS = [
     category: 'Deep Learning',
     modelName: 'ANN',
     modelFullName: 'Artificial Neural Network',
-    modelDescription: 'A feedforward network that learns non-linear relationships between features and price outputs through multiple hidden layers and backpropagation.',
+    modelDescription:
+      'A feedforward network that learns non-linear relationships between features and price outputs through multiple hidden layers and backpropagation.',
     modelStrengths: 'Flexible, can model complex non-linear relationships',
     modelWeaknesses: 'Requires more data and careful regularisation to avoid overfitting',
     modelBestFor: 'Complex feature interactions across many technical indicators',
     modelComplexity: 3,
-    sparklineColour: "#2563eb",
+    sparklineColour: '#2563eb',
     sparklineData: [100, 104, 108, 112, 116, 118, 116, 120, 118, 122, 120, 126],
   },
   {
@@ -31,12 +31,13 @@ const MODELS = [
     category: 'Deep Learning',
     modelName: 'CNN-LSTM',
     modelFullName: 'Convolutional Neural Network + LSTM',
-    modelDescription: 'Combines a CNN to extract local patterns from price sequences with an LSTM to capture long-range temporal dependencies. A hybrid approach for time-series forecasting.',
+    modelDescription:
+      'Combines a CNN to extract local patterns from price sequences with an LSTM to capture long-range temporal dependencies. A hybrid approach for time-series forecasting.',
     modelStrengths: 'Captures both short-term patterns and long-term trends simultaneously',
     modelWeaknesses: 'More complex to train and tune than either architecture alone',
     modelBestFor: 'Weekly predictions where both recent and historical patterns matter',
     modelComplexity: 4,
-    sparklineColour: "#7c3aed",
+    sparklineColour: '#7c3aed',
     sparklineData: [100, 105, 102, 110, 108, 115, 112, 120, 117, 125, 122, 130],
   },
   {
@@ -44,12 +45,13 @@ const MODELS = [
     category: 'Deep Learning',
     modelName: 'CNN-LSTM (Det.)',
     modelFullName: 'CNN-LSTM Deterministic',
-    modelDescription: 'A deterministic variant of the CNN-LSTM model that produces consistent outputs on repeated runs by removing stochastic elements during inference.',
+    modelDescription:
+      'A deterministic variant of the CNN-LSTM model that produces consistent outputs on repeated runs by removing stochastic elements during inference.',
     modelStrengths: 'Reproducible predictions - same input always gives same output',
     modelWeaknesses: 'May underestimate uncertainty in volatile market conditions',
     modelBestFor: 'Scenarios where consistency across runs is required',
     modelComplexity: 4,
-    sparklineColour: "#6d28d9",
+    sparklineColour: '#6d28d9',
     sparklineData: [100, 104, 101, 108, 106, 112, 110, 117, 114, 121, 118, 125],
   },
   {
@@ -57,12 +59,13 @@ const MODELS = [
     category: 'Tree-Based',
     modelName: 'DTR',
     modelFullName: 'Decision Tree Regression',
-    modelDescription: 'Recursively splits the feature space into regions and predicts the mean value within each region. Fast and interpretable, with no assumptions about data distribution.',
+    modelDescription:
+      'Recursively splits the feature space into regions and predicts the mean value within each region. Fast and interpretable, with no assumptions about data distribution.',
     modelStrengths: 'Highly interpretable - you can trace exactly why a prediction was made',
     modelWeaknesses: 'Prone to overfitting and cannot extrapolate beyond training data range',
     modelBestFor: 'Baseline comparisons and understanding which features drive predictions',
     modelComplexity: 2,
-    sparklineColour: "#c2410c",
+    sparklineColour: '#c2410c',
     sparklineData: [100, 98, 103, 101, 107, 104, 109, 106, 112, 109, 115, 112],
   },
   {
@@ -70,12 +73,13 @@ const MODELS = [
     category: 'Deep Learning',
     modelName: 'GRU',
     modelFullName: 'Gated Recurrent Unit',
-    modelDescription: 'A streamlined recurrent network that uses update and reset gates to control information flow. Achieves similar performance to LSTM with fewer parameters.',
+    modelDescription:
+      'A streamlined recurrent network that uses update and reset gates to control information flow. Achieves similar performance to LSTM with fewer parameters.',
     modelStrengths: 'Faster to train than LSTM while retaining sequential memory',
     modelWeaknesses: 'May miss very long-range dependencies compared to full LSTM',
     modelBestFor: 'Sequential price prediction where training speed matters',
     modelComplexity: 3,
-    sparklineColour: "#0891b2",
+    sparklineColour: '#0891b2',
     sparklineData: [100, 106, 103, 112, 109, 118, 114, 123, 119, 128, 124, 133],
   },
   {
@@ -83,12 +87,13 @@ const MODELS = [
     category: 'Instance-Based',
     modelName: 'KNN',
     modelFullName: 'K-Nearest Neighbours',
-    modelDescription: 'Predicts by finding the K most similar historical weeks and averaging their outcomes. No training phase - the entire dataset is the model.',
+    modelDescription:
+      'Predicts by finding the K most similar historical weeks and averaging their outcomes. No training phase - the entire dataset is the model.',
     modelStrengths: 'Simple, no assumptions about data distribution, easy to interpret',
     modelWeaknesses: 'Slow at inference time and degrades with high-dimensional features',
     modelBestFor: 'Markets with recurring seasonal or cyclical patterns',
     modelComplexity: 1,
-    sparklineColour: "#059669",
+    sparklineColour: '#059669',
     sparklineData: [100, 102, 99, 105, 103, 108, 106, 111, 108, 114, 111, 117],
   },
   {
@@ -96,12 +101,13 @@ const MODELS = [
     category: 'Instance-Based',
     modelName: 'KNN-PM',
     modelFullName: 'KNN with Pattern Matching',
-    modelDescription: 'Extends standard KNN by matching entire candlestick patterns rather than individual feature vectors, identifying historically similar market sequences.',
+    modelDescription:
+      'Extends standard KNN by matching entire candlestick patterns rather than individual feature vectors, identifying historically similar market sequences.',
     modelStrengths: 'Leverages recurring chart patterns that technical analysts already use',
     modelWeaknesses: 'Pattern matches may be spurious in sufficiently different market regimes',
     modelBestFor: 'Markets with identifiable recurring chart patterns',
     modelComplexity: 2,
-    sparklineColour: "#16a34a",
+    sparklineColour: '#16a34a',
     sparklineData: [100, 103, 100, 107, 105, 111, 108, 114, 111, 118, 114, 120],
   },
   {
@@ -109,12 +115,13 @@ const MODELS = [
     category: 'Instance-Based',
     modelName: 'KNN-PM Prices',
     modelFullName: 'KNN Pattern Matching (Price Prediction)',
-    modelDescription: 'A variant of KNN with pattern matching that predicts absolute price levels rather than relative changes, allowing direct comparison against actual close values.',
+    modelDescription:
+      'A variant of KNN with pattern matching that predicts absolute price levels rather than relative changes, allowing direct comparison against actual close values.',
     modelStrengths: 'Outputs directly comparable price values without post-processing',
     modelWeaknesses: 'Absolute price prediction is harder than directional prediction',
     modelBestFor: 'Direct price level forecasting with pattern-based similarity',
     modelComplexity: 2,
-    sparklineColour: "#15803d",
+    sparklineColour: '#15803d',
     sparklineData: [100, 102, 104, 103, 107, 106, 110, 108, 113, 111, 116, 114],
   },
 ];
@@ -160,7 +167,6 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
           onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-ink)')}
           onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-muted)')}
         >
-
           {/* user is able to view all the evaluations */}
           View all evaluations →
         </Link>
@@ -213,14 +219,12 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
           {/* The sparkline chart */}
           <div className="mb-8">
             <Sparkline
-                data={model.sparklineData}
-                chartlineColour={model.sparklineColour}
-                width={300}
-                height={100}
+              data={model.sparklineData}
+              chartlineColour={model.sparklineColour}
+              width={300}
+              height={100}
             />
           </div>
-
-
 
           {/* Strength, Weakness and Best for */}
           <div className="flex flex-col gap-3.5 mb-8">

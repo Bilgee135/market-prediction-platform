@@ -27,7 +27,6 @@
  *   Build last. No dependencies on API or other complex components.
  */
 
-
 import { groups } from '../data/FAQData.js';
 import '../css/FAQPage.css';
 import { useState } from 'react';

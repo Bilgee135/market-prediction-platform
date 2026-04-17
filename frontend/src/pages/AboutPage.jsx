@@ -185,9 +185,9 @@ export default function AboutPage() {
             {/* this is the short description of what the project is */}
             <p className="text-sm text-[var(--color-muted)] leading-relaxed mb-3">
               The system collects historical S&P 500 index data, trains multiple machine learning
-              models on it and presents weekly price predicitons through this interactive
-              interface. Users can explore forecasts, compare model accuracy and understand the
-              reasoning behind each prediction.
+              models on it and presents weekly price predicitons through this interactive interface.
+              Users can explore forecasts, compare model accuracy and understand the reasoning
+              behind each prediction.
             </p>
 
             {/* The {' '} I have added just adds a space so the bold text does not squish up against the word before it */}
