@@ -107,7 +107,7 @@ export default function HomePage() {
             border: 'none',
           }}
         >
-          Browse Models →
+          Browse Models
         </button>
         <button
           onClick={() => navigate('/evaluations')}
@@ -116,7 +116,7 @@ export default function HomePage() {
           onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-ink)')}
           onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-muted)')}
         >
-          View model evaluations ↗
+          View model evaluations
         </button>
       </div>
 

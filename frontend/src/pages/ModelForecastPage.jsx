@@ -110,7 +110,7 @@ export default function ModelForecastPage() {
         onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-ink)')}
         onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-muted)')}
       >
-        ← Back to Models
+        Back to Models
       </Link>
 
       <div className="mb-8">

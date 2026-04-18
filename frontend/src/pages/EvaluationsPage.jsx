@@ -87,7 +87,7 @@ export default function EvaluationsPage() {
               e.currentTarget.style.color = 'var(--color-muted)';
             }}
           >
-            ← Back to models
+            Back to models
           </Link>
         </div>
 
@@ -162,7 +162,7 @@ export default function EvaluationsPage() {
               e.currentTarget.style.boxShadow = 'none';
             }}
           >
-            Browse models →
+            Browse models
           </Link>
         </div>
       </div>

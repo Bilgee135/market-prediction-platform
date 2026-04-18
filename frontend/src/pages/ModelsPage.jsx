@@ -157,7 +157,7 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
               color: 'var(--color-ink)',
             }}
           >
-            Browse &amp; select a model
+            Browse &amp; Select a Model
           </h1>
         </div>
         <Link
@@ -168,7 +168,7 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
           onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-muted)')}
         >
           {/* user is able to view all the evaluations */}
-          View all evaluations →
+          View all evaluations
         </Link>
       </div>
 
@@ -286,7 +286,7 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
                 textDecoration: 'none',
               }}
             >
-              Select →
+              Select
             </Link>
           </div>
         </div>
@@ -359,7 +359,7 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
           }}
         >
           {/* if the user wants to do to model evaluations */}
-          Go to Model Evaluations →
+          Go to Model Evaluations
         </Link>
       </div>
     </div>
