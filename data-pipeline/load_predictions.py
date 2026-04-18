@@ -11,6 +11,7 @@ from dotenv import load_dotenv
 load_dotenv(os.path.join(os.path.dirname(__file__), '../backend/.env'))
 
 DB_HOST     = os.getenv('DB_HOST', 'localhost')
+DB_PORT     = os.getenv('DB_PORT', '3306')
 DB_USER     = os.getenv('DB_USER')
 DB_PASSWORD = os.getenv('DB_PASSWORD')
 DB_NAME     = os.getenv('DB_NAME')
@@ -18,8 +19,10 @@ DB_NAME     = os.getenv('DB_NAME')
 if not DB_USER:
     raise RuntimeError("DB credentials not loaded - check the .env path")
 
-# mysql+pymysql:// tells SQLAlchemy to use MySQL via the pymysql driver
-engine = create_engine(f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}")
+engine = create_engine(
+    f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}",
+    connect_args={"ssl": {"ssl_disabled": False}}
+)
 
 CSV_DIR = os.path.join(os.path.dirname(__file__), '../database/')
 
@@ -91,7 +94,7 @@ def load_csv(filename, model_name):
     # Write to DB
     # if_exists='append' - add rows to existing table, don't drop and recreate
     # index=False        - don't write the pandas 0,1,2... row index as a column
-    df.to_sql('predictions', con=engine, if_exists='append', index=False)
+    df.to_sql('predictions', con=engine, if_exists='append', index=False, method='multi')
 
     print(f"  Loaded {len(df)} rows for {model_name}")
 
