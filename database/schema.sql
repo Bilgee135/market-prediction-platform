@@ -2,9 +2,6 @@
 -- Last updated: 5 March 2026
 -- Discuss with the team before finalising column definitions
 
-CREATE DATABASE IF NOT EXISTS team45;
-USE team45;
-
 CREATE TABLE IF NOT EXISTS historical_prices (
     id INT AUTO_INCREMENT PRIMARY KEY,
     date DATE NOT NULL,
