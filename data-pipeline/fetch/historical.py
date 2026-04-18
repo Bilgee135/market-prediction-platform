@@ -5,8 +5,8 @@ This script fetches historical weekly S&P 500 data from Yahoo Finance using the 
 from datetime import datetime
 import json
 import yfinance as yf
+import requests
 
-# Made to fetch from a specific date instead of relying on weeks
 def fetch_weekly_candles():
     """
     Fetches historical weekly S&P 500 data from Yahoo Finance using the yfinance library.
@@ -14,9 +14,14 @@ def fetch_weekly_candles():
     The results are printed as a JSON array of candle objects.
     """
 
-    ticker = yf.Ticker("^GSPC")
-    df = ticker.history(start="2022-01-01", 
-                        end=datetime.today().strftime("%Y-%m-%d"), 
+    session = requests.Session()
+    session.headers.update({
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+    })
+
+    ticker = yf.Ticker("^GSPC", session=session)
+    df = ticker.history(start="2022-01-01",
+                        end=datetime.today().strftime("%Y-%m-%d"),
                         interval="1wk")
 
     candles = []
