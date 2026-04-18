@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/', (req, res) => {
     const weeks = parseInt(req.query.weeks) || 26;
     const scriptPath = path.join(__dirname, '../../data-pipeline/fetch/historical.py');
-    const pythonPath = path.join(__dirname, '../../data-pipeline/venv/bin/python3');
+    const pythonPath = process.env.PYTHON_PATH || path.join(__dirname, '../../data-pipeline/venv/bin/python3');
 
     const py = spawn(pythonPath, [scriptPath, String(weeks)]);
 

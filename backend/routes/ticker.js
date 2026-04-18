@@ -8,7 +8,7 @@ const path = require('path');
 // path.join is used to ensure cross-platform compatibility when constructing file paths.
 
 const SCRIPT_PATH = path.join(__dirname, '../../data-pipeline/fetch/ticker.py');
-const VENV_PATH = path.join(__dirname, '../../data-pipeline/venv/bin/python'); // Adjust if your virtual environment structure is different
+const VENV_PATH = process.env.PYTHON_PATH || path.join(__dirname, '../../data-pipeline/venv/bin/python');
 
 router.get('/ticker', (req, res) => {
     const pythonProcess = spawn(VENV_PATH, [SCRIPT_PATH]);

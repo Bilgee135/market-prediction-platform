@@ -23,6 +23,7 @@
  *   Both should be done before any page is built.
  */
 
+import { getTickers } from '../../services/api';
 import { useState, useEffect } from 'react';
 
 const FALLBACK_DATA = [
@@ -48,24 +49,14 @@ function TickerTape() {
 
     async function fetchTickerData() {
       try {
-        const response = await fetch('http://localhost:5000/api/ticker');
-
-        if (!response.ok) {
-          // Responded with an error status code
-          throw new Error(`Server error: ${response.status}`);
-        }
-
-        const data = await response.json();
+        const data = await getTickers();
         setTickerData(data);
-        setError(null); // Clear any previous errors
+        setError(null);
       } catch (err) {
         console.error('Failed to fetch ticker data:', err);
         setError(err.message);
-
-        // Use functional update to read the real current state, not the stale closure value
         setTickerData((current) => (current.length === 0 ? FALLBACK_DATA : current));
       } finally {
-        // Either way, the component is done loading after the first attempt
         setLoading(false);
       }
     }
