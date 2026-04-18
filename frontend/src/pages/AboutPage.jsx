@@ -193,8 +193,8 @@ export default function AboutPage() {
             {/* The {' '} I have added just adds a space so the bold text does not squish up against the word before it */}
             <p className="text-sm text-[var(--color-muted)] leading-relaxed">
               Predictions span from late 2022 to December 2025, covering{' '}
-              <strong className="text-[var(--color-ink)]">roughly 150 weeks</strong>{' '}
-              depending on the model, trained on 3 years of S&amp;P 500 weekly data.
+              <strong className="text-[var(--color-ink)]">roughly 150 weeks</strong> depending on
+              the model, trained on 3 years of S&amp;P 500 weekly data.
             </p>
           </div>
 

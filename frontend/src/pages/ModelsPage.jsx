@@ -17,7 +17,8 @@ const MODELS = [
     category: 'Deep Learning',
     modelName: 'LSTM',
     modelFullName: 'Long Short-Term Memory',
-    modelDescription: 'A recurrent neural network with a dedicated memory cell that learns what to remember and what to forget across long sequences of weekly price data. Uses input, forget, and output gates to capture multi-month market trends while filtering short-term noise.',
+    modelDescription:
+      'A recurrent neural network with a dedicated memory cell that learns what to remember and what to forget across long sequences of weekly price data. Uses input, forget, and output gates to capture multi-month market trends while filtering short-term noise.',
     modelStrengths: 'Captures long-range temporal dependencies in price history',
     modelWeaknesses: 'Slow to train and sensitive to hyperparameter choices',
     modelBestFor: 'Trend-following predictions where historical context spanning months matters',
@@ -356,7 +357,10 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
         className="fixed bottom-0 left-0 right-0 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 py-4 md:px-10 md:py-5 border-t"
         style={{ background: 'var(--color-card-bg)', borderColor: 'var(--color-border)' }}
       >
-        <p className="text-[0.82rem] md:text-[0.88rem] font-light" style={{ color: 'var(--color-muted)' }}>
+        <p
+          className="text-[0.82rem] md:text-[0.88rem] font-light"
+          style={{ color: 'var(--color-muted)' }}
+        >
           Want to compare all models at once?{' '}
           <strong style={{ color: 'var(--color-ink)', fontWeight: 500 }}>
             See accuracy metrics and more.

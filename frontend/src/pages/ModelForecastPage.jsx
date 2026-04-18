@@ -13,10 +13,11 @@ const CURRENCY = {
 
 const MODEL_META = {
   lstm: {
-    fullName: 'Long Short-Term Memory', 
-    category: 'Deep Learning', 
+    fullName: 'Long Short-Term Memory',
+    category: 'Deep Learning',
     complexity: 4,
-    description: 'A recurrent neural network with a dedicated memory cell that can retain information across hundreds of time steps. Three gates (input, forget, and output) control what information enters, persists, or leaves the cell at each step. This makes LSTM well suited to weekly S&P 500 prediction where market regimes can persist for months and short-term noise must be filtered from longer-range trend signals.',
+    description:
+      'A recurrent neural network with a dedicated memory cell that can retain information across hundreds of time steps. Three gates (input, forget, and output) control what information enters, persists, or leaves the cell at each step. This makes LSTM well suited to weekly S&P 500 prediction where market regimes can persist for months and short-term noise must be filtered from longer-range trend signals.',
   },
   ann: {
     fullName: 'Artificial Neural Network',

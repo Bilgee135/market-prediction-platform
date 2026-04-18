@@ -49,23 +49,35 @@ export default function FAQPage() {
       <div className="relative w-full py-6 border-b border-[var(--color-border)] flex flex-col justify-start items-start gap-4 bg-[var(--color-off-white)] md:sticky md:top-[104px] md:h-[calc(100vh-104px)] md:py-10 md:pr-12 md:border-b-0 md:border-r md:justify-between md:gap-0 md:overflow-y-auto">
         <div className="w-full pt-4 md:pt-6">
           {/* Eyebrow */}
-          <p className="text-[0.72rem] font-medium tracking-[0.12em] uppercase mb-0 leading-none" style={{ color: 'var(--color-muted)' }}>
+          <p
+            className="text-[0.72rem] font-medium tracking-[0.12em] uppercase mb-0 leading-none"
+            style={{ color: 'var(--color-muted)' }}
+          >
             help &amp; answers
           </p>
 
           {/* Title */}
-          <h1 className="font-serif text-[2.5rem] leading-none mt-0 mb-5" style={{ color: 'var(--color-ink)' }}>
+          <h1
+            className="font-serif text-[2.5rem] leading-none mt-0 mb-5"
+            style={{ color: 'var(--color-ink)' }}
+          >
             FAQ
           </h1>
 
           {/* Description */}
-          <p className="text-[0.85rem] leading-relaxed font-light mb-5 max-w-[280px]" style={{ color: 'var(--color-muted)' }}>
+          <p
+            className="text-[0.85rem] leading-relaxed font-light mb-5 max-w-[280px]"
+            style={{ color: 'var(--color-muted)' }}
+          >
             Common questions about the predictions, models, data, and how to use the platform.
           </p>
 
           {/* Category filters */}
           <div className="flex flex-col gap-1.5 w-full md:mb-12">
-            <div className="text-[0.68rem] font-medium tracking-[0.1em] uppercase mb-3" style={{ color: 'var(--color-muted)' }}>
+            <div
+              className="text-[0.68rem] font-medium tracking-[0.1em] uppercase mb-3"
+              style={{ color: 'var(--color-muted)' }}
+            >
               FILTER BY TOPIC
             </div>
 
@@ -78,11 +90,13 @@ export default function FAQPage() {
               onClick={() => setActiveCat('all')}
             >
               All questions
-              <span className={`ml-auto text-[0.7rem] px-1.5 py-0.5 rounded-full ${
-                activeCat === 'all'
-                  ? 'bg-white/15 opacity-50'
-                  : 'bg-[var(--color-border)] text-[var(--color-muted)]'
-              }`}>
+              <span
+                className={`ml-auto text-[0.7rem] px-1.5 py-0.5 rounded-full ${
+                  activeCat === 'all'
+                    ? 'bg-white/15 opacity-50'
+                    : 'bg-[var(--color-border)] text-[var(--color-muted)]'
+                }`}
+              >
                 {totalQuestions}
               </span>
             </button>
@@ -98,11 +112,13 @@ export default function FAQPage() {
                 onClick={() => setActiveCat(group.cat)}
               >
                 {group.label}
-                <span className={`ml-auto text-[0.7rem] px-1.5 py-0.5 rounded-full ${
-                  activeCat === group.cat
-                    ? 'bg-white/15 opacity-50'
-                    : 'bg-[var(--color-border)] text-[var(--color-muted)]'
-                }`}>
+                <span
+                  className={`ml-auto text-[0.7rem] px-1.5 py-0.5 rounded-full ${
+                    activeCat === group.cat
+                      ? 'bg-white/15 opacity-50'
+                      : 'bg-[var(--color-border)] text-[var(--color-muted)]'
+                  }`}
+                >
                   {group.items.length}
                 </span>
               </button>
@@ -111,9 +127,19 @@ export default function FAQPage() {
         </div>
 
         {/* Bottom link */}
-        <div className="text-[0.78rem] font-light leading-relaxed mt-4" style={{ color: 'var(--color-muted)' }}>
+        <div
+          className="text-[0.78rem] font-light leading-relaxed mt-4"
+          style={{ color: 'var(--color-muted)' }}
+        >
           Still have questions? View the
-          <Link to="/about" className="underline underline-offset-[3px]" style={{ color: 'var(--color-ink)' }}> About page </Link>
+          <Link
+            to="/about"
+            className="underline underline-offset-[3px]"
+            style={{ color: 'var(--color-ink)' }}
+          >
+            {' '}
+            About page{' '}
+          </Link>
           for project background and team information.
         </div>
       </div>
@@ -123,7 +149,10 @@ export default function FAQPage() {
         {visibleGroups.map((group) => (
           <div key={group.cat} className="mb-10">
             {/* Group label */}
-            <div className="text-[0.68rem] font-medium tracking-[0.12em] uppercase mb-3 pb-2.5 border-b border-[var(--color-border)]" style={{ color: 'var(--color-muted)' }}>
+            <div
+              className="text-[0.68rem] font-medium tracking-[0.12em] uppercase mb-3 pb-2.5 border-b border-[var(--color-border)]"
+              style={{ color: 'var(--color-muted)' }}
+            >
               {group.label}
             </div>
 
@@ -131,7 +160,10 @@ export default function FAQPage() {
               const itemID = `${group.cat}-${index}`;
               const isOpen = openItem === itemID;
               return (
-                <div key={itemID} className={`border-b border-[var(--color-border)] overflow-hidden last:border-b-0`}>
+                <div
+                  key={itemID}
+                  className={`border-b border-[var(--color-border)] overflow-hidden last:border-b-0`}
+                >
                   <button
                     className="w-full bg-transparent border-none text-[0.92rem] font-normal text-left cursor-pointer py-4 flex items-center justify-between gap-4 transition-colors duration-200 hover:text-[var(--color-muted)]"
                     style={{ color: 'var(--color-ink)' }}

@@ -12,14 +12,42 @@ import { getHistorical } from '../services/api';
 
 const ML_MODELS = [
   { name: 'LSTM', type: 'Deep Learning', note: 'learns long-term patterns in price sequences' },
-  { name: 'ANN', type: 'Deep Learning', note: 'feedforward network trained on OHLCV and technical indicators' },
-  { name: 'CNN-LSTM', type: 'Deep Learning', note: 'hybrid convolutional and recurrent architecture' },
-  { name: 'CNN-LSTM Deterministic', type: 'Deep Learning', note: 'reproducible variant of CNN-LSTM with dropout disabled' },
+  {
+    name: 'ANN',
+    type: 'Deep Learning',
+    note: 'feedforward network trained on OHLCV and technical indicators',
+  },
+  {
+    name: 'CNN-LSTM',
+    type: 'Deep Learning',
+    note: 'hybrid convolutional and recurrent architecture',
+  },
+  {
+    name: 'CNN-LSTM Deterministic',
+    type: 'Deep Learning',
+    note: 'reproducible variant of CNN-LSTM with dropout disabled',
+  },
   { name: 'DTR', type: 'Tree-Based', note: 'interpretable decision tree over engineered features' },
-  { name: 'GRU', type: 'Deep Learning', note: 'streamlined recurrent network with update and reset gates' },
-  { name: 'GRU (All Value Predictors)', type: 'Deep Learning', note: 'outputs all four OHLC values simultaneously' },
-  { name: 'KNN', type: 'Instance-Based', note: 'finds the most similar historical weeks at inference time' },
-  { name: 'KNN with Pattern Matching', type: 'Instance-Based', note: 'matches multi-week candlestick sequences for directional accuracy' },
+  {
+    name: 'GRU',
+    type: 'Deep Learning',
+    note: 'streamlined recurrent network with update and reset gates',
+  },
+  {
+    name: 'GRU (All Value Predictors)',
+    type: 'Deep Learning',
+    note: 'outputs all four OHLC values simultaneously',
+  },
+  {
+    name: 'KNN',
+    type: 'Instance-Based',
+    note: 'finds the most similar historical weeks at inference time',
+  },
+  {
+    name: 'KNN with Pattern Matching',
+    type: 'Instance-Based',
+    note: 'matches multi-week candlestick sequences for directional accuracy',
+  },
 ];
 
 export default function HomePage() {
@@ -53,7 +81,10 @@ export default function HomePage() {
   return (
     <div className="mx-auto px-4 py-10 md:px-6 md:py-16 max-w-[900px]">
       {/* ── Hero ── */}
-      <div className="mb-8 pb-8 md:mb-12 md:pb-10 border-b" style={{ borderColor: 'var(--color-border)' }}>
+      <div
+        className="mb-8 pb-8 md:mb-12 md:pb-10 border-b"
+        style={{ borderColor: 'var(--color-border)' }}
+      >
         <p
           className="text-[0.72rem] font-medium tracking-[0.14em] uppercase mb-5"
           style={{ color: 'var(--color-muted)' }}
@@ -194,7 +225,10 @@ export default function HomePage() {
         </div>
 
         {/* Card footer */}
-        <div className="px-4 py-2 md:px-5 md:py-2.5 border-t" style={{ borderColor: 'var(--color-border)' }}>
+        <div
+          className="px-4 py-2 md:px-5 md:py-2.5 border-t"
+          style={{ borderColor: 'var(--color-border)' }}
+        >
           <p className="text-[0.7rem] font-light" style={{ color: 'var(--color-muted)' }}>
             {candles.length > 0
               ? `Showing ${candles.length} weeks of live S&P 500 data via Yahoo Finance.`
@@ -277,7 +311,10 @@ export default function HomePage() {
       </div>
 
       {/* ── Stat strip ── */}
-      <div className="grid grid-cols-2 gap-6 sm:flex sm:gap-12 pt-6 md:pt-8 border-t" style={{ borderColor: 'var(--color-border)' }}>
+      <div
+        className="grid grid-cols-2 gap-6 sm:flex sm:gap-12 pt-6 md:pt-8 border-t"
+        style={{ borderColor: 'var(--color-border)' }}
+      >
         {[
           { val: '9', label: 'ML Models' },
           { val: '3yr', label: 'of S&P Data' },

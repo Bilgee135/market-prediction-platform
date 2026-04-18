@@ -7,10 +7,10 @@ import 'chartjs-adapter-date-fns';
 
 Chart.register(...registerables);
 
-const TIMEFRAME_WEEKS_WEEKLY = { '1M': 4,   '3M': 13,  '6M': 26,  '1Y': 52,  ALL: null }
-const TIMEFRAME_WEEKS_DAILY  = { '1M': 21,  '3M': 63,  '6M': 126, '1Y': 252, ALL: null }
+const TIMEFRAME_WEEKS_WEEKLY = { '1M': 4, '3M': 13, '6M': 26, '1Y': 52, ALL: null };
+const TIMEFRAME_WEEKS_DAILY = { '1M': 21, '3M': 63, '6M': 126, '1Y': 252, ALL: null };
 
-const WEEKLY_MODELS = ['lstm']
+const WEEKLY_MODELS = ['lstm'];
 
 const CURRENCY = {
   USD: { rate: 1, symbol: '$' },
@@ -39,8 +39,10 @@ export default function PredictionLineChart({
     const rate = CURRENCY[currency].rate;
     const symbol = CURRENCY[currency].symbol;
 
-    const tfMap   = WEEKLY_MODELS.includes(modelName) ? TIMEFRAME_WEEKS_WEEKLY : TIMEFRAME_WEEKS_DAILY
-    const weeks   = tfMap[timeframe]
+    const tfMap = WEEKLY_MODELS.includes(modelName)
+      ? TIMEFRAME_WEEKS_WEEKLY
+      : TIMEFRAME_WEEKS_DAILY;
+    const weeks = tfMap[timeframe];
     const filtered = weeks ? predictions.slice(-weeks) : predictions;
 
     // Index historical data by year+week so daily predictions can match weekly candles
