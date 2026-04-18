@@ -4,3 +4,4 @@ numpy
 sqlalchemy
 pymysql
 python-dotenv
+curl_cffi
