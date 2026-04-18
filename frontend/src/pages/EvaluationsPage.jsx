@@ -64,7 +64,7 @@ export default function EvaluationsPage() {
               className="text-[0.88rem] font-light leading-relaxed max-w-lg"
               style={{ color: 'var(--color-muted)' }}
             >
-              Compare accuracy metrics and directional performance across all six models. Lower MAE
+              Compare accuracy metrics and directional performance across all nine models. Lower MAE
               and RMSE is better. Higher directional accuracy means the model correctly called up or
               down more often.
             </p>
@@ -87,7 +87,7 @@ export default function EvaluationsPage() {
               e.currentTarget.style.color = 'var(--color-muted)';
             }}
           >
-            ← Back to models
+            Back to models
           </Link>
         </div>
 
@@ -162,7 +162,7 @@ export default function EvaluationsPage() {
               e.currentTarget.style.boxShadow = 'none';
             }}
           >
-            Browse models →
+            Browse models
           </Link>
         </div>
       </div>

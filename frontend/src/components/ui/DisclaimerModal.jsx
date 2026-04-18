@@ -85,7 +85,7 @@ export default function DisclaimerModal({ onAgree }) {
             onClick={handleAgree}
             className="w-full bg-[var(--color-ink)] text-[var(--color-off-white)] py-4 rounded-xl text-base font-medium hover:opacity-75 transition-opacity"
           >
-            I understand and agree &rarr;
+            I understand and agree
           </button>
         </div>
       </div>

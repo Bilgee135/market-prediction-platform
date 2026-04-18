@@ -1,21 +1,23 @@
 """
-This script fetches historical weekly OHLCV 
-data for the S&P 500 index using the yfinance library. 
-It retrieves the data for a specified number of weeks 
-and prints it in JSON format to stdout. Each candle
-in the output includes the date, open price, high price, 
-low price, close price, and volume for that week.
+This script fetches historical weekly S&P 500 data from Yahoo Finance using the yfinance library
 """
-import sys
+
+from datetime import datetime
 import json
 import yfinance as yf
 
+# Made to fetch from a specific date instead of relying on weeks
+def fetch_weekly_candles():
+    """
+    Fetches historical weekly S&P 500 data from Yahoo Finance using the yfinance library.
+    The data includes open, high, low, close, and volume for each week.
+    The results are printed as a JSON array of candle objects.
+    """
 
-def fetch_weekly_candles(weeks=26):
-    """Fetches historical weekly OHLCV candles for the S&P 500 and prints JSON to stdout."""
     ticker = yf.Ticker("^GSPC")
-    df = ticker.history(period=f"{weeks * 2}d", interval="1wk")
-    df = df.tail(weeks)
+    df = ticker.history(start="2022-01-01", 
+                        end=datetime.today().strftime("%Y-%m-%d"), 
+                        interval="1wk")
 
     candles = []
     for date, row in df.iterrows():
@@ -30,8 +32,5 @@ def fetch_weekly_candles(weeks=26):
 
     print(json.dumps(candles))
 
-
 if __name__ == "__main__":
-    n = int(sys.argv[1]) if len(sys.argv) > 1 else 26
-    fetch_weekly_candles(n)
-    
+    fetch_weekly_candles()

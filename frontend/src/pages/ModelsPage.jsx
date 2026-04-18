@@ -8,7 +8,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import DisclaimerModal from '../components/ui/DisclaimerModal';
+import Sparkline from '../components/charts/Sparkline';
 
+//So here are the models and we have listed the models with the name, category, description, strengths, weaknesses, what the model is best for, the complexity of the model and also a sparkline sorry sparkline is quite bad
 const MODELS = [
   {
     modelId: 'lstm',
@@ -16,59 +18,13 @@ const MODELS = [
     modelName: 'LSTM',
     modelFullName: 'Long Short-Term Memory',
     modelDescription:
-      'A recurrent neural network designed to learn long-term dependencies in sequential data. Uses gating mechanisms to decide what to remember and what to forget across many time steps.',
-    modelStrengths: 'Captures long-range temporal patterns in price history',
+      'A recurrent neural network with a dedicated memory cell that learns what to remember and what to forget across long sequences of weekly price data. Uses input, forget, and output gates to capture multi-month market trends while filtering short-term noise.',
+    modelStrengths: 'Captures long-range temporal dependencies in price history',
     modelWeaknesses: 'Slow to train and sensitive to hyperparameter choices',
-    modelBestFor: 'Trend-following predictions over longer horizons',
+    modelBestFor: 'Trend-following predictions where historical context spanning months matters',
     modelComplexity: 4,
-  },
-  {
-    modelId: 'random-forest',
-    category: 'Ensemble',
-    modelName: 'Random Forest',
-    modelFullName: 'Ensemble Decision Trees',
-    modelDescription:
-      'Builds hundreds of decision trees on random subsets of training data, then averages their outputs. Reduces overfitting and handles noisy financial data well.',
-    modelStrengths: 'Robust against outliers with built-in feature importance',
-    modelWeaknesses: 'Cannot extrapolate beyond the training range',
-    modelBestFor: 'Stable medium-term predictions with interpretable outputs',
-    modelComplexity: 2,
-  },
-  {
-    modelId: 'xgboost',
-    category: 'Ensemble',
-    modelName: 'XGBoost',
-    modelFullName: 'Extreme Gradient Boosting',
-    modelDescription:
-      'Builds trees sequentially, each correcting the errors of the previous one. Known for high accuracy on tabular data with relatively fast training.',
-    modelStrengths: 'High accuracy, handles missing values natively',
-    modelWeaknesses: 'More hyperparameters to tune than simpler models',
-    modelBestFor: 'Short-term precision where feature engineering is strong',
-    modelComplexity: 3,
-  },
-  {
-    modelId: 'linear-regression',
-    category: 'Linear',
-    modelName: 'Linear Regression',
-    modelFullName: 'Linear Regression (Baseline)',
-    modelDescription:
-      'Fits a straight line through historical price data to predict future values. Serves as the performance baseline that all other models must beat.',
-    modelStrengths: 'Fully interpretable and very fast to train',
-    modelWeaknesses: 'Cannot capture non-linear relationships in market data',
-    modelBestFor: 'Establishing a baseline and understanding feature correlations',
-    modelComplexity: 1,
-  },
-  {
-    modelId: 'svr',
-    category: 'Kernel Method',
-    modelName: 'SVR',
-    modelFullName: 'Support Vector Regression',
-    modelDescription:
-      'Uses a kernel function to map data into a higher-dimensional space where non-linear relationships become linear. Effective when the dataset is clean and well-scaled.',
-    modelStrengths: 'Strong generalisation on smaller datasets',
-    modelWeaknesses: 'Sensitive to feature scaling and slow on large datasets',
-    modelBestFor: 'Situations where data is limited but clean',
-    modelComplexity: 3,
+    sparklineColour: '#7c3aed',
+    sparklineData: [100, 106, 103, 111, 108, 116, 113, 121, 118, 126, 123, 131],
   },
   {
     modelId: 'ann',
@@ -81,6 +37,106 @@ const MODELS = [
     modelWeaknesses: 'Requires more data and careful regularisation to avoid overfitting',
     modelBestFor: 'Complex feature interactions across many technical indicators',
     modelComplexity: 3,
+    sparklineColour: '#2563eb',
+    sparklineData: [100, 104, 108, 112, 116, 118, 116, 120, 118, 122, 120, 126],
+  },
+  {
+    modelId: 'cnn-lstm',
+    category: 'Deep Learning',
+    modelName: 'CNN-LSTM',
+    modelFullName: 'Convolutional Neural Network + LSTM',
+    modelDescription:
+      'Combines a CNN to extract local patterns from price sequences with an LSTM to capture long-range temporal dependencies. A hybrid approach for time-series forecasting.',
+    modelStrengths: 'Captures both short-term patterns and long-term trends simultaneously',
+    modelWeaknesses: 'More complex to train and tune than either architecture alone',
+    modelBestFor: 'Weekly predictions where both recent and historical patterns matter',
+    modelComplexity: 4,
+    sparklineColour: '#7c3aed',
+    sparklineData: [100, 105, 102, 110, 108, 115, 112, 120, 117, 125, 122, 130],
+  },
+  {
+    modelId: 'cnn-lstm-det',
+    category: 'Deep Learning',
+    modelName: 'CNN-LSTM (Det.)',
+    modelFullName: 'CNN-LSTM Deterministic',
+    modelDescription:
+      'A deterministic variant of the CNN-LSTM model that produces consistent outputs on repeated runs by removing stochastic elements during inference.',
+    modelStrengths: 'Reproducible predictions - same input always gives same output',
+    modelWeaknesses: 'May underestimate uncertainty in volatile market conditions',
+    modelBestFor: 'Scenarios where consistency across runs is required',
+    modelComplexity: 4,
+    sparklineColour: '#6d28d9',
+    sparklineData: [100, 104, 101, 108, 106, 112, 110, 117, 114, 121, 118, 125],
+  },
+  {
+    modelId: 'dtr',
+    category: 'Tree-Based',
+    modelName: 'DTR',
+    modelFullName: 'Decision Tree Regression',
+    modelDescription:
+      'Recursively splits the feature space into regions and predicts the mean value within each region. Fast and interpretable, with no assumptions about data distribution.',
+    modelStrengths: 'Highly interpretable - you can trace exactly why a prediction was made',
+    modelWeaknesses: 'Prone to overfitting and cannot extrapolate beyond training data range',
+    modelBestFor: 'Baseline comparisons and understanding which features drive predictions',
+    modelComplexity: 2,
+    sparklineColour: '#c2410c',
+    sparklineData: [100, 98, 103, 101, 107, 104, 109, 106, 112, 109, 115, 112],
+  },
+  {
+    modelId: 'gru',
+    category: 'Deep Learning',
+    modelName: 'GRU',
+    modelFullName: 'Gated Recurrent Unit',
+    modelDescription:
+      'A streamlined recurrent network that uses update and reset gates to control information flow. Achieves similar performance to LSTM with fewer parameters.',
+    modelStrengths: 'Faster to train than LSTM while retaining sequential memory',
+    modelWeaknesses: 'May miss very long-range dependencies compared to full LSTM',
+    modelBestFor: 'Sequential price prediction where training speed matters',
+    modelComplexity: 3,
+    sparklineColour: '#0891b2',
+    sparklineData: [100, 106, 103, 112, 109, 118, 114, 123, 119, 128, 124, 133],
+  },
+  {
+    modelId: 'knn',
+    category: 'Instance-Based',
+    modelName: 'KNN',
+    modelFullName: 'K-Nearest Neighbours',
+    modelDescription:
+      'Predicts by finding the K most similar historical weeks and averaging their outcomes. No training phase - the entire dataset is the model.',
+    modelStrengths: 'Simple, no assumptions about data distribution, easy to interpret',
+    modelWeaknesses: 'Slow at inference time and degrades with high-dimensional features',
+    modelBestFor: 'Markets with recurring seasonal or cyclical patterns',
+    modelComplexity: 1,
+    sparklineColour: '#059669',
+    sparklineData: [100, 102, 99, 105, 103, 108, 106, 111, 108, 114, 111, 117],
+  },
+  {
+    modelId: 'knn-pm',
+    category: 'Instance-Based',
+    modelName: 'KNN-PM',
+    modelFullName: 'KNN with Pattern Matching',
+    modelDescription:
+      'Extends standard KNN by matching entire candlestick patterns rather than individual feature vectors, identifying historically similar market sequences.',
+    modelStrengths: 'Leverages recurring chart patterns that technical analysts already use',
+    modelWeaknesses: 'Pattern matches may be spurious in sufficiently different market regimes',
+    modelBestFor: 'Markets with identifiable recurring chart patterns',
+    modelComplexity: 2,
+    sparklineColour: '#16a34a',
+    sparklineData: [100, 103, 100, 107, 105, 111, 108, 114, 111, 118, 114, 120],
+  },
+  {
+    modelId: 'knn-pm-prices',
+    category: 'Instance-Based',
+    modelName: 'KNN-PM Prices',
+    modelFullName: 'KNN Pattern Matching (Price Prediction)',
+    modelDescription:
+      'A variant of KNN with pattern matching that predicts absolute price levels rather than relative changes, allowing direct comparison against actual close values.',
+    modelStrengths: 'Outputs directly comparable price values without post-processing',
+    modelWeaknesses: 'Absolute price prediction is harder than directional prediction',
+    modelBestFor: 'Direct price level forecasting with pattern-based similarity',
+    modelComplexity: 2,
+    sparklineColour: '#15803d',
+    sparklineData: [100, 102, 104, 103, 107, 106, 110, 108, 113, 111, 116, 114],
   },
 ];
 
@@ -92,12 +148,12 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
   const next = () => setActive((i) => (i === MODELS.length - 1 ? 0 : i + 1));
 
   return (
-    <div className="mx-auto px-8 py-14 pb-32" style={{ maxWidth: '900px' }}>
+    <div className="mx-auto px-4 py-10 pb-40 md:px-8 md:py-14 md:pb-32 max-w-[900px]">
       {!disclaimerConfirmed && <DisclaimerModal onAgree={() => setDisclaimerConfirmed(true)} />}
 
-      {/* ── Page header ── */}
+      {/* The Page header which appears at the top of the page */}
       <div
-        className="mb-10 pb-8 border-b flex items-end justify-between"
+        className="mb-8 pb-6 md:mb-10 md:pb-8 border-b flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
         style={{ borderColor: 'var(--color-border)' }}
       >
         <div>
@@ -105,7 +161,7 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
             className="text-[0.78rem] font-medium tracking-[0.12em] uppercase mb-3"
             style={{ color: 'var(--color-muted)' }}
           >
-            6 ML Models
+            9 ML Models
           </p>
           <h1
             className="font-serif tracking-tight"
@@ -115,7 +171,7 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
               color: 'var(--color-ink)',
             }}
           >
-            Browse &amp; select a model
+            Browse &amp; Select a Model
           </h1>
         </div>
         <Link
@@ -125,18 +181,19 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
           onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-ink)')}
           onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-muted)')}
         >
-          View all evaluations →
+          {/* user is able to view all the evaluations */}
+          View all evaluations
         </Link>
       </div>
 
-      {/* ── Model card ── */}
+      {/* The Model card */}
       <div
         className="border rounded-xl overflow-hidden mb-6"
         style={{ borderColor: 'var(--color-border)', background: 'var(--color-card-bg)' }}
       >
-        {/* Card header bar */}
+        {/* The Card header bar */}
         <div
-          className="flex items-center justify-between px-7 py-4 border-b"
+          className="flex items-center justify-between px-4 py-3 md:px-7 md:py-4 border-b"
           style={{ borderColor: 'var(--color-border)', background: 'var(--color-off-white)' }}
         >
           <span
@@ -154,8 +211,8 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
           </span>
         </div>
 
-        {/* Card body */}
-        <div className="px-7 py-8">
+        {/* The Card body */}
+        <div className="px-4 py-6 md:px-7 md:py-8">
           <h2
             className="font-serif tracking-tight mb-1"
             style={{ fontSize: '1.9rem', color: 'var(--color-ink)' }}
@@ -173,7 +230,17 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
             {model.modelDescription}
           </p>
 
-          {/* Strength / Weakness / Best for */}
+          {/* The sparkline chart */}
+          <div className="mb-8">
+            <Sparkline
+              data={model.sparklineData}
+              chartlineColour={model.sparklineColour}
+              width={300}
+              height={100}
+            />
+          </div>
+
+          {/* Strength, Weakness and Best for */}
           <div className="flex flex-col gap-3.5 mb-8">
             {[
               {
@@ -198,7 +265,7 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
             ))}
           </div>
 
-          {/* Complexity + Select */}
+          {/* Complexity and Select */}
           <div
             className="flex items-center justify-between pt-6 border-t"
             style={{ borderColor: 'var(--color-border)' }}
@@ -233,13 +300,13 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
                 textDecoration: 'none',
               }}
             >
-              Select →
+              Select
             </Link>
           </div>
         </div>
       </div>
 
-      {/* ── Navigation ── */}
+      {/* Navigation */}
       <div className="flex items-center justify-between mb-12">
         <button
           onClick={prev}
@@ -285,12 +352,15 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
         </button>
       </div>
 
-      {/* ── Fixed bottom bar ── */}
+      {/* Fixed bottom bar */}
       <div
-        className="fixed bottom-0 left-0 right-0 flex items-center justify-between px-10 py-5 border-t"
+        className="fixed bottom-0 left-0 right-0 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 py-4 md:px-10 md:py-5 border-t"
         style={{ background: 'var(--color-card-bg)', borderColor: 'var(--color-border)' }}
       >
-        <p className="text-[0.88rem] font-light" style={{ color: 'var(--color-muted)' }}>
+        <p
+          className="text-[0.82rem] md:text-[0.88rem] font-light"
+          style={{ color: 'var(--color-muted)' }}
+        >
           Want to compare all models at once?{' '}
           <strong style={{ color: 'var(--color-ink)', fontWeight: 500 }}>
             See accuracy metrics and more.
@@ -298,14 +368,15 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
         </p>
         <Link
           to="/evaluations"
-          className="px-6 py-3 rounded-lg text-[0.9rem] font-medium transition-opacity hover:opacity-75"
+          className="px-5 py-2.5 md:px-6 md:py-3 rounded-lg text-[0.85rem] md:text-[0.9rem] font-medium transition-opacity hover:opacity-75 text-center sm:flex-shrink-0"
           style={{
             background: 'var(--color-ink)',
             color: 'var(--color-off-white)',
             textDecoration: 'none',
           }}
         >
-          Go to Model Evaluations →
+          {/* if the user wants to do to model evaluations */}
+          Go to Model Evaluations
         </Link>
       </div>
     </div>

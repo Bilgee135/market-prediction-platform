@@ -13,14 +13,41 @@ import { getHistorical } from '../services/api';
 const ML_MODELS = [
   { name: 'LSTM', type: 'Deep Learning', note: 'learns long-term patterns in price sequences' },
   {
-    name: 'Random Forest',
-    type: 'Ensemble',
-    note: 'aggregates many decision trees to reduce noise',
+    name: 'ANN',
+    type: 'Deep Learning',
+    note: 'feedforward network trained on OHLCV and technical indicators',
   },
-  { name: 'XGBoost', type: 'Ensemble', note: 'gradient boosting, best overall accuracy' },
-  { name: 'SVR', type: 'Kernel', note: 'support vector regression on engineered features' },
-  { name: 'ANN', type: 'Deep Learning', note: 'feedforward neural network baseline' },
-  { name: 'Linear Regression', type: 'Linear', note: 'statistical baseline all other models beat' },
+  {
+    name: 'CNN-LSTM',
+    type: 'Deep Learning',
+    note: 'hybrid convolutional and recurrent architecture',
+  },
+  {
+    name: 'CNN-LSTM Deterministic',
+    type: 'Deep Learning',
+    note: 'reproducible variant of CNN-LSTM with dropout disabled',
+  },
+  { name: 'DTR', type: 'Tree-Based', note: 'interpretable decision tree over engineered features' },
+  {
+    name: 'GRU',
+    type: 'Deep Learning',
+    note: 'streamlined recurrent network with update and reset gates',
+  },
+  {
+    name: 'GRU (All Value Predictors)',
+    type: 'Deep Learning',
+    note: 'outputs all four OHLC values simultaneously',
+  },
+  {
+    name: 'KNN',
+    type: 'Instance-Based',
+    note: 'finds the most similar historical weeks at inference time',
+  },
+  {
+    name: 'KNN with Pattern Matching',
+    type: 'Instance-Based',
+    note: 'matches multi-week candlestick sequences for directional accuracy',
+  },
 ];
 
 export default function HomePage() {
@@ -46,15 +73,18 @@ export default function HomePage() {
   const prev = candles[candles.length - 2] ?? null;
   const latestClose = latest
     ? latest.close.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-    : '—';
+    : 'N/A';
   const weekChange =
     latest && prev ? (((latest.close - prev.close) / prev.close) * 100).toFixed(2) : null;
   const changeUp = weekChange !== null ? parseFloat(weekChange) >= 0 : null;
 
   return (
-    <div className="mx-auto px-6 py-16" style={{ maxWidth: '900px' }}>
+    <div className="mx-auto px-4 py-10 md:px-6 md:py-16 max-w-[900px]">
       {/* ── Hero ── */}
-      <div className="mb-12 pb-10 border-b" style={{ borderColor: 'var(--color-border)' }}>
+      <div
+        className="mb-8 pb-8 md:mb-12 md:pb-10 border-b"
+        style={{ borderColor: 'var(--color-border)' }}
+      >
         <p
           className="text-[0.72rem] font-medium tracking-[0.14em] uppercase mb-5"
           style={{ color: 'var(--color-muted)' }}
@@ -90,14 +120,14 @@ export default function HomePage() {
           className="text-[1rem] font-light leading-relaxed"
           style={{ color: 'var(--color-muted)', maxWidth: '600px' }}
         >
-          This platform applies six machine learning models to historical S&amp;P 500 data to
-          generate weekly price forecasts. It was built as an academic project and is not intended
-          as financial advice.
+          This platform applies nine machine learning models to three years of S&amp;P 500 weekly
+          data, generating predictions from late 2022 to December 2025. It was built as an academic
+          project and is not intended as financial advice.
         </p>
       </div>
 
       {/* ── CTAs ── */}
-      <div className="flex items-center gap-4 mb-12">
+      <div className="flex flex-wrap items-center gap-4 mb-8 md:mb-12">
         <button
           onClick={() => navigate('/models')}
           className="px-6 py-2.5 rounded-lg text-[0.88rem] font-medium cursor-pointer transition-opacity hover:opacity-75"
@@ -107,7 +137,7 @@ export default function HomePage() {
             border: 'none',
           }}
         >
-          Browse Models →
+          Browse Models
         </button>
         <button
           onClick={() => navigate('/evaluations')}
@@ -116,7 +146,7 @@ export default function HomePage() {
           onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-ink)')}
           onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-muted)')}
         >
-          View model evaluations ↗
+          View model evaluations
         </button>
       </div>
 
@@ -127,7 +157,7 @@ export default function HomePage() {
       >
         {/* Card header */}
         <div
-          className="flex items-start justify-between px-5 pt-4 pb-3 border-b"
+          className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between px-4 pt-3 pb-3 md:px-5 md:pt-4 border-b"
           style={{ borderColor: 'var(--color-border)' }}
         >
           <div>
@@ -160,7 +190,7 @@ export default function HomePage() {
         </div>
 
         {/* Chart area */}
-        <div className="px-5 pt-4 pb-2" style={{ height: '220px' }}>
+        <div className="px-3 pt-3 pb-2 md:px-5 md:pt-4 h-[180px] md:h-[220px]">
           {loading && (
             <div
               style={{
@@ -195,7 +225,10 @@ export default function HomePage() {
         </div>
 
         {/* Card footer */}
-        <div className="px-5 py-2.5 border-t" style={{ borderColor: 'var(--color-border)' }}>
+        <div
+          className="px-4 py-2 md:px-5 md:py-2.5 border-t"
+          style={{ borderColor: 'var(--color-border)' }}
+        >
           <p className="text-[0.7rem] font-light" style={{ color: 'var(--color-muted)' }}>
             {candles.length > 0
               ? `Showing ${candles.length} weeks of live S&P 500 data via Yahoo Finance.`
@@ -231,12 +264,12 @@ export default function HomePage() {
       </div>
 
       {/* ── ML models list ── */}
-      <div className="mb-14">
+      <div className="mb-10 md:mb-14">
         <p
           className="text-[0.72rem] font-medium tracking-[0.12em] uppercase mb-5"
           style={{ color: 'var(--color-muted)' }}
         >
-          Six models benchmarked
+          Nine models benchmarked
         </p>
 
         <div
@@ -246,7 +279,7 @@ export default function HomePage() {
           {ML_MODELS.map((m, i) => (
             <div
               key={m.name}
-              className="flex items-start justify-between px-5 py-4"
+              className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between px-4 py-3 md:px-5 md:py-4"
               style={{
                 borderBottom: i < ML_MODELS.length - 1 ? `1px solid var(--color-border)` : 'none',
               }}
@@ -263,7 +296,7 @@ export default function HomePage() {
                 </span>
               </div>
               <span
-                className="text-[0.68rem] font-medium px-2.5 py-1 rounded-full flex-shrink-0 ml-4 mt-0.5"
+                className="text-[0.68rem] font-medium px-2.5 py-1 rounded-full self-start sm:flex-shrink-0 sm:ml-4 sm:mt-0.5"
                 style={{
                   background: 'var(--color-off-white)',
                   color: 'var(--color-muted)',
@@ -278,11 +311,14 @@ export default function HomePage() {
       </div>
 
       {/* ── Stat strip ── */}
-      <div className="flex gap-12 pt-8 border-t" style={{ borderColor: 'var(--color-border)' }}>
+      <div
+        className="grid grid-cols-2 gap-6 sm:flex sm:gap-12 pt-6 md:pt-8 border-t"
+        style={{ borderColor: 'var(--color-border)' }}
+      >
         {[
-          { val: '6', label: 'ML Models' },
-          { val: '100yr', label: 'of S&P Data' },
-          { val: '52wk', label: 'Forecasted' },
+          { val: '9', label: 'ML Models' },
+          { val: '3yr', label: 'of S&P Data' },
+          { val: '~150wk', label: 'Forecasted' },
           { val: '7', label: 'Team Members' },
         ].map(({ val, label }) => (
           <div key={label} className="flex flex-col gap-1">
