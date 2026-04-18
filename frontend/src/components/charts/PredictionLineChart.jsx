@@ -8,14 +8,19 @@ const TIMEFRAME_WEEKS = { '1M': 4, '3M': 13, '6M': 26, '1Y': 52, ALL: null };
 
 // Hardcoded rates as of 17 April 2026
 const CURRENCY = {
-  USD: { rate: 1,      symbol: '$' },
+  USD: { rate: 1, symbol: '$' },
   GBP: { rate: 0.7399, symbol: '£' },
   EUR: { rate: 0.8482, symbol: '€' },
 };
 
-export default function PredictionLineChart({ predictions, historical, timeframe, currency = 'USD' }) {
+export default function PredictionLineChart({
+  predictions,
+  historical,
+  timeframe,
+  currency = 'USD',
+}) {
   const canvasRef = useRef(null);
-  const chartRef  = useRef(null);
+  const chartRef = useRef(null);
 
   useEffect(() => {
     if (!predictions || predictions.length === 0) return;
@@ -25,10 +30,10 @@ export default function PredictionLineChart({ predictions, historical, timeframe
       chartRef.current = null;
     }
 
-    const rate   = CURRENCY[currency].rate;
+    const rate = CURRENCY[currency].rate;
     const symbol = CURRENCY[currency].symbol;
 
-    const weeks    = TIMEFRAME_WEEKS[timeframe];
+    const weeks = TIMEFRAME_WEEKS[timeframe];
     const filtered = weeks ? predictions.slice(-weeks) : predictions;
 
     const actualMap = {};
@@ -46,7 +51,7 @@ export default function PredictionLineChart({ predictions, historical, timeframe
 
     const actualDataset = filtered
       .map((p) => {
-        const key    = new Date(p.prediction_date).toISOString().split('T')[0];
+        const key = new Date(p.prediction_date).toISOString().split('T')[0];
         const actual = actualMap[key];
         return actual !== undefined
           ? { x: new Date(p.prediction_date).getTime(), y: actual * rate }
@@ -72,18 +77,20 @@ export default function PredictionLineChart({ predictions, historical, timeframe
             fill: true,
           },
           ...(actualDataset.length > 0
-            ? [{
-                label: 'Actual Close',
-                data: actualDataset,
-                borderColor: '#2563eb',
-                backgroundColor: 'transparent',
-                borderWidth: 2,
-                pointRadius: 0,
-                pointHoverRadius: 4,
-                tension: 0.3,
-                fill: false,
-                borderDash: [5, 4],
-              }]
+            ? [
+                {
+                  label: 'Actual Close',
+                  data: actualDataset,
+                  borderColor: '#2563eb',
+                  backgroundColor: 'transparent',
+                  borderWidth: 2,
+                  pointRadius: 0,
+                  pointHoverRadius: 4,
+                  tension: 0.3,
+                  fill: false,
+                  borderDash: [5, 4],
+                },
+              ]
             : []),
         ],
       },
@@ -111,10 +118,11 @@ export default function PredictionLineChart({ predictions, historical, timeframe
             bodyColor: '#6B7280',
             padding: 10,
             titleFont: { size: 11, family: 'DM Sans, sans-serif', weight: '500' },
-            bodyFont:  { size: 11, family: 'DM Sans, sans-serif' },
+            bodyFont: { size: 11, family: 'DM Sans, sans-serif' },
             callbacks: {
               title: (items) => new Date(items[0].parsed.x).toLocaleDateString('en-GB'),
-              label: (item)  => `${item.dataset.label}: ${symbol}${item.parsed.y.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
+              label: (item) =>
+                `${item.dataset.label}: ${symbol}${item.parsed.y.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
             },
           },
         },
@@ -122,15 +130,15 @@ export default function PredictionLineChart({ predictions, historical, timeframe
           x: {
             type: 'time',
             time: { unit: timeframe === '1M' ? 'week' : 'month' },
-            grid:  { color: '#F3F4F6' },
+            grid: { color: '#F3F4F6' },
             ticks: { color: '#9CA3AF', font: { size: 11 }, maxTicksLimit: 8 },
           },
           y: {
             position: 'right',
-            grid:  { color: '#F3F4F6' },
+            grid: { color: '#F3F4F6' },
             ticks: {
               color: '#9CA3AF',
-              font:  { size: 11 },
+              font: { size: 11 },
               callback: (val) => `${symbol}${val.toLocaleString()}`,
             },
           },
