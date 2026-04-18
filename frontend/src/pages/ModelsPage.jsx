@@ -160,7 +160,7 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
             className="text-[0.78rem] font-medium tracking-[0.12em] uppercase mb-3"
             style={{ color: 'var(--color-muted)' }}
           >
-            8 ML Models
+            9 ML Models
           </p>
           <h1
             className="font-serif tracking-tight"

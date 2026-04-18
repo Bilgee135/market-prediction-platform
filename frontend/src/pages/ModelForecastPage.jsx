@@ -16,21 +16,21 @@ const MODEL_META = {
     fullName: 'Long Short-Term Memory', 
     category: 'Deep Learning', 
     complexity: 4,
-    description: 'A recurrent neural network with a dedicated memory cell that can retain information across hundreds of time steps. Three gates — input, forget, and output — control what information enters, persists, or leaves the cell at each step. This makes LSTM well suited to weekly S&P 500 prediction where market regimes can persist for months and short-term noise must be filtered from longer-range trend signals.',
+    description: 'A recurrent neural network with a dedicated memory cell that can retain information across hundreds of time steps. Three gates (input, forget, and output) control what information enters, persists, or leaves the cell at each step. This makes LSTM well suited to weekly S&P 500 prediction where market regimes can persist for months and short-term noise must be filtered from longer-range trend signals.',
   },
   ann: {
     fullName: 'Artificial Neural Network',
     category: 'Deep Learning',
     complexity: 3,
     description:
-      'A feedforward network trained on historical S&P 500 features including OHLCV, RSI, MACD, and Bollinger Bands. Data flows forward through multiple hidden layers — each layer learns increasingly abstract patterns. Backpropagation then adjusts weights by working backwards through the network to minimise prediction error. Dropout regularisation is applied during training to prevent the model memorising training data rather than learning generalisable patterns.',
+      'A feedforward network trained on historical S&P 500 features including OHLCV, RSI, MACD, and Bollinger Bands. Data flows forward through multiple hidden layers, each learning increasingly abstract patterns. Backpropagation then adjusts weights by working backwards through the network to minimise prediction error. Dropout regularisation is applied during training to prevent the model memorising training data rather than learning generalisable patterns.',
   },
   'cnn-lstm': {
     fullName: 'CNN + LSTM',
     category: 'Deep Learning',
     complexity: 4,
     description:
-      'A hybrid architecture where convolutional layers first scan across the input sequence to extract local price patterns — similar to how image CNNs detect edges. These extracted features are then passed to an LSTM layer which maintains a rolling memory across time steps, deciding what to keep and what to forget via gating mechanisms. This two-stage design handles both short-range signal extraction and long-range trend memory within a single model.',
+      'A hybrid architecture where convolutional layers first scan across the input sequence to extract local price patterns, similar to how image CNNs detect edges. These extracted features are then passed to an LSTM layer which maintains a rolling memory across time steps, deciding what to keep and what to forget via gating mechanisms. This two-stage design handles both short-range signal extraction and long-range trend memory within a single model.',
   },
   'cnn-lstm-det': {
     fullName: 'CNN-LSTM Deterministic',
@@ -44,14 +44,14 @@ const MODEL_META = {
     category: 'Tree-Based',
     complexity: 2,
     description:
-      'Builds a binary tree of if-then rules by repeatedly splitting the feature space at thresholds that minimise prediction error. Trained on engineered features like moving averages and RSI. Each leaf node outputs the mean close price of training samples that fell into that region. Highly interpretable — you can trace the exact sequence of conditions that produced any prediction — but prone to overfitting and cannot predict values outside the training range.',
+      'Builds a binary tree of if-then rules by repeatedly splitting the feature space at thresholds that minimise prediction error. Trained on engineered features like moving averages and RSI. Each leaf node outputs the mean close price of training samples that fell into that region. Highly interpretable: you can trace the exact sequence of conditions that produced any prediction. Prone to overfitting and cannot predict values outside the training range.',
   },
   gru: {
     fullName: 'Gated Recurrent Unit',
     category: 'Deep Learning',
     complexity: 3,
     description:
-      'A recurrent architecture that processes weekly price sequences while maintaining a hidden state across time. Two gates — update and reset — control how much of the previous state is carried forward versus overwritten. GRU achieves similar performance to LSTM with fewer parameters and faster training, making it well suited for weekly prediction tasks where the relevant lookback window is moderate rather than spanning many years.',
+      'A recurrent architecture that processes weekly price sequences while maintaining a hidden state across time. Two gates, update and reset, control how much of the previous state is carried forward versus overwritten. GRU achieves similar performance to LSTM with fewer parameters and faster training, making it well suited for weekly prediction tasks where the relevant lookback window is moderate rather than spanning many years.',
   },
   'gru-all': {
     fullName: 'GRU (All Value Predictors)',
@@ -65,7 +65,7 @@ const MODEL_META = {
     category: 'Instance-Based',
     complexity: 1,
     description:
-      'A non-parametric model with no training phase. At prediction time, it searches the entire historical dataset for the K weeks most similar to the current feature vector — using Euclidean distance across technical indicators — and predicts the average of their following close prices. Simple and interpretable, but computationally expensive at inference and sensitive to the choice of K and feature scaling.',
+      'A non-parametric model with no training phase. At prediction time, it searches the entire historical dataset for the K weeks most similar to the current feature vector, using Euclidean distance across technical indicators, and predicts the average of their following close prices. Simple and interpretable, but computationally expensive at inference and sensitive to the choice of K and feature scaling.',
   },
   'knn-pm': {
     fullName: 'KNN with Pattern Matching',
@@ -352,13 +352,13 @@ export default function ModelForecastPage() {
                   label: 'From',
                   value: predictions[0]
                     ? new Date(predictions[0].prediction_date).toLocaleDateString('en-GB')
-                    : '—',
+                    : 'N/A',
                 },
                 {
                   label: 'To',
                   value: latest
                     ? new Date(latest.prediction_date).toLocaleDateString('en-GB')
-                    : '—',
+                    : 'N/A',
                 },
                 {
                   label: 'Complexity',

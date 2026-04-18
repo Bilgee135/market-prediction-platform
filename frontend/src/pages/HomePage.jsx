@@ -12,15 +12,14 @@ import { getHistorical } from '../services/api';
 
 const ML_MODELS = [
   { name: 'LSTM', type: 'Deep Learning', note: 'learns long-term patterns in price sequences' },
-  {
-    name: 'Random Forest',
-    type: 'Ensemble',
-    note: 'aggregates many decision trees to reduce noise',
-  },
-  { name: 'XGBoost', type: 'Ensemble', note: 'gradient boosting, best overall accuracy' },
-  { name: 'SVR', type: 'Kernel', note: 'support vector regression on engineered features' },
-  { name: 'ANN', type: 'Deep Learning', note: 'feedforward neural network baseline' },
-  { name: 'Linear Regression', type: 'Linear', note: 'statistical baseline all other models beat' },
+  { name: 'ANN', type: 'Deep Learning', note: 'feedforward network trained on OHLCV and technical indicators' },
+  { name: 'CNN-LSTM', type: 'Deep Learning', note: 'hybrid convolutional and recurrent architecture' },
+  { name: 'CNN-LSTM Deterministic', type: 'Deep Learning', note: 'reproducible variant of CNN-LSTM with dropout disabled' },
+  { name: 'DTR', type: 'Tree-Based', note: 'interpretable decision tree over engineered features' },
+  { name: 'GRU', type: 'Deep Learning', note: 'streamlined recurrent network with update and reset gates' },
+  { name: 'GRU (All Value Predictors)', type: 'Deep Learning', note: 'outputs all four OHLC values simultaneously' },
+  { name: 'KNN', type: 'Instance-Based', note: 'finds the most similar historical weeks at inference time' },
+  { name: 'KNN with Pattern Matching', type: 'Instance-Based', note: 'matches multi-week candlestick sequences for directional accuracy' },
 ];
 
 export default function HomePage() {
@@ -46,7 +45,7 @@ export default function HomePage() {
   const prev = candles[candles.length - 2] ?? null;
   const latestClose = latest
     ? latest.close.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-    : '—';
+    : 'N/A';
   const weekChange =
     latest && prev ? (((latest.close - prev.close) / prev.close) * 100).toFixed(2) : null;
   const changeUp = weekChange !== null ? parseFloat(weekChange) >= 0 : null;
@@ -90,9 +89,9 @@ export default function HomePage() {
           className="text-[1rem] font-light leading-relaxed"
           style={{ color: 'var(--color-muted)', maxWidth: '600px' }}
         >
-          This platform applies six machine learning models to historical S&amp;P 500 data to
-          generate weekly price forecasts. It was built as an academic project and is not intended
-          as financial advice.
+          This platform applies nine machine learning models to three years of S&amp;P 500 weekly
+          data, generating predictions from late 2022 to December 2025. It was built as an academic
+          project and is not intended as financial advice.
         </p>
       </div>
 
@@ -236,7 +235,7 @@ export default function HomePage() {
           className="text-[0.72rem] font-medium tracking-[0.12em] uppercase mb-5"
           style={{ color: 'var(--color-muted)' }}
         >
-          Six models benchmarked
+          Nine models benchmarked
         </p>
 
         <div
@@ -280,9 +279,9 @@ export default function HomePage() {
       {/* ── Stat strip ── */}
       <div className="grid grid-cols-2 gap-6 sm:flex sm:gap-12 pt-6 md:pt-8 border-t" style={{ borderColor: 'var(--color-border)' }}>
         {[
-          { val: '6', label: 'ML Models' },
-          { val: '100yr', label: 'of S&P Data' },
-          { val: '52wk', label: 'Forecasted' },
+          { val: '9', label: 'ML Models' },
+          { val: '3yr', label: 'of S&P Data' },
+          { val: '~150wk', label: 'Forecasted' },
           { val: '7', label: 'Team Members' },
         ].map(({ val, label }) => (
           <div key={label} className="flex flex-col gap-1">

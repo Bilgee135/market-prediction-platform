@@ -153,11 +153,11 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 md:grid-cols-1 md:gap-3 border-t border-[var(--color-border)] pt-4">
             <div>
-              <p className="text-xl font-bold text-[var(--color-ink)]">6</p>
+              <p className="text-xl font-bold text-[var(--color-ink)]">9</p>
               <p className="text-xs text-[var(--color-muted)]">ML Models</p>
             </div>
             <div>
-              <p className="text-xl font-bold text-[var(--color-ink)]">100yr</p>
+              <p className="text-xl font-bold text-[var(--color-ink)]">3yr</p>
               <p className="text-xs text-[var(--color-muted)]">of S&P Data</p>
             </div>
             <div>
@@ -192,9 +192,9 @@ export default function AboutPage() {
 
             {/* The {' '} I have added just adds a space so the bold text does not squish up against the word before it */}
             <p className="text-sm text-[var(--color-muted)] leading-relaxed">
-              Predictions cover a{' '}
-              <strong className="text-[var(--color-ink)]">52-week forward horizon</strong>,
-              generated from models trained on data spanning back to 1926.
+              Predictions span from late 2022 to December 2025, covering{' '}
+              <strong className="text-[var(--color-ink)]">roughly 150 weeks</strong>{' '}
+              depending on the model, trained on 3 years of S&amp;P 500 weekly data.
             </p>
           </div>
 
@@ -229,9 +229,9 @@ export default function AboutPage() {
               Where the data comes from
             </h2>
             <p className="text-sm text-[var(--color-muted)] leading-relaxed">
-              Historical S&P 500 data from{' '}
-              <strong className="text-[var(--color-ink)]">1926 to 2024</strong> is sourced from
-              Wharton Research Data Services (WRDS). Data from 2025 onwards uses the{' '}
+              Weekly S&amp;P 500 data from{' '}
+              <strong className="text-[var(--color-ink)]">2022 to 2025</strong> is sourced from
+              Wharton Research Data Services (WRDS) and the{' '}
               <strong className="text-[var(--color-ink)]">yfinance</strong> package via the Yahoo
               Finance API. Both sources are publicly accessible and permission has been confirmed
               for academic use.

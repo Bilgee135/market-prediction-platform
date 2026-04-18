@@ -9,7 +9,7 @@ export const groups = [
       },
       {
         q: 'How far ahead do the predictions go?',
-        a: 'Each model generates weekly predictions covering a <strong>52-week forward horizon</strong> from May 2026 to May 2027. These are static predictions generated at the time of training, not live rolling forecasts.',
+        a: 'Predictions span from late 2022 to December 2025, covering <strong>roughly 150 weeks</strong> depending on the model. These are static predictions generated at the time of training, not live rolling forecasts.',
       },
       {
         q: 'What does directional accuracy mean?',
@@ -17,7 +17,7 @@ export const groups = [
       },
       {
         q: 'Why do predictions differ between models?',
-        a: 'Each model learns differently. LSTM looks for long-range sequential patterns. XGBoost corrects errors incrementally. Random Forest averages across many decision trees. Because they use different mechanisms, they will disagree, especially during volatile periods. That disagreement is itself useful information.',
+        a: 'Each model learns differently. LSTM and GRU look for sequential patterns across time. KNN finds historically similar weeks. DTR splits the feature space into interpretable regions. Because they use different mechanisms, they will disagree, especially during volatile periods. That disagreement is itself useful information.',
       },
     ],
   },
@@ -27,11 +27,11 @@ export const groups = [
     items: [
       {
         q: 'Which model is the most accurate?',
-        a: 'Based on our evaluation, <strong>XGBoost</strong> achieved the best balance of directional accuracy (78%) and error rate (MAE: 33, RMSE: 51) on the test set. However, model rankings can shift depending on market conditions, so we recommend reviewing the full <a href="evaluations.html">evaluations page</a> before drawing conclusions.',
+        a: 'Model rankings vary depending on the metric and market conditions. We recommend reviewing the full <a href="evaluations.html">evaluations page</a> to compare directional accuracy, MAE, and RMSE across all nine models before drawing conclusions.',
       },
       {
-        q: 'Why is Linear Regression included if it performs worst?',
-        a: 'Linear Regression serves as a <strong>baseline</strong>. Every other model must beat it to justify its added complexity. If an advanced model cannot outperform a simple straight-line fit, it likely means the feature engineering needs improvement, not that the model itself is bad.',
+        q: 'How do you decide whether a model is performing well?',
+        a: 'The platform benchmarks all nine models against each other using directional accuracy, MAE, and RMSE on a held-out test set. A model is considered useful if it consistently outperforms the others across multiple metrics and market conditions, not just on a single measure.',
       },
       {
         q: 'What is the difference between LSTM and a standard neural network?',
@@ -39,7 +39,7 @@ export const groups = [
       },
       {
         q: 'Are the models retrained on new data?',
-        a: 'For the purpose of this academic project, models were trained on a fixed dataset up to January 2026 and are <strong>not retrained automatically</strong>. In a production version of this system, scheduled retraining would be triggered weekly to incorporate the latest market data.',
+        a: 'For the purpose of this academic project, models were trained on a fixed dataset covering <strong>2022 to 2025</strong> and are <strong>not retrained automatically</strong>. In a production version of this system, scheduled retraining would be triggered weekly to incorporate the latest market data.',
       },
     ],
   },
@@ -49,7 +49,7 @@ export const groups = [
     items: [
       {
         q: 'Where does the historical data come from?',
-        a: 'Historical S&P 500 data from <strong>1926 to 2024</strong> is sourced from Wharton Research Data Services (WRDS). More recent data (2025 onwards) is fetched via the <strong>yfinance</strong> Python library using the Yahoo Finance API. Both sources have been confirmed for academic use.',
+        a: 'Weekly S&P 500 data from <strong>2022 to 2025</strong> is sourced from Wharton Research Data Services (WRDS) and the <strong>yfinance</strong> Python library using the Yahoo Finance API. Both sources have been confirmed for academic use.',
       },
       {
         q: 'What features do the models train on?',
@@ -79,7 +79,7 @@ export const groups = [
       },
       {
         q: 'Can I compare multiple models on the same chart?',
-        a: 'Not on the individual model pages because each page is dedicated to a single model\'s forecast. To compare models side by side, visit the <a href="evaluations.html">Model Evaluations</a> page, which shows accuracy metrics and performance charts for all six models together.',
+        a: 'Not on the individual model pages because each page is dedicated to a single model\'s forecast. To compare models side by side, visit the <a href="evaluations.html">Model Evaluations</a> page, which shows accuracy metrics and performance charts for all nine models together.',
       },
     ],
   },
