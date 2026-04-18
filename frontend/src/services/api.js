@@ -29,10 +29,10 @@
 
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
-export async function getHistorical(weeks = 26) {
+export async function getHistorical(weeks = 200) {
   const res = await fetch(`${BASE_URL}/api/historical?weeks=${weeks}`);
   if (!res.ok) throw new Error(`Historical fetch failed: ${res.status}`);
-  return res.json(); // returns array of { date, open, high, low, close, volume }
+  return res.json();
 }
 
 export async function getTickers() {

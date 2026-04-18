@@ -1,6 +1,10 @@
+'''
+This script loads the CSV files of model predictions into the MySQL database.
+'''
+
+import os
 import pandas as pd
 from sqlalchemy import create_engine
-import os
 from dotenv import load_dotenv
 
 # Point dotenv at the backend .env file so we reuse the same credentials
@@ -22,6 +26,7 @@ CSV_DIR = os.path.join(os.path.dirname(__file__), '../database/')
 # Clean model names for the model_name column in the DB
 # Keys must match the filenames exactly (without .csv)
 MODEL_NAME_MAP = {
+    'LSTM': 'LSTM',
     'Modularised_ANN_2026-04-14_22-26-20':                                    'ANN',
     'Modularised_CNN_LSTM_DETERMINISTIC_VERSION_V2_2026-04-14_22-26-21':      'CNN-LSTM-DET',
     'Modularised_CNN-LSTM_2026-04-14_22-26-21':                               'CNN-LSTM',
@@ -69,7 +74,11 @@ def load_csv(filename, model_name):
 
     # Map CSV column names to schema column names
     # Only 'close' maps to 'predicted_close' - that's all the schema stores right now
-    df = df.rename(columns={'close': 'predicted_close'})
+    # Handle both column naming conventions across different ML team outputs
+    if 'Predicted_Close' in df.columns:
+        df = df.rename(columns={'Predicted_Close': 'predicted_close'})
+    elif 'close' in df.columns:
+        df = df.rename(columns={'close': 'predicted_close'})
 
     # Select only the columns your schema has
     # actual_close, rmse, mae, directional_accuracy will be NULL (not in CSV)
@@ -85,7 +94,6 @@ def load_csv(filename, model_name):
     df.to_sql('predictions', con=engine, if_exists='append', index=False)
 
     print(f"  Loaded {len(df)} rows for {model_name}")
-
 
 if __name__ == "__main__":
     for filename, model_name in MODEL_NAME_MAP.items():

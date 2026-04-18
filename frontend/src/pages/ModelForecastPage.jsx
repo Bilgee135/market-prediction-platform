@@ -12,6 +12,12 @@ const CURRENCY = {
 };
 
 const MODEL_META = {
+  lstm: {
+    fullName: 'Long Short-Term Memory', 
+    category: 'Deep Learning', 
+    complexity: 4,
+    description: 'A recurrent neural network with a dedicated memory cell that can retain information across hundreds of time steps. Three gates — input, forget, and output — control what information enters, persists, or leaves the cell at each step. This makes LSTM well suited to weekly S&P 500 prediction where market regimes can persist for months and short-term noise must be filtered from longer-range trend signals.',
+  },
   ann: {
     fullName: 'Artificial Neural Network',
     category: 'Deep Learning',
@@ -101,7 +107,7 @@ export default function ModelForecastPage() {
     setLoading(true);
     setError(null);
 
-    Promise.all([getPredictions(modelName), getHistorical(52)])
+    Promise.all([getPredictions(modelName), getHistorical()])
       .then(([predData, histData]) => {
         setPredictions(predData);
         setCandles(histData);
@@ -260,6 +266,7 @@ export default function ModelForecastPage() {
                   historical={candles}
                   timeframe={timeframe}
                   currency={currency}
+                  modelName={modelName}
                 />
               ) : (
                 <CandlestickChart candles={candles} />

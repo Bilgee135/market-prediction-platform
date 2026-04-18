@@ -13,6 +13,19 @@ import Sparkline from '../components/charts/Sparkline';
 //So here are the models and we have listed the models with the name, category, description, strengths, weaknesses, what the model is best for, the complexity of the model and also a sparkline sorry sparkline is quite bad
 const MODELS = [
   {
+    modelId: 'lstm',
+    category: 'Deep Learning',
+    modelName: 'LSTM',
+    modelFullName: 'Long Short-Term Memory',
+    modelDescription: 'A recurrent neural network with a dedicated memory cell that learns what to remember and what to forget across long sequences of weekly price data. Uses input, forget, and output gates to capture multi-month market trends while filtering short-term noise.',
+    modelStrengths: 'Captures long-range temporal dependencies in price history',
+    modelWeaknesses: 'Slow to train and sensitive to hyperparameter choices',
+    modelBestFor: 'Trend-following predictions where historical context spanning months matters',
+    modelComplexity: 4,
+    sparklineColour: '#7c3aed',
+    sparklineData: [100, 106, 103, 111, 108, 116, 113, 121, 118, 126, 123, 131],
+  },
+  {
     modelId: 'ann',
     category: 'Deep Learning',
     modelName: 'ANN',

@@ -1,12 +1,17 @@
+/// This component renders a line chart comparing predicted vs actual closing prices over time.
+/// It uses Chart.js under the hood and is designed to be reusable across different models, timeframes, and currencies.
+
 import { useEffect, useRef } from 'react';
 import { Chart, registerables } from 'chart.js';
 import 'chartjs-adapter-date-fns';
 
 Chart.register(...registerables);
 
-const TIMEFRAME_WEEKS = { '1M': 4, '3M': 13, '6M': 26, '1Y': 52, ALL: null };
+const TIMEFRAME_WEEKS_WEEKLY = { '1M': 4,   '3M': 13,  '6M': 26,  '1Y': 52,  ALL: null }
+const TIMEFRAME_WEEKS_DAILY  = { '1M': 21,  '3M': 63,  '6M': 126, '1Y': 252, ALL: null }
 
-// Hardcoded rates as of 17 April 2026
+const WEEKLY_MODELS = ['lstm']
+
 const CURRENCY = {
   USD: { rate: 1, symbol: '$' },
   GBP: { rate: 0.7399, symbol: '£' },
@@ -18,6 +23,7 @@ export default function PredictionLineChart({
   historical,
   timeframe,
   currency = 'USD',
+  modelName = '',
 }) {
   const canvasRef = useRef(null);
   const chartRef = useRef(null);
@@ -33,16 +39,27 @@ export default function PredictionLineChart({
     const rate = CURRENCY[currency].rate;
     const symbol = CURRENCY[currency].symbol;
 
-    const weeks = TIMEFRAME_WEEKS[timeframe];
+    const tfMap   = WEEKLY_MODELS.includes(modelName) ? TIMEFRAME_WEEKS_WEEKLY : TIMEFRAME_WEEKS_DAILY
+    const weeks   = tfMap[timeframe]
     const filtered = weeks ? predictions.slice(-weeks) : predictions;
 
+    // Index historical data by year+week so daily predictions can match weekly candles
     const actualMap = {};
     if (historical) {
       historical.forEach((h) => {
-        const key = new Date(h.date).toISOString().split('T')[0];
-        actualMap[key] = h.close;
+        const d = new Date(h.date);
+        const startOfYear = new Date(d.getFullYear(), 0, 1);
+        const week = Math.ceil(((d - startOfYear) / 86400000 + startOfYear.getDay() + 1) / 7);
+        actualMap[`${d.getFullYear()}-W${week}`] = h.close;
       });
     }
+
+    const getWeekKey = (dateStr) => {
+      const d = new Date(dateStr);
+      const startOfYear = new Date(d.getFullYear(), 0, 1);
+      const week = Math.ceil(((d - startOfYear) / 86400000 + startOfYear.getDay() + 1) / 7);
+      return `${d.getFullYear()}-W${week}`;
+    };
 
     const predictedDataset = filtered.map((p) => ({
       x: new Date(p.prediction_date).getTime(),
@@ -51,8 +68,7 @@ export default function PredictionLineChart({
 
     const actualDataset = filtered
       .map((p) => {
-        const key = new Date(p.prediction_date).toISOString().split('T')[0];
-        const actual = actualMap[key];
+        const actual = actualMap[getWeekKey(p.prediction_date)];
         return actual !== undefined
           ? { x: new Date(p.prediction_date).getTime(), y: actual * rate }
           : null;
@@ -152,7 +168,7 @@ export default function PredictionLineChart({
         chartRef.current = null;
       }
     };
-  }, [predictions, historical, timeframe, currency]);
+  }, [predictions, historical, timeframe, currency, modelName]);
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
