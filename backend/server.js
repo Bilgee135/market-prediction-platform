@@ -9,9 +9,12 @@ const predictionsRouter = require('./routes/predictions')
 
 // CORS configuration to allow requests from the frontend development server
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: [
+        'http://localhost:5173',
+        'https://student.csc.liv.ac.uk'
+    ],
     methods: ['GET'],
-}));
+}))
 
 app.use(express.json())
 

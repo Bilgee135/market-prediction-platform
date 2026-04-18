@@ -1,1 +1,6 @@
 yfinance
+pandas
+numpy
+sqlalchemy
+pymysql
+python-dotenv
