@@ -143,7 +143,7 @@ export default function ModelForecastPage() {
     : null;
 
   return (
-    <div className="mx-auto px-8 py-12" style={{ maxWidth: '1100px' }}>
+    <div className="mx-auto px-4 py-8 md:px-8 md:py-12 max-w-[1100px]">
       <Link
         to="/models"
         className="text-[0.82rem] font-light mb-8 inline-block"
@@ -174,13 +174,13 @@ export default function ModelForecastPage() {
         </h1>
       </div>
 
-      <div className="flex gap-6 items-start">
+      <div className="flex flex-col md:flex-row gap-6 items-start">
         {/* LEFT: Chart */}
-        <div className="flex-1 min-w-0">
+        <div className="flex-1 min-w-0 w-full">
           {/* Controls bar */}
-          <div className="flex items-center justify-between mb-3">
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
             {/* Left group: timeframes + currency */}
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3">
               {/* Timeframe buttons */}
               <div className="flex gap-1">
                 {TIMEFRAMES.map((tf) => (
@@ -203,7 +203,7 @@ export default function ModelForecastPage() {
               </div>
 
               {/* Divider */}
-              <div style={{ width: '1px', height: '20px', background: 'var(--color-border)' }} />
+              <div className="hidden sm:block w-px h-5 bg-[var(--color-border)]" />
 
               {/* Currency buttons */}
               <div className="flex gap-1">
@@ -253,7 +253,7 @@ export default function ModelForecastPage() {
             className="border rounded-xl overflow-hidden"
             style={{ borderColor: 'var(--color-border)', background: 'var(--color-card-bg)' }}
           >
-            <div style={{ height: '480px', padding: '20px' }}>
+            <div className="h-[320px] p-3 md:h-[480px] md:p-5">
               {chartType === 'line' ? (
                 <PredictionLineChart
                   predictions={predictions}
@@ -270,7 +270,7 @@ export default function ModelForecastPage() {
           {/* Latest prediction card */}
           {latest && (
             <div
-              className="border rounded-xl px-6 py-5 mt-4 flex items-center justify-between"
+              className="border rounded-xl px-4 py-4 md:px-6 md:py-5 mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
               style={{ borderColor: 'var(--color-border)', background: 'var(--color-card-bg)' }}
             >
               <div>
@@ -293,7 +293,7 @@ export default function ModelForecastPage() {
                   {convertedClose}
                 </p>
               </div>
-              <div className="text-right">
+              <div className="sm:text-right">
                 <p
                   className="text-[0.68rem] font-medium tracking-[0.1em] uppercase mb-1"
                   style={{ color: 'var(--color-muted)' }}
@@ -309,9 +309,9 @@ export default function ModelForecastPage() {
         </div>
 
         {/* RIGHT: Info cards */}
-        <div className="flex flex-col gap-5" style={{ width: '300px', flexShrink: 0 }}>
+        <div className="flex flex-col gap-5 w-full md:w-[300px] md:flex-shrink-0">
           <div
-            className="border rounded-xl p-6"
+            className="border rounded-xl p-4 md:p-6"
             style={{ borderColor: 'var(--color-border)', background: 'var(--color-card-bg)' }}
           >
             <p
@@ -329,7 +329,7 @@ export default function ModelForecastPage() {
           </div>
 
           <div
-            className="border rounded-xl p-6"
+            className="border rounded-xl p-4 md:p-6"
             style={{ borderColor: 'var(--color-border)', background: 'var(--color-card-bg)' }}
           >
             <p

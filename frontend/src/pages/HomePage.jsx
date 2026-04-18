@@ -52,9 +52,9 @@ export default function HomePage() {
   const changeUp = weekChange !== null ? parseFloat(weekChange) >= 0 : null;
 
   return (
-    <div className="mx-auto px-6 py-16" style={{ maxWidth: '900px' }}>
+    <div className="mx-auto px-4 py-10 md:px-6 md:py-16 max-w-[900px]">
       {/* ── Hero ── */}
-      <div className="mb-12 pb-10 border-b" style={{ borderColor: 'var(--color-border)' }}>
+      <div className="mb-8 pb-8 md:mb-12 md:pb-10 border-b" style={{ borderColor: 'var(--color-border)' }}>
         <p
           className="text-[0.72rem] font-medium tracking-[0.14em] uppercase mb-5"
           style={{ color: 'var(--color-muted)' }}
@@ -97,7 +97,7 @@ export default function HomePage() {
       </div>
 
       {/* ── CTAs ── */}
-      <div className="flex items-center gap-4 mb-12">
+      <div className="flex flex-wrap items-center gap-4 mb-8 md:mb-12">
         <button
           onClick={() => navigate('/models')}
           className="px-6 py-2.5 rounded-lg text-[0.88rem] font-medium cursor-pointer transition-opacity hover:opacity-75"
@@ -127,7 +127,7 @@ export default function HomePage() {
       >
         {/* Card header */}
         <div
-          className="flex items-start justify-between px-5 pt-4 pb-3 border-b"
+          className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between px-4 pt-3 pb-3 md:px-5 md:pt-4 border-b"
           style={{ borderColor: 'var(--color-border)' }}
         >
           <div>
@@ -160,7 +160,7 @@ export default function HomePage() {
         </div>
 
         {/* Chart area */}
-        <div className="px-5 pt-4 pb-2" style={{ height: '220px' }}>
+        <div className="px-3 pt-3 pb-2 md:px-5 md:pt-4 h-[180px] md:h-[220px]">
           {loading && (
             <div
               style={{
@@ -195,7 +195,7 @@ export default function HomePage() {
         </div>
 
         {/* Card footer */}
-        <div className="px-5 py-2.5 border-t" style={{ borderColor: 'var(--color-border)' }}>
+        <div className="px-4 py-2 md:px-5 md:py-2.5 border-t" style={{ borderColor: 'var(--color-border)' }}>
           <p className="text-[0.7rem] font-light" style={{ color: 'var(--color-muted)' }}>
             {candles.length > 0
               ? `Showing ${candles.length} weeks of live S&P 500 data via Yahoo Finance.`
@@ -231,7 +231,7 @@ export default function HomePage() {
       </div>
 
       {/* ── ML models list ── */}
-      <div className="mb-14">
+      <div className="mb-10 md:mb-14">
         <p
           className="text-[0.72rem] font-medium tracking-[0.12em] uppercase mb-5"
           style={{ color: 'var(--color-muted)' }}
@@ -246,7 +246,7 @@ export default function HomePage() {
           {ML_MODELS.map((m, i) => (
             <div
               key={m.name}
-              className="flex items-start justify-between px-5 py-4"
+              className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between px-4 py-3 md:px-5 md:py-4"
               style={{
                 borderBottom: i < ML_MODELS.length - 1 ? `1px solid var(--color-border)` : 'none',
               }}
@@ -263,7 +263,7 @@ export default function HomePage() {
                 </span>
               </div>
               <span
-                className="text-[0.68rem] font-medium px-2.5 py-1 rounded-full flex-shrink-0 ml-4 mt-0.5"
+                className="text-[0.68rem] font-medium px-2.5 py-1 rounded-full self-start sm:flex-shrink-0 sm:ml-4 sm:mt-0.5"
                 style={{
                   background: 'var(--color-off-white)',
                   color: 'var(--color-muted)',
@@ -278,7 +278,7 @@ export default function HomePage() {
       </div>
 
       {/* ── Stat strip ── */}
-      <div className="flex gap-12 pt-8 border-t" style={{ borderColor: 'var(--color-border)' }}>
+      <div className="grid grid-cols-2 gap-6 sm:flex sm:gap-12 pt-6 md:pt-8 border-t" style={{ borderColor: 'var(--color-border)' }}>
         {[
           { val: '6', label: 'ML Models' },
           { val: '100yr', label: 'of S&P Data' },

@@ -28,7 +28,6 @@
  */
 
 import { groups } from '../data/FAQData.js';
-import '../css/FAQPage.css';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -44,62 +43,119 @@ export default function FAQPage() {
 
   const [openItem, setOpenItem] = useState(null);
 
-  console.log('Active Category:', activeCat);
-  console.log('Visible Groups:', visibleGroups);
   return (
-    <div className="page">
-      <div className="faq-left">
-        <div className="faq-left-top">
-          <p className="page-eyebrow">help & answers</p>
-          <h1 className="faq-left h1">FAQ</h1>
-          <p className="faq-left p">
+    <div className="flex flex-col px-4 md:grid md:grid-cols-[320px_1fr] md:px-0 md:pl-12 items-start">
+      {/* Left sidebar */}
+      <div className="relative w-full py-6 border-b border-[var(--color-border)] flex flex-col justify-start items-start gap-4 bg-[var(--color-off-white)] md:sticky md:top-[104px] md:h-[calc(100vh-104px)] md:py-10 md:pr-12 md:border-b-0 md:border-r md:justify-between md:gap-0 md:overflow-y-auto">
+        <div className="w-full pt-4 md:pt-6">
+          {/* Eyebrow */}
+          <p className="text-[0.72rem] font-medium tracking-[0.12em] uppercase mb-0 leading-none" style={{ color: 'var(--color-muted)' }}>
+            help &amp; answers
+          </p>
+
+          {/* Title */}
+          <h1 className="font-serif text-[2.5rem] leading-none mt-0 mb-5" style={{ color: 'var(--color-ink)' }}>
+            FAQ
+          </h1>
+
+          {/* Description */}
+          <p className="text-[0.85rem] leading-relaxed font-light mb-5 max-w-[280px]" style={{ color: 'var(--color-muted)' }}>
             Common questions about the predictions, models, data, and how to use the platform.
           </p>
-          <div className="cat-filters">
-            <div className="cat-label">FILTER BY TOPIC</div>
+
+          {/* Category filters */}
+          <div className="flex flex-col gap-1.5 w-full md:mb-12">
+            <div className="text-[0.68rem] font-medium tracking-[0.1em] uppercase mb-3" style={{ color: 'var(--color-muted)' }}>
+              FILTER BY TOPIC
+            </div>
+
             <button
-              className={activeCat === 'all' ? 'cat-btn active' : 'cat-btn'}
+              className={`bg-transparent border-none text-left text-[0.85rem] font-normal cursor-pointer py-2 px-3 rounded-md transition-colors duration-150 flex items-center gap-2 ${
+                activeCat === 'all'
+                  ? 'bg-[var(--color-ink)] text-[var(--color-off-white)]'
+                  : 'text-[var(--color-muted)] hover:bg-[var(--color-border)] hover:text-[var(--color-ink)]'
+              }`}
               onClick={() => setActiveCat('all')}
             >
               All questions
-              <span className="cat-count">{totalQuestions}</span>
+              <span className={`ml-auto text-[0.7rem] px-1.5 py-0.5 rounded-full ${
+                activeCat === 'all'
+                  ? 'bg-white/15 opacity-50'
+                  : 'bg-[var(--color-border)] text-[var(--color-muted)]'
+              }`}>
+                {totalQuestions}
+              </span>
             </button>
+
             {groups.map((group) => (
               <button
                 key={group.cat}
-                className={activeCat === group.cat ? 'cat-btn active' : 'cat-btn'}
+                className={`bg-transparent border-none text-left text-[0.85rem] font-normal cursor-pointer py-2 px-3 rounded-md transition-colors duration-150 flex items-center gap-2 ${
+                  activeCat === group.cat
+                    ? 'bg-[var(--color-ink)] text-[var(--color-off-white)]'
+                    : 'text-[var(--color-muted)] hover:bg-[var(--color-border)] hover:text-[var(--color-ink)]'
+                }`}
                 onClick={() => setActiveCat(group.cat)}
               >
                 {group.label}
-                <span className="cat-count">{group.items.length}</span>
+                <span className={`ml-auto text-[0.7rem] px-1.5 py-0.5 rounded-full ${
+                  activeCat === group.cat
+                    ? 'bg-white/15 opacity-50'
+                    : 'bg-[var(--color-border)] text-[var(--color-muted)]'
+                }`}>
+                  {group.items.length}
+                </span>
               </button>
             ))}
           </div>
         </div>
-        <div className="faq-left-bottom">
+
+        {/* Bottom link */}
+        <div className="text-[0.78rem] font-light leading-relaxed mt-4" style={{ color: 'var(--color-muted)' }}>
           Still have questions? View the
-          <Link to="/about"> About page </Link>
+          <Link to="/about" className="underline underline-offset-[3px]" style={{ color: 'var(--color-ink)' }}> About page </Link>
           for project background and team information.
         </div>
       </div>
-      {/* left section ended */}
-      <div className="faq-right">
+
+      {/* Right content - FAQ accordion */}
+      <div className="py-6 w-full md:py-12 md:px-14 flex-grow">
         {visibleGroups.map((group) => (
-          <div key={group.cat} className="faq-group">
-            {/*FAQ group begins*/}
-            <div className="faq-group-label">{group.label}</div>
+          <div key={group.cat} className="mb-10">
+            {/* Group label */}
+            <div className="text-[0.68rem] font-medium tracking-[0.12em] uppercase mb-3 pb-2.5 border-b border-[var(--color-border)]" style={{ color: 'var(--color-muted)' }}>
+              {group.label}
+            </div>
+
             {group.items.map((item, index) => {
               const itemID = `${group.cat}-${index}`;
-              const isOpen = openItem == itemID;
+              const isOpen = openItem === itemID;
               return (
-                <div key={itemID} className={`faq-item ${isOpen ? 'open' : ''}`}>
-                  <button class="faq-question" onClick={() => setOpenItem(isOpen ? null : itemID)}>
+                <div key={itemID} className={`border-b border-[var(--color-border)] overflow-hidden last:border-b-0`}>
+                  <button
+                    className="w-full bg-transparent border-none text-[0.92rem] font-normal text-left cursor-pointer py-4 flex items-center justify-between gap-4 transition-colors duration-200 hover:text-[var(--color-muted)]"
+                    style={{ color: 'var(--color-ink)' }}
+                    onClick={() => setOpenItem(isOpen ? null : itemID)}
+                  >
                     {item.q}
-                    <span class="faq-icon">{isOpen ? '-' : '+'}</span>
+                    <span
+                      className={`w-5 h-5 rounded-full border flex items-center justify-center text-[0.9rem] flex-shrink-0 transition-all duration-200 ${
+                        isOpen
+                          ? 'bg-[var(--color-ink)] border-[var(--color-ink)] text-[var(--color-off-white)]'
+                          : 'border-[var(--color-border)] text-[var(--color-muted)]'
+                      }`}
+                    >
+                      {isOpen ? '−' : '+'}
+                    </span>
                   </button>
-                  <div className="faq-answer">
+                  <div
+                    className={`overflow-hidden transition-all duration-300 ${
+                      isOpen ? 'max-h-[400px]' : 'max-h-0'
+                    }`}
+                  >
                     <div
-                      className="faq-answer-inner"
+                      className="pb-5 text-[0.87rem] leading-relaxed font-light [&_strong]:text-[var(--color-ink)] [&_strong]:font-medium [&_a]:text-[var(--color-ink)] [&_a]:underline-offset-[3px]"
+                      style={{ color: 'var(--color-muted)' }}
                       dangerouslySetInnerHTML={{ __html: item.a }}
                     />
                   </div>
@@ -108,7 +164,6 @@ export default function FAQPage() {
             })}
           </div>
         ))}
-        {/* outer map ends */}
       </div>
     </div>
   );

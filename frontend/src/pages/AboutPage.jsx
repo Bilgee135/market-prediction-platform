@@ -39,12 +39,12 @@ const theTechnologyStack = [
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-[var(--color-off-white)] px-12 py-10">
+    <div className="min-h-screen bg-[var(--color-off-white)] px-4 py-8 md:px-12 md:py-10">
       {/* the two column layout for the left and right hand side */}
-      <div className="flex gap-8">
+      <div className="flex flex-col md:flex-row gap-8">
         {/* for the left hand side */}
         {/* the intro text, the team chips the stat will go here */}
-        <div className="w-64 shrink-0 flex flex-col gap-6">
+        <div className="w-full md:w-64 md:shrink-0 flex flex-col gap-6">
           <div>
             {/* the heading the team number, the module and the uni */}
             <p className="text-xs font-semibold tracking-widest text-[var(--color-muted)] uppercase mb-3">
@@ -151,7 +151,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-3 border-t border-[var(--color-border)] pt-4">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 md:grid-cols-1 md:gap-3 border-t border-[var(--color-border)] pt-4">
             <div>
               <p className="text-xl font-bold text-[var(--color-ink)]">6</p>
               <p className="text-xs text-[var(--color-muted)]">ML Models</p>
@@ -174,7 +174,7 @@ export default function AboutPage() {
         {/* now here the right hand side with the four contents */}
         <div className="flex-1 flex flex-col gap-4">
           {/* this is the first one what the project does */}
-          <div className="bg-[var(--color-card-bg)] rounded-2xl border border-[var(--color-border)] p-8">
+          <div className="bg-[var(--color-card-bg)] rounded-2xl border border-[var(--color-border)] p-5 md:p-8">
             <p className="text-xs font-semibold tracking-widest text-[var(--color-muted)] uppercase mb-2">
               What this project does
             </p>
@@ -199,7 +199,7 @@ export default function AboutPage() {
           </div>
 
           {/* this is the second one the technology stack, so we are discussing how its build */}
-          <div className="bg-[var(--color-card-bg)] rounded-2xl border border-[var(--color-border)] p-8">
+          <div className="bg-[var(--color-card-bg)] rounded-2xl border border-[var(--color-border)] p-5 md:p-8">
             <p className="text-xs font-semibold tracking-widest text-[var(--color-muted)] uppercase mb-2">
               Technology Stack
             </p>
@@ -221,7 +221,7 @@ export default function AboutPage() {
           </div>
 
           {/* third one is the data sources so we are talking about where the data comes from */}
-          <div className="bg-[var(--color-card-bg)] rounded-2xl border border-[var(--color-border)] p-8">
+          <div className="bg-[var(--color-card-bg)] rounded-2xl border border-[var(--color-border)] p-5 md:p-8">
             <p className="text-xs font-semibold tracking-widest text-[var(--color-muted)] uppercase mb-2">
               Data Sources
             </p>
@@ -239,7 +239,7 @@ export default function AboutPage() {
           </div>
 
           {/* the final one is the ethics and limitations */}
-          <div className="bg-[var(--color-ink)] rounded-2xl p-8">
+          <div className="bg-[var(--color-ink)] rounded-2xl p-5 md:p-8">
             <p className="text-xs font-semibold tracking-widest text-[var(--color-off-white)] opacity-60 uppercase mb-2">
               Ethics & Limitations
             </p>

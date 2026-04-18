@@ -134,12 +134,12 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
   const next = () => setActive((i) => (i === MODELS.length - 1 ? 0 : i + 1));
 
   return (
-    <div className="mx-auto px-8 py-14 pb-32" style={{ maxWidth: '900px' }}>
+    <div className="mx-auto px-4 py-10 pb-40 md:px-8 md:py-14 md:pb-32 max-w-[900px]">
       {!disclaimerConfirmed && <DisclaimerModal onAgree={() => setDisclaimerConfirmed(true)} />}
 
       {/* The Page header which appears at the top of the page */}
       <div
-        className="mb-10 pb-8 border-b flex items-end justify-between"
+        className="mb-8 pb-6 md:mb-10 md:pb-8 border-b flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
         style={{ borderColor: 'var(--color-border)' }}
       >
         <div>
@@ -179,7 +179,7 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
       >
         {/* The Card header bar */}
         <div
-          className="flex items-center justify-between px-7 py-4 border-b"
+          className="flex items-center justify-between px-4 py-3 md:px-7 md:py-4 border-b"
           style={{ borderColor: 'var(--color-border)', background: 'var(--color-off-white)' }}
         >
           <span
@@ -198,7 +198,7 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
         </div>
 
         {/* The Card body */}
-        <div className="px-7 py-8">
+        <div className="px-4 py-6 md:px-7 md:py-8">
           <h2
             className="font-serif tracking-tight mb-1"
             style={{ fontSize: '1.9rem', color: 'var(--color-ink)' }}
@@ -340,10 +340,10 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
 
       {/* Fixed bottom bar */}
       <div
-        className="fixed bottom-0 left-0 right-0 flex items-center justify-between px-10 py-5 border-t"
+        className="fixed bottom-0 left-0 right-0 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 py-4 md:px-10 md:py-5 border-t"
         style={{ background: 'var(--color-card-bg)', borderColor: 'var(--color-border)' }}
       >
-        <p className="text-[0.88rem] font-light" style={{ color: 'var(--color-muted)' }}>
+        <p className="text-[0.82rem] md:text-[0.88rem] font-light" style={{ color: 'var(--color-muted)' }}>
           Want to compare all models at once?{' '}
           <strong style={{ color: 'var(--color-ink)', fontWeight: 500 }}>
             See accuracy metrics and more.
@@ -351,7 +351,7 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
         </p>
         <Link
           to="/evaluations"
-          className="px-6 py-3 rounded-lg text-[0.9rem] font-medium transition-opacity hover:opacity-75"
+          className="px-5 py-2.5 md:px-6 md:py-3 rounded-lg text-[0.85rem] md:text-[0.9rem] font-medium transition-opacity hover:opacity-75 text-center sm:flex-shrink-0"
           style={{
             background: 'var(--color-ink)',
             color: 'var(--color-off-white)',
