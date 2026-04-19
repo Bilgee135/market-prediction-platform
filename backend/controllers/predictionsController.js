@@ -6,6 +6,7 @@ const MODEL_SLUG_MAP = {
     'random-forest':     'Random Forest',
     'random-forest-forecast': 'Random Forest Forecast',
     'svr':               'SVR',
+    'svr-forecast': 'SVR Forecast',
     'lstm': 'LSTM',
     'ann':          'ANN',
     'cnn-lstm':     'CNN-LSTM',

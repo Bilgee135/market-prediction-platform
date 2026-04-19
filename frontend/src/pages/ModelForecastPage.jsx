@@ -41,6 +41,13 @@ const MODEL_META = {
     description:
       'Uses a kernel function to map input features into a higher-dimensional space where a linear relationship with the target becomes learnable. Focuses on minimising prediction error only for points outside a defined margin, making it robust to outliers. Sensitive to feature scaling and requires careful hyperparameter tuning for optimal performance.',
   },
+  'svr-forecast': {
+    fullName: 'SVR: 2026-2027 Forecast',
+    category: 'Kernel Method',
+    complexity: 3,
+    description:
+      'SVR model generating weekly S&P 500 OHLC price forecasts from May 2026 through early 2027. Trained on the full available dataset to produce forward-looking predictions beyond the test period.',
+  },
   lstm: {
     fullName: 'Long Short-Term Memory',
     category: 'Deep Learning',

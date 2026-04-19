@@ -33,6 +33,7 @@ MODEL_NAME_MAP = {
     'random_forest_2026-04-18_13-38-37':                 'Random Forest',
     'random_forest_forecast_2026_2027_2026-04-19_17-12-30': 'Random Forest Forecast',
     'SVR':                                                'SVR',
+    'svr_year_predictions': 'SVR Forecast',
     'LSTM': 'LSTM',
     'Modularised_ANN_2026-04-14_22-26-20':                                    'ANN',
     'Modularised_CNN_LSTM_DETERMINISTIC_VERSION_V2_2026-04-14_22-26-21':      'CNN-LSTM-DET',
@@ -103,12 +104,15 @@ def load_csv(filename, model_name):
     df.to_sql('predictions', con=engine, if_exists='append', index=False, method='multi')
     print(f"  Loaded {len(df)} rows for {model_name}")
 
-if __name__ == "__main__":
-    for filename, model_name in MODEL_NAME_MAP.items():
-        print(f"Processing {model_name}...")
-        try:
-            load_csv(filename, model_name)
-        except Exception as e:
-            print(f"  FAILED: {e}")
+# if __name__ == "__main__":
+#     for filename, model_name in MODEL_NAME_MAP.items():
+#         print(f"Processing {model_name}...")
+#         try:
+#             load_csv(filename, model_name)
+#         except Exception as e:
+#             print(f"  FAILED: {e}")
 
-    print("\nDone.")
+#     print("\nDone.")
+
+if __name__ == "__main__":
+    load_csv('svr_year_predictions', 'SVR Forecast')

@@ -69,6 +69,20 @@ const MODELS = [
     sparklineData: [100, 112, 94, 118, 100, 124, 108, 130, 112, 136, 116, 142],
   },
   {
+    modelId: 'svr-forecast',
+    category: 'Kernel Method',
+    modelName: 'SVR Forecast',
+    modelFullName: 'SVR: 2026-2027 Forecast',
+    modelDescription:
+      'SVR model generating weekly S&P 500 OHLC price forecasts from May 2026 through early 2027. Trained on the full available dataset to produce forward-looking predictions beyond the test period.',
+    modelStrengths: 'Full OHLC forward predictions beyond the test set period',
+    modelWeaknesses: 'No actual values to evaluate against until time catches up',
+    modelBestFor: 'Visualising what the SVR model expects the S&P 500 to do over the next year',
+    modelComplexity: 3,
+    sparklineColour: '#7c3aed',
+    sparklineData: [100, 100, 101, 101, 102, 102, 103, 103, 104, 104, 105, 105],
+  },
+  {
     modelId: 'lstm',
     category: 'Deep Learning',
     modelName: 'LSTM',
