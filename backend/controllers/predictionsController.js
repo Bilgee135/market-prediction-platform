@@ -2,6 +2,9 @@ const db = require('../db/connection')
 
 // Maps frontend URL slugs to database model_name values
 const MODEL_SLUG_MAP = {
+    'linear-regression': 'Linear Regression',
+    'random-forest':     'Random Forest',
+    'svr':               'SVR',
     'lstm': 'LSTM',
     'ann':          'ANN',
     'cnn-lstm':     'CNN-LSTM',
