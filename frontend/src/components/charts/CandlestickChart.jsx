@@ -99,7 +99,7 @@ export default function CandlestickChart({ candles }) {
         scales: {
           x: {
             type: 'time',
-            time: { unit: 'week' },
+            time: { unit: 'month' },
             grid: { color: '#E5E7EB' },
             ticks: { color: '#9CA3AF', font: { size: 11 }, maxTicksLimit: 8, maxRotation: 0 },
           },
