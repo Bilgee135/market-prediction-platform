@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getPredictions, getHistorical } from '../services/api';
 import CandlestickChart from '../components/charts/CandlestickChart';
+import PredictionCandlestickChart from '../components/charts/PredictionCandlestickChart';
 import PredictionLineChart from '../components/charts/PredictionLineChart';
 
 // Hardcoded rates as of 17 April 2026
@@ -114,7 +115,7 @@ export default function ModelForecastPage() {
   const [candles, setCandles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [chartType, setChartType] = useState('line');
+  const [chartType, setChartType] = useState('candlestick');
   const [timeframe, setTimeframe] = useState('1Y');
   const [currency, setCurrency] = useState('USD');
 
@@ -221,8 +222,6 @@ export default function ModelForecastPage() {
                       color: timeframe === tf ? 'var(--color-off-white)' : 'var(--color-muted)',
                       border: timeframe === tf ? 'none' : '1px solid var(--color-border)',
                       fontFamily: 'inherit',
-                      opacity: chartType === 'candlestick' ? 0.3 : 1,
-                      pointerEvents: chartType === 'candlestick' ? 'none' : 'auto',
                     }}
                   >
                     {tf}
@@ -291,7 +290,12 @@ export default function ModelForecastPage() {
                   modelName={modelName}
                 />
               ) : (
-                <CandlestickChart candles={candles} />
+                <PredictionCandlestickChart
+                  predictions={predictions}
+                  historical={candles}
+                  timeframe={timeframe}
+                  modelName={modelName}
+                />
               )}
             </div>
           </div>

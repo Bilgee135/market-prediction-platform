@@ -29,10 +29,10 @@ async function getByModel(req, res) {
 
     try {
         const [rows] = await db.query(
-            `SELECT prediction_date, predicted_close
-             FROM predictions
-             WHERE model_name = ?
-             ORDER BY prediction_date ASC`,
+            `SELECT prediction_date, predicted_open, predicted_high, predicted_low, predicted_close
+            FROM predictions
+            WHERE model_name = ?
+            ORDER BY prediction_date ASC`,
             [modelName]
         )
 
