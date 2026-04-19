@@ -10,10 +10,10 @@ const TIMEFRAME_WEEKS_DAILY = { '1M': 21, '3M': 63, '6M': 126, '1Y': 252, ALL: n
 const WEEKLY_MODELS = ['lstm'];
 
 const CURRENCY = {
-  USD: { rate: 1,      symbol: '$' },
+  USD: { rate: 1, symbol: '$' },
   GBP: { rate: 0.7399, symbol: '£' },
   EUR: { rate: 0.8482, symbol: '€' },
-}
+};
 
 export default function PredictionCandlestickChart({
   predictions,
@@ -49,20 +49,20 @@ export default function PredictionCandlestickChart({
     const filteredHist = weeks ? (historical || []).slice(-weeks) : historical || [];
 
     const predDataset = filteredPred.map((p) => ({
-        x: new Date(p.prediction_date).getTime(),
-        o: parseFloat(p.predicted_open)  * rate,
-        h: parseFloat(p.predicted_high)  * rate,
-        l: parseFloat(p.predicted_low)   * rate,
-        c: parseFloat(p.predicted_close) * rate,
-    }))
+      x: new Date(p.prediction_date).getTime(),
+      o: parseFloat(p.predicted_open) * rate,
+      h: parseFloat(p.predicted_high) * rate,
+      l: parseFloat(p.predicted_low) * rate,
+      c: parseFloat(p.predicted_close) * rate,
+    }));
 
     const histDataset = filteredHist.map((h) => ({
-        x: new Date(h.date).getTime(),
-        o: h.open  * rate,
-        h: h.high  * rate,
-        l: h.low   * rate,
-        c: h.close * rate,
-    }))
+      x: new Date(h.date).getTime(),
+      o: h.open * rate,
+      h: h.high * rate,
+      l: h.low * rate,
+      c: h.close * rate,
+    }));
 
     const datasets = [];
 
@@ -76,20 +76,20 @@ export default function PredictionCandlestickChart({
     }
 
     if (predDataset.length > 0) {
-        datasets.push({
-            label: 'Predicted',
-            data: predDataset,
-            color: {
-            up:        'rgba(37, 99, 235, 0.75)',
-            down:      'rgba(234, 88, 12, 0.75)',
-            unchanged: '#9CA3AF',
-            },
-            borderColor: {
-            up:        'rgba(37, 99, 235, 0.75)',
-            down:      'rgba(234, 88, 12, 0.75)',
-            unchanged: '#9CA3AF',
-            },
-        })
+      datasets.push({
+        label: 'Predicted',
+        data: predDataset,
+        color: {
+          up: 'rgba(37, 99, 235, 0.75)',
+          down: 'rgba(234, 88, 12, 0.75)',
+          unchanged: '#9CA3AF',
+        },
+        borderColor: {
+          up: 'rgba(37, 99, 235, 0.75)',
+          down: 'rgba(234, 88, 12, 0.75)',
+          unchanged: '#9CA3AF',
+        },
+      });
     }
 
     if (datasets.length === 0) return;
