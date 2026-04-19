@@ -104,15 +104,12 @@ def load_csv(filename, model_name):
     df.to_sql('predictions', con=engine, if_exists='append', index=False, method='multi')
     print(f"  Loaded {len(df)} rows for {model_name}")
 
-# if __name__ == "__main__":
-#     for filename, model_name in MODEL_NAME_MAP.items():
-#         print(f"Processing {model_name}...")
-#         try:
-#             load_csv(filename, model_name)
-#         except Exception as e:
-#             print(f"  FAILED: {e}")
-
-#     print("\nDone.")
-
 if __name__ == "__main__":
-    load_csv('svr_year_predictions', 'SVR Forecast')
+    for filename, model_name in MODEL_NAME_MAP.items():
+        print(f"Processing {model_name}...")
+        try:
+            load_csv(filename, model_name)
+        except Exception as e:
+            print(f"  FAILED: {e}")
+
+    print("\nDone.")

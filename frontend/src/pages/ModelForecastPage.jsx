@@ -388,7 +388,7 @@ export default function ModelForecastPage() {
             </p>
             <div className="flex flex-col gap-4">
               {[
-                { label: 'Predictions', value: `${predictions.length} weeks` },
+                { label: 'Predictions', value: `${predictions.length} data points` },
                 {
                   label: 'From',
                   value: predictions[0]

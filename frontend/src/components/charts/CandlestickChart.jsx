@@ -101,7 +101,7 @@ export default function CandlestickChart({ candles }) {
             type: 'time',
             time: { unit: 'week' },
             grid: { color: '#E5E7EB' },
-            ticks: { color: '#9CA3AF', font: { size: 11 } },
+            ticks: { color: '#9CA3AF', font: { size: 11 }, maxTicksLimit: 8, maxRotation: 0 },
           },
           y: {
             position: 'right',
