@@ -40,16 +40,27 @@ export default function AccuracyTable({ models }) {
               borderBottom: `1px solid var(--color-border)`,
             }}
           >
-            {['Model', 'MAE', 'R²', 'RMSE', 'Dir. Acc.'].map((h, i) => (
+            {[
+              { label: 'Model', mobile: 'Model' },
+              { label: 'MAE', mobile: 'MAE' },
+              { label: 'R²', mobile: 'R²' },
+              { label: 'RMSE', mobile: null },
+              { label: 'Dir. Acc.', mobile: 'Dir.' },
+            ].map(({ label, mobile }, i) => (
               <th
-                key={h}
-                className="px-4 py-2.5 text-[0.68rem] font-medium uppercase tracking-[0.08em]"
+                key={label}
+                className={`px-2 md:px-4 py-2.5 text-[0.68rem] font-medium uppercase tracking-[0.08em]${mobile === null ? ' hidden md:table-cell' : ''}`}
                 style={{
                   color: 'var(--color-muted)',
                   textAlign: i === 0 ? 'left' : 'right',
                 }}
               >
-                {h}
+                {mobile === null ? label : (
+                  <>
+                    <span className="hidden md:inline">{label}</span>
+                    <span className="md:hidden">{mobile}</span>
+                  </>
+                )}
               </th>
             ))}
           </tr>
@@ -106,35 +117,37 @@ export default function AccuracyTable({ models }) {
                 onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
               >
                 {/* Model name + rank badge */}
-                <td className="px-4 py-2.5 text-[0.82rem]" style={{ color: 'var(--color-ink)' }}>
-                  <span
-                    className="inline-flex items-center justify-center w-5 h-5 rounded-full text-[0.65rem] font-medium mr-2"
-                    style={{ background: rankColors[i], color: rankText[i] }}
-                  >
-                    {i + 1}
-                  </span>
-                  {m.displayName}
+                <td className="px-2 md:px-4 py-2.5 text-[0.75rem] md:text-[0.82rem] min-w-0 max-w-0" style={{ color: 'var(--color-ink)' }}>
+                  <div className="flex items-center min-w-0">
+                    <span
+                      className="inline-flex items-center justify-center w-5 h-5 rounded-full text-[0.65rem] font-medium mr-2 flex-shrink-0"
+                      style={{ background: rankColors[i], color: rankText[i] }}
+                    >
+                      {i + 1}
+                    </span>
+                    <span className="truncate">{m.displayName}</span>
+                  </div>
                 </td>
                 <td
-                  className="px-4 py-2.5 text-right text-[0.82rem] font-medium"
+                  className="px-2 md:px-4 py-2.5 text-right text-[0.75rem] md:text-[0.82rem] font-medium"
                   style={{ color: maeColor }}
                 >
                   {m.mae}
                 </td>
                 <td
-                  className="px-4 py-2.5 text-right text-[0.82rem] font-light"
+                  className="px-2 md:px-4 py-2.5 text-right text-[0.75rem] md:text-[0.82rem] font-light"
                   style={{ color: r2Color }}
                 >
                   {m.r2 !== null ? m.r2 : 'N/A'}
                 </td>
                 <td
-                  className="px-4 py-2.5 text-right text-[0.82rem] font-light"
+                  className="hidden md:table-cell px-4 py-2.5 text-right text-[0.82rem] font-light"
                   style={{ color: 'var(--color-ink)' }}
                 >
                   {m.rmse}
                 </td>
                 <td
-                  className="px-4 py-2.5 text-right text-[0.82rem] font-medium"
+                  className="px-2 md:px-4 py-2.5 text-right text-[0.75rem] md:text-[0.82rem] font-medium"
                   style={{ color: dirColor }}
                 >
                   {m.dir}%
