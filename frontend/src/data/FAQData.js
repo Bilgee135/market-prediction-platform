@@ -27,11 +27,11 @@ export const groups = [
     items: [
       {
         q: 'Which model is the most accurate?',
-        a: 'Model rankings vary depending on the metric and market conditions. We recommend reviewing the full <a href="evaluations.html">evaluations page</a> to compare directional accuracy, MAE, and RMSE across all nine models before drawing conclusions.',
+        a: 'Model rankings vary depending on the metric and market conditions. We recommend reviewing the full <a href="evaluations.html">evaluations page</a> to compare directional accuracy, MAE, and RMSE across all 13 models before drawing conclusions.',
       },
       {
         q: 'How do you decide whether a model is performing well?',
-        a: 'The platform benchmarks all nine models against each other using directional accuracy, MAE, and RMSE on a held-out test set. A model is considered useful if it consistently outperforms the others across multiple metrics and market conditions, not just on a single measure.',
+        a: 'The platform benchmarks all 13 models against each other using directional accuracy, MAE, and RMSE on a held-out test set. A model is considered useful if it consistently outperforms the others across multiple metrics and market conditions, not just on a single measure.',
       },
       {
         q: 'What is the difference between LSTM and a standard neural network?',
@@ -79,7 +79,7 @@ export const groups = [
       },
       {
         q: 'Can I compare multiple models on the same chart?',
-        a: 'Not on the individual model pages because each page is dedicated to a single model\'s forecast. To compare models side by side, visit the <a href="evaluations.html">Model Evaluations</a> page, which shows accuracy metrics and performance charts for all nine models together.',
+        a: 'Not on the individual model pages because each page is dedicated to a single model\'s forecast. To compare models side by side, visit the <a href="evaluations.html">Model Evaluations</a> page, which shows accuracy metrics and performance charts for all 13 models together.',
       },
     ],
   },

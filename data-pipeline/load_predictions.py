@@ -29,6 +29,9 @@ CSV_DIR = os.path.join(os.path.dirname(__file__), '../database/')
 # Clean model names for the model_name column in the DB
 # Keys must match the filenames exactly (without .csv)
 MODEL_NAME_MAP = {
+    'Linear_Regression_Predictions_2026-04-18_13-42-57': 'Linear Regression',
+    'random_forest_2026-04-18_13-38-37':                 'Random Forest',
+    'SVR':                                                'SVR',
     'LSTM': 'LSTM',
     'Modularised_ANN_2026-04-14_22-26-20':                                    'ANN',
     'Modularised_CNN_LSTM_DETERMINISTIC_VERSION_V2_2026-04-14_22-26-21':      'CNN-LSTM-DET',
@@ -66,36 +69,37 @@ def load_csv(filename, model_name):
     path = os.path.join(CSV_DIR, f"{filename}.csv")
     df = pd.read_csv(path)
 
-    # Fix whichever date column name was used
     df = normalise_date_column(df)
-
-    # Parse the date column properly - MySQL DATE type needs a real datetime, not a string
     df['prediction_date'] = pd.to_datetime(df['prediction_date'])
-
-    # Add the model identifier - this isn't in the CSV, we derive it from the filename
     df['model_name'] = model_name
 
-    # Map CSV column names to schema column names
-    # Only 'close' maps to 'predicted_close' - that's all the schema stores right now
-    # Handle both column naming conventions across different ML team outputs
-    if 'Predicted_Close' in df.columns:
-        df = df.rename(columns={'Predicted_Close': 'predicted_close'})
-    elif 'close' in df.columns:
-        df = df.rename(columns={'close': 'predicted_close'})
+    # Map all possible column name variants to schema names
+    rename_map = {}
+    col_lower = {c.lower(): c for c in df.columns}
 
-    # Select only the columns your schema has
-    # actual_close, rmse, mae, directional_accuracy will be NULL (not in CSV)
-    columns_to_load = ['model_name', 'prediction_date', 'predicted_close']
+    for schema_col, variants in {
+        'predicted_close': ['predicted_close', 'close', 'target_close'],
+        'predicted_open':  ['predicted_open',  'open',  'target_open'],
+        'predicted_high':  ['predicted_high',  'high',  'target_high'],
+        'predicted_low':   ['predicted_low',   'low',   'target_low'],
+    }.items():
+        for v in variants:
+            if v in col_lower:
+                rename_map[col_lower[v]] = schema_col
+                break
+
+    df = df.rename(columns=rename_map)
+
+    columns_to_load = ['model_name', 'prediction_date', 'predicted_open',
+                       'predicted_high', 'predicted_low', 'predicted_close']
+    for col in columns_to_load:
+        if col not in df.columns:
+            df[col] = None
+
     df = df[columns_to_load]
-
-    # Drop any rows with no predicted close value
     df = df.dropna(subset=['predicted_close'])
 
-    # Write to DB
-    # if_exists='append' - add rows to existing table, don't drop and recreate
-    # index=False        - don't write the pandas 0,1,2... row index as a column
     df.to_sql('predictions', con=engine, if_exists='append', index=False, method='multi')
-
     print(f"  Loaded {len(df)} rows for {model_name}")
 
 if __name__ == "__main__":

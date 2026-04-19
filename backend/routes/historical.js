@@ -1,34 +1,29 @@
-// backend/routes/historical.js
-const express = require('express');
-const { spawn } = require('child_process');
-const path = require('path');
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
+const db = require('../db/connection')
 
-router.get('/', (req, res) => {
-    const weeks = parseInt(req.query.weeks) || 26;
-    const scriptPath = path.join(__dirname, '../../data-pipeline/fetch/historical.py');
-    const pythonPath = process.env.PYTHON_PATH || path.join(__dirname, '../../data-pipeline/venv/bin/python3');
+router.get('/', async (req, res) => {
+    try {
+        const [rows] = await db.query(
+            `SELECT date, open, high, low, close, volume
+             FROM historical_prices
+             ORDER BY date ASC`
+        )
 
-    const py = spawn(pythonPath, [scriptPath, String(weeks)]);
+        const candles = rows.map(row => ({
+            date:   row.date.toISOString().split('T')[0],
+            open:   parseFloat(row.open),
+            high:   parseFloat(row.high),
+            low:    parseFloat(row.low),
+            close:  parseFloat(row.close),
+            volume: parseInt(row.volume),
+        }))
 
-    let output = '';
-    let errorOutput = '';
+        res.json(candles)
+    } catch (err) {
+        console.error('Historical route error:', err)
+        res.status(500).json({ error: 'Failed to fetch historical data' })
+    }
+})
 
-    py.stdout.on('data', (chunk) => { output += chunk.toString(); });
-    py.stderr.on('data', (chunk) => { errorOutput += chunk.toString(); });
-
-    py.on('close', (code) => {
-        if (code !== 0) {
-        console.error('historical.py error:', errorOutput);
-        return res.status(500).json({ error: 'Failed to fetch historical data' });
-        }
-        try {
-        const candles = JSON.parse(output);
-        res.json(candles);
-        } catch {
-        res.status(500).json({ error: 'Invalid data from Python script' });
-        }
-    });
-});
-
-module.exports = router;
+module.exports = router

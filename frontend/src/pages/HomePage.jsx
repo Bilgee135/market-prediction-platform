@@ -11,42 +11,62 @@ import CandlestickChart from '../components/charts/CandlestickChart';
 import { getHistorical } from '../services/api';
 
 const ML_MODELS = [
-  { name: 'LSTM', type: 'Deep Learning', note: 'learns long-term patterns in price sequences' },
+  {
+    name: 'Linear Regression',
+    type: 'Linear',
+    note: 'statistical baseline all other models are benchmarked against',
+  },
+  {
+    name: 'Random Forest',
+    type: 'Ensemble',
+    note: 'aggregates hundreds of decision trees to reduce prediction noise',
+  },
+  {
+    name: 'SVR',
+    type: 'Kernel Method',
+    note: 'support vector regression on engineered technical features',
+  },
+  { name: 'LSTM', type: 'Deep Learning', note: 'learns long-term patterns in weekly price sequences' },
   {
     name: 'ANN',
     type: 'Deep Learning',
-    note: 'feedforward network trained on OHLCV and technical indicators',
+    note: 'feedforward neural network trained on technical indicators',
   },
   {
     name: 'CNN-LSTM',
     type: 'Deep Learning',
-    note: 'hybrid convolutional and recurrent architecture',
+    note: 'hybrid architecture combining local pattern extraction with sequence memory',
   },
   {
     name: 'CNN-LSTM Deterministic',
     type: 'Deep Learning',
-    note: 'reproducible variant of CNN-LSTM with dropout disabled',
+    note: 'reproducible CNN-LSTM variant with stochastic elements removed',
   },
-  { name: 'DTR', type: 'Tree-Based', note: 'interpretable decision tree over engineered features' },
+  { name: 'DTR', type: 'Tree-Based', note: 'decision tree regression, fast and fully interpretable' },
   {
     name: 'GRU',
     type: 'Deep Learning',
-    note: 'streamlined recurrent network with update and reset gates',
+    note: 'gated recurrent unit, faster alternative to LSTM',
   },
   {
-    name: 'GRU (All Value Predictors)',
+    name: 'GRU All Value Predictors',
     type: 'Deep Learning',
-    note: 'outputs all four OHLC values simultaneously',
+    note: 'GRU variant predicting all four OHLC values simultaneously',
   },
   {
     name: 'KNN',
     type: 'Instance-Based',
-    note: 'finds the most similar historical weeks at inference time',
+    note: 'finds the most similar historical weeks to predict the next',
   },
   {
     name: 'KNN with Pattern Matching',
     type: 'Instance-Based',
-    note: 'matches multi-week candlestick sequences for directional accuracy',
+    note: 'matches full candlestick sequences rather than individual feature vectors',
+  },
+  {
+    name: 'KNN Pattern Matching Prices',
+    type: 'Instance-Based',
+    note: 'pattern matching variant predicting absolute price levels directly',
   },
 ];
 
@@ -120,7 +140,7 @@ export default function HomePage() {
           className="text-[1rem] font-light leading-relaxed"
           style={{ color: 'var(--color-muted)', maxWidth: '600px' }}
         >
-          This platform applies nine machine learning models to three years of S&amp;P 500 weekly
+          This platform applies 13 machine learning models to three years of S&amp;P 500 weekly
           data, generating predictions from late 2022 to December 2025. It was built as an academic
           project and is not intended as financial advice.
         </p>
@@ -269,7 +289,7 @@ export default function HomePage() {
           className="text-[0.72rem] font-medium tracking-[0.12em] uppercase mb-5"
           style={{ color: 'var(--color-muted)' }}
         >
-          Nine models benchmarked
+          Thirteen models benchmarked
         </p>
 
         <div
@@ -316,7 +336,7 @@ export default function HomePage() {
         style={{ borderColor: 'var(--color-border)' }}
       >
         {[
-          { val: '9', label: 'ML Models' },
+          { val: '13', label: 'ML Models' },
           { val: '3yr', label: 'of S&P Data' },
           { val: '~150wk', label: 'Forecasted' },
           { val: '7', label: 'Team Members' },

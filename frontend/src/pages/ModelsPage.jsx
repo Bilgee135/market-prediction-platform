@@ -13,6 +13,48 @@ import Sparkline from '../components/charts/Sparkline';
 //So here are the models and we have listed the models with the name, category, description, strengths, weaknesses, what the model is best for, the complexity of the model and also a sparkline sorry sparkline is quite bad
 const MODELS = [
   {
+    modelId: 'linear-regression',
+    category: 'Linear',
+    modelName: 'Linear Regression',
+    modelFullName: 'Linear Regression (Baseline)',
+    modelDescription:
+      'Fits a straight line through historical price features to predict future close prices. Serves as the baseline every other model must outperform to justify its complexity.',
+    modelStrengths: 'Fully interpretable and extremely fast to train',
+    modelWeaknesses: 'Cannot capture non-linear relationships in market data',
+    modelBestFor: 'Establishing a performance baseline for comparing all other models',
+    modelComplexity: 1,
+    sparklineColour: '#64748b',
+    sparklineData: [100, 102, 101, 103, 102, 104, 103, 105, 104, 107, 106, 110],
+  },
+  {
+    modelId: 'random-forest',
+    category: 'Ensemble',
+    modelName: 'Random Forest',
+    modelFullName: 'Random Forest Regression',
+    modelDescription:
+      'Builds hundreds of decision trees on random subsets of training data and averages their outputs. Reduces overfitting compared to a single tree and provides built-in feature importance scores.',
+    modelStrengths: 'Robust against outliers with built-in feature importance',
+    modelWeaknesses: 'Cannot extrapolate beyond the training data range',
+    modelBestFor: 'Stable predictions with interpretable feature contributions',
+    modelComplexity: 2,
+    sparklineColour: '#c2410c',
+    sparklineData: [100, 95, 90, 98, 105, 112, 108, 118, 114, 122, 118, 128],
+  },
+  {
+    modelId: 'svr',
+    category: 'Kernel Method',
+    modelName: 'SVR',
+    modelFullName: 'Support Vector Regression',
+    modelDescription:
+      'Maps input features into a higher-dimensional space using a kernel function where a linear relationship with the target becomes learnable. Robust to outliers and effective on smaller clean datasets.',
+    modelStrengths: 'Strong generalisation on smaller datasets, robust to outliers',
+    modelWeaknesses: 'Sensitive to feature scaling and slow on large datasets',
+    modelBestFor: 'Situations where data is limited but clean and well-scaled',
+    modelComplexity: 3,
+    sparklineColour: '#6d28d9',
+    sparklineData: [100, 112, 94, 118, 100, 124, 108, 130, 112, 136, 116, 142],
+  },
+  {
     modelId: 'lstm',
     category: 'Deep Learning',
     modelName: 'LSTM',
@@ -97,6 +139,20 @@ const MODELS = [
     sparklineData: [100, 106, 103, 112, 109, 118, 114, 123, 119, 128, 124, 133],
   },
   {
+    modelId: 'gru-all',
+    category: 'Deep Learning',
+    modelName: 'GRU All Value Predictors',
+    modelFullName: 'GRU (All Value Predictors)',
+    modelDescription:
+      'A GRU variant that outputs all four OHLC values simultaneously from a shared hidden state, rather than predicting close price alone. By learning the interdependencies between open, high, low, and close within a single model, this architecture captures the internal structure of weekly candlestick shapes.',
+    modelStrengths: 'Predicts full OHLC candlestick shapes, capturing all four price value interdependencies',
+    modelWeaknesses: 'Joint OHLC prediction is harder to optimise than single-target regression',
+    modelBestFor: 'Full candlestick forecasting where all four price values are needed',
+    modelComplexity: 3,
+    sparklineColour: '#0e7490',
+    sparklineData: [100, 107, 104, 113, 110, 119, 115, 124, 120, 129, 125, 134],
+  },
+  {
     modelId: 'knn',
     category: 'Instance-Based',
     modelName: 'KNN',
@@ -161,7 +217,7 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
             className="text-[0.78rem] font-medium tracking-[0.12em] uppercase mb-3"
             style={{ color: 'var(--color-muted)' }}
           >
-            9 ML Models
+            13 ML Models
           </p>
           <h1
             className="font-serif tracking-tight"

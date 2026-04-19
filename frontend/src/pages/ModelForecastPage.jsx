@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getPredictions, getHistorical } from '../services/api';
 import CandlestickChart from '../components/charts/CandlestickChart';
+import PredictionCandlestickChart from '../components/charts/PredictionCandlestickChart';
 import PredictionLineChart from '../components/charts/PredictionLineChart';
 
 // Hardcoded rates as of 17 April 2026
@@ -12,6 +13,27 @@ const CURRENCY = {
 };
 
 const MODEL_META = {
+  'linear-regression': {
+    fullName: 'Linear Regression',
+    category: 'Linear',
+    complexity: 1,
+    description:
+      'Fits a straight line through historical S&P 500 features to predict future close prices. Each feature is assigned a weight representing its contribution to the prediction. Fully interpretable and extremely fast to train. Serves as the baseline model that all other models must outperform to justify their added complexity.',
+  },
+  'random-forest': {
+    fullName: 'Random Forest',
+    category: 'Ensemble',
+    complexity: 2,
+    description:
+      'Builds hundreds of decision trees on random subsets of training data and features, then averages their outputs. The randomness reduces overfitting compared to a single decision tree. Built-in feature importance scores show which technical indicators contributed most to each prediction. Cannot extrapolate beyond the range of values seen during training.',
+  },
+  svr: {
+    fullName: 'Support Vector Regression',
+    category: 'Kernel Method',
+    complexity: 3,
+    description:
+      'Uses a kernel function to map input features into a higher-dimensional space where a linear relationship with the target becomes learnable. Focuses on minimising prediction error only for points outside a defined margin, making it robust to outliers. Sensitive to feature scaling and requires careful hyperparameter tuning for optimal performance.',
+  },
   lstm: {
     fullName: 'Long Short-Term Memory',
     category: 'Deep Learning',
@@ -93,7 +115,7 @@ export default function ModelForecastPage() {
   const [candles, setCandles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [chartType, setChartType] = useState('line');
+  const [chartType, setChartType] = useState('candlestick');
   const [timeframe, setTimeframe] = useState('1Y');
   const [currency, setCurrency] = useState('USD');
 
@@ -200,8 +222,6 @@ export default function ModelForecastPage() {
                       color: timeframe === tf ? 'var(--color-off-white)' : 'var(--color-muted)',
                       border: timeframe === tf ? 'none' : '1px solid var(--color-border)',
                       fontFamily: 'inherit',
-                      opacity: chartType === 'candlestick' ? 0.3 : 1,
-                      pointerEvents: chartType === 'candlestick' ? 'none' : 'auto',
                     }}
                   >
                     {tf}
@@ -270,7 +290,12 @@ export default function ModelForecastPage() {
                   modelName={modelName}
                 />
               ) : (
-                <CandlestickChart candles={candles} />
+                <PredictionCandlestickChart
+                  predictions={predictions}
+                  historical={candles}
+                  timeframe={timeframe}
+                  modelName={modelName}
+                />
               )}
             </div>
           </div>
