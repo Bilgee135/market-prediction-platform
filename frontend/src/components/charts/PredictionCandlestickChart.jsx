@@ -9,11 +9,18 @@ const TIMEFRAME_WEEKS_WEEKLY = { '1M': 4, '3M': 13, '6M': 26, '1Y': 52, ALL: nul
 const TIMEFRAME_WEEKS_DAILY = { '1M': 21, '3M': 63, '6M': 126, '1Y': 252, ALL: null };
 const WEEKLY_MODELS = ['lstm'];
 
+const CURRENCY = {
+  USD: { rate: 1,      symbol: '$' },
+  GBP: { rate: 0.7399, symbol: '£' },
+  EUR: { rate: 0.8482, symbol: '€' },
+}
+
 export default function PredictionCandlestickChart({
   predictions,
   historical,
   timeframe,
   modelName = '',
+  currency = 'USD',
 }) {
   const canvasRef = useRef(null);
   const chartRef = useRef(null);
@@ -29,6 +36,7 @@ export default function PredictionCandlestickChart({
     const tfMap = WEEKLY_MODELS.includes(modelName)
       ? TIMEFRAME_WEEKS_WEEKLY
       : TIMEFRAME_WEEKS_DAILY;
+    const rate = CURRENCY[currency].rate;
     const weeks = tfMap[timeframe];
 
     // Predicted candles
@@ -41,20 +49,20 @@ export default function PredictionCandlestickChart({
     const filteredHist = weeks ? (historical || []).slice(-weeks) : historical || [];
 
     const predDataset = filteredPred.map((p) => ({
-      x: new Date(p.prediction_date).getTime(),
-      o: parseFloat(p.predicted_open),
-      h: parseFloat(p.predicted_high),
-      l: parseFloat(p.predicted_low),
-      c: parseFloat(p.predicted_close),
-    }));
+        x: new Date(p.prediction_date).getTime(),
+        o: parseFloat(p.predicted_open)  * rate,
+        h: parseFloat(p.predicted_high)  * rate,
+        l: parseFloat(p.predicted_low)   * rate,
+        c: parseFloat(p.predicted_close) * rate,
+    }))
 
     const histDataset = filteredHist.map((h) => ({
-      x: new Date(h.date).getTime(),
-      o: h.open,
-      h: h.high,
-      l: h.low,
-      c: h.close,
-    }));
+        x: new Date(h.date).getTime(),
+        o: h.open  * rate,
+        h: h.high  * rate,
+        l: h.low   * rate,
+        c: h.close * rate,
+    }))
 
     const datasets = [];
 
@@ -68,16 +76,20 @@ export default function PredictionCandlestickChart({
     }
 
     if (predDataset.length > 0) {
-      datasets.push({
-        label: 'Predicted',
-        data: predDataset,
-        color: { up: 'rgba(37,99,235,0.7)', down: 'rgba(220,38,38,0.5)', unchanged: '#9CA3AF' },
-        borderColor: {
-          up: 'rgba(37,99,235,0.7)',
-          down: 'rgba(220,38,38,0.5)',
-          unchanged: '#9CA3AF',
-        },
-      });
+        datasets.push({
+            label: 'Predicted',
+            data: predDataset,
+            color: {
+            up:        'rgba(37, 99, 235, 0.75)',
+            down:      'rgba(234, 88, 12, 0.75)',
+            unchanged: '#9CA3AF',
+            },
+            borderColor: {
+            up:        'rgba(37, 99, 235, 0.75)',
+            down:      'rgba(234, 88, 12, 0.75)',
+            unchanged: '#9CA3AF',
+            },
+        })
     }
 
     if (datasets.length === 0) return;
@@ -131,7 +143,7 @@ export default function PredictionCandlestickChart({
             ticks: {
               color: '#9CA3AF',
               font: { size: 11 },
-              callback: (val) => `$${val.toLocaleString()}`,
+              callback: (val) => `${CURRENCY[currency].symbol}${val.toLocaleString()}`,
             },
           },
         },
@@ -144,7 +156,7 @@ export default function PredictionCandlestickChart({
         chartRef.current = null;
       }
     };
-  }, [predictions, historical, timeframe, modelName]);
+  }, [predictions, historical, timeframe, modelName, currency]);
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
