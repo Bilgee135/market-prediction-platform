@@ -41,6 +41,20 @@ const MODELS = [
     sparklineData: [100, 95, 90, 98, 105, 112, 108, 118, 114, 122, 118, 128],
   },
   {
+  modelId: 'random-forest-forecast',
+  category: 'Ensemble',
+  modelName: 'RF Forecast',
+  modelFullName: 'Random Forest: 2026-2027 Forecast',
+  modelDescription:
+    'Random Forest model generating weekly S&P 500 OHLC price forecasts from May 2026 through early 2027. Trained on the full dataset to produce genuine forward-looking predictions beyond the historical test period.',
+  modelStrengths: 'Full OHLC forward predictions beyond the test set period',
+  modelWeaknesses: 'No actual values to evaluate against until time catches up',
+  modelBestFor: 'Visualising what the model expects the S&P 500 to do over the next year',
+  modelComplexity: 2,
+  sparklineColour: '#b45309',
+  sparklineData: [100, 99, 98, 97, 96, 97, 98, 99, 100, 101, 102, 103],
+  },
+  {
     modelId: 'svr',
     category: 'Kernel Method',
     modelName: 'SVR',
@@ -53,6 +67,20 @@ const MODELS = [
     modelComplexity: 3,
     sparklineColour: '#6d28d9',
     sparklineData: [100, 112, 94, 118, 100, 124, 108, 130, 112, 136, 116, 142],
+  },
+  {
+    modelId: 'svr-forecast',
+    category: 'Kernel Method',
+    modelName: 'SVR Forecast',
+    modelFullName: 'SVR: 2026-2027 Forecast',
+    modelDescription:
+      'SVR model generating weekly S&P 500 OHLC price forecasts from May 2026 through early 2027. Trained on the full available dataset to produce forward-looking predictions beyond the test period.',
+    modelStrengths: 'Full OHLC forward predictions beyond the test set period',
+    modelWeaknesses: 'No actual values to evaluate against until time catches up',
+    modelBestFor: 'Visualising what the SVR model expects the S&P 500 to do over the next year',
+    modelComplexity: 3,
+    sparklineColour: '#7c3aed',
+    sparklineData: [100, 100, 101, 101, 102, 102, 103, 103, 104, 104, 105, 105],
   },
   {
     modelId: 'lstm',

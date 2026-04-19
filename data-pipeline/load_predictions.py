@@ -31,7 +31,9 @@ CSV_DIR = os.path.join(os.path.dirname(__file__), '../database/')
 MODEL_NAME_MAP = {
     'Linear_Regression_Predictions_2026-04-18_13-42-57': 'Linear Regression',
     'random_forest_2026-04-18_13-38-37':                 'Random Forest',
+    'random_forest_forecast_2026_2027_2026-04-19_17-12-30': 'Random Forest Forecast',
     'SVR':                                                'SVR',
+    'svr_year_predictions': 'SVR Forecast',
     'LSTM': 'LSTM',
     'Modularised_ANN_2026-04-14_22-26-20':                                    'ANN',
     'Modularised_CNN_LSTM_DETERMINISTIC_VERSION_V2_2026-04-14_22-26-21':      'CNN-LSTM-DET',
