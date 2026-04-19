@@ -153,7 +153,7 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 md:grid-cols-1 md:gap-3 border-t border-[var(--color-border)] pt-4">
             <div>
-              <p className="text-xl font-bold text-[var(--color-ink)]">9</p>
+              <p className="text-xl font-bold text-[var(--color-ink)]">13</p>
               <p className="text-xs text-[var(--color-muted)]">ML Models</p>
             </div>
             <div>
