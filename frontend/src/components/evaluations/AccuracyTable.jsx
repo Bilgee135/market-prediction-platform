@@ -40,7 +40,7 @@ export default function AccuracyTable({ models }) {
               borderBottom: `1px solid var(--color-border)`,
             }}
           >
-            {['Model', 'MAE', 'MAPE', 'RMSE', 'Dir. Acc.'].map((h, i) => (
+            {['Model', 'MAE', 'R²', 'RMSE', 'Dir. Acc.'].map((h, i) => (
               <th
                 key={h}
                 className="px-4 py-2.5 text-[0.68rem] font-medium uppercase tracking-[0.08em]"
@@ -67,18 +67,31 @@ export default function AccuracyTable({ models }) {
             ];
 
             const dirColor =
-              m.dir >= 75
-                ? 'var(--color-accent-green)'
-                : m.dir >= 68
-                  ? '#E67700'
-                  : 'var(--color-accent-red)';
+              m.dir === null
+                ? 'var(--color-muted)'
+                : m.dir > 50
+                  ? 'var(--color-accent-green)'
+                  : m.dir >= 45
+                    ? '#E67700'
+                    : 'var(--color-accent-red)';
 
             const maeColor =
-              m.mae <= 38
-                ? 'var(--color-accent-green)'
-                : m.mae <= 47
-                  ? '#E67700'
-                  : 'var(--color-accent-red)';
+              m.mae === null
+                ? 'var(--color-muted)'
+                : m.mae <= 38
+                  ? 'var(--color-accent-green)'
+                  : m.mae <= 47
+                    ? '#E67700'
+                    : 'var(--color-accent-red)';
+
+            const r2Color =
+              m.r2 === null
+                ? 'var(--color-muted)'
+                : m.r2 >= 0.95
+                  ? 'var(--color-accent-green)'
+                  : m.r2 >= 0.8
+                    ? '#E67700'
+                    : 'var(--color-accent-red)';
 
             const isLast = i === models.length - 1;
 
@@ -110,9 +123,9 @@ export default function AccuracyTable({ models }) {
                 </td>
                 <td
                   className="px-4 py-2.5 text-right text-[0.82rem] font-light"
-                  style={{ color: 'var(--color-ink)' }}
+                  style={{ color: r2Color }}
                 >
-                  {m.mape}
+                  {m.r2 !== null ? m.r2 : 'N/A'}
                 </td>
                 <td
                   className="px-4 py-2.5 text-right text-[0.82rem] font-light"
@@ -139,7 +152,10 @@ export default function AccuracyTable({ models }) {
       >
         {[
           { key: 'MAE', val: 'Average absolute error in index points. Lower is better.' },
-          { key: 'MAPE', val: 'Mean absolute percentage error. Normalised across price levels.' },
+          {
+            key: 'R²',
+            val: 'R² measures how much of the price variance the model explains. Closer to 1.0 is better. Negative values indicate the model performs worse than predicting the mean.',
+          },
           { key: 'RMSE', val: 'Penalises large errors more heavily. Use alongside MAE.' },
           {
             key: 'Dir.',

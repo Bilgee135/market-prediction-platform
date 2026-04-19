@@ -28,11 +28,11 @@ const MODEL_META = {
       'Builds hundreds of decision trees on random subsets of training data and features, then averages their outputs. The randomness reduces overfitting compared to a single decision tree. Built-in feature importance scores show which technical indicators contributed most to each prediction. Cannot extrapolate beyond the range of values seen during training.',
   },
   'random-forest-forecast': {
-  fullName: 'Random Forest: 2026-2027 Forecast',
-  category: 'Ensemble',
-  complexity: 2,
-  description:
-    'Random Forest model trained on the full available S&P 500 dataset to generate weekly OHLC price forecasts from May 2026 through early 2027. Unlike the test set predictions, these are genuine future forecasts with no known actual values to compare against. The model predicts open, high, low, and close for each week, giving a full candlestick picture of its expected market trajectory.',
+    fullName: 'Random Forest: 2026-2027 Forecast',
+    category: 'Ensemble',
+    complexity: 2,
+    description:
+      'Random Forest model trained on the full available S&P 500 dataset to generate weekly OHLC price forecasts from May 2026 through early 2027. Unlike the test set predictions, these are genuine future forecasts with no known actual values to compare against. The model predicts open, high, low, and close for each week, giving a full candlestick picture of its expected market trajectory.',
   },
   svr: {
     fullName: 'Support Vector Regression',

@@ -20,17 +20,27 @@ import AccuracyTable from '../components/evaluations/AccuracyTable';
 import BestOverallCard from '../components/evaluations/BestOverallCard';
 import ResearchNote from '../components/evaluations/ResearchNote';
 
+// Wraps a comparator so entries with null for `key` always sort to the bottom.
+const nullLast = (key, compareFn) => (a, b) => {
+  if (a[key] === null && b[key] === null) return 0;
+  if (a[key] === null) return 1;
+  if (b[key] === null) return -1;
+  return compareFn(a, b);
+};
+
 // Sort functions keyed by the segment control value
 const SORT_FNS = {
-  dir: (a, b) => b.dir - a.dir,
-  mae: (a, b) => a.mae - b.mae,
-  rmse: (a, b) => a.rmse - b.rmse,
+  dir: nullLast('dir', (a, b) => b.dir - a.dir),
+  mae: nullLast('mae', (a, b) => a.mae - b.mae),
+  rmse: nullLast('rmse', (a, b) => a.rmse - b.rmse),
+  r2: nullLast('r2', (a, b) => b.r2 - a.r2),
 };
 
 const SORT_OPTIONS = [
   { key: 'dir', label: 'Directional Accuracy' },
   { key: 'mae', label: 'MAE' },
   { key: 'rmse', label: 'RMSE' },
+  { key: 'r2', label: 'R²' },
 ];
 
 export default function EvaluationsPage() {
