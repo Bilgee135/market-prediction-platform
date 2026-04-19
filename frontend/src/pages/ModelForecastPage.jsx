@@ -32,7 +32,7 @@ const MODEL_META = {
     category: 'Ensemble',
     complexity: 2,
     description:
-      'Random Forest model trained on the full available S&P 500 dataset to generate weekly OHLC price forecasts from May 2026 through early 2027. Unlike the test set predictions, these are genuine future forecasts with no known actual values to compare against. The model predicts open, high, low, and close for each week, giving a full candlestick picture of its expected market trajectory.',
+      'Random Forest model trained on the full available S&P 500 dataset to generate weekly OHLC price forecasts from May 2026 to May 2027. Unlike the test set predictions, these are genuine future forecasts with no known actual values to compare against. The model predicts open, high, low, and close for each week, giving a full candlestick picture of its expected market trajectory.',
   },
   svr: {
     fullName: 'Support Vector Regression',
@@ -46,7 +46,7 @@ const MODEL_META = {
     category: 'Kernel Method',
     complexity: 3,
     description:
-      'SVR model generating weekly S&P 500 OHLC price forecasts from May 2026 through early 2027. Trained on the full available dataset to produce forward-looking predictions beyond the test period.',
+      'SVR model generating weekly S&P 500 OHLC price forecasts from May 2026 to May 2027. Trained on the full available dataset to produce forward-looking predictions beyond the test period.',
   },
   lstm: {
     fullName: 'Long Short-Term Memory',
