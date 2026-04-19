@@ -295,6 +295,7 @@ export default function ModelForecastPage() {
                   historical={candles}
                   timeframe={timeframe}
                   modelName={modelName}
+                  currency={currency}
                 />
               )}
             </div>

@@ -5,9 +5,9 @@
  * No complexity table. Everything breathes.
  *
  * Sections (top to bottom):
- *   1. Page header — eyebrow, title, description, back link
- *   2. Sort control — segment buttons
- *   3. Accuracy table — all six models
+ *   1. Page header: eyebrow, title, description, back link
+ *   2. Sort control: segment buttons
+ *   3. Accuracy table: all thirteen models
  *   4. Best overall card
  *   5. Research note
  *   6. Bottom CTA

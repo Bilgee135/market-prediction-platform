@@ -26,7 +26,11 @@ const ML_MODELS = [
     type: 'Kernel Method',
     note: 'support vector regression on engineered technical features',
   },
-  { name: 'LSTM', type: 'Deep Learning', note: 'learns long-term patterns in weekly price sequences' },
+  {
+    name: 'LSTM',
+    type: 'Deep Learning',
+    note: 'learns long-term patterns in weekly price sequences',
+  },
   {
     name: 'ANN',
     type: 'Deep Learning',
@@ -42,7 +46,11 @@ const ML_MODELS = [
     type: 'Deep Learning',
     note: 'reproducible CNN-LSTM variant with stochastic elements removed',
   },
-  { name: 'DTR', type: 'Tree-Based', note: 'decision tree regression, fast and fully interpretable' },
+  {
+    name: 'DTR',
+    type: 'Tree-Based',
+    note: 'decision tree regression, fast and fully interpretable',
+  },
   {
     name: 'GRU',
     type: 'Deep Learning',

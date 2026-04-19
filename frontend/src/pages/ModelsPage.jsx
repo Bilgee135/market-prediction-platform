@@ -145,7 +145,8 @@ const MODELS = [
     modelFullName: 'GRU (All Value Predictors)',
     modelDescription:
       'A GRU variant that outputs all four OHLC values simultaneously from a shared hidden state, rather than predicting close price alone. By learning the interdependencies between open, high, low, and close within a single model, this architecture captures the internal structure of weekly candlestick shapes.',
-    modelStrengths: 'Predicts full OHLC candlestick shapes, capturing all four price value interdependencies',
+    modelStrengths:
+      'Predicts full OHLC candlestick shapes, capturing all four price value interdependencies',
     modelWeaknesses: 'Joint OHLC prediction is harder to optimise than single-target regression',
     modelBestFor: 'Full candlestick forecasting where all four price values are needed',
     modelComplexity: 3,
