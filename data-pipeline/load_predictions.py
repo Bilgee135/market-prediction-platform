@@ -29,6 +29,9 @@ CSV_DIR = os.path.join(os.path.dirname(__file__), '../database/')
 # Clean model names for the model_name column in the DB
 # Keys must match the filenames exactly (without .csv)
 MODEL_NAME_MAP = {
+    'Linear_Regression_Predictions_2026-04-18_13-42-57': 'Linear Regression',
+    'random_forest_2026-04-18_13-38-37':                 'Random Forest',
+    'SVR':                                                'SVR',
     'LSTM': 'LSTM',
     'Modularised_ANN_2026-04-14_22-26-20':                                    'ANN',
     'Modularised_CNN_LSTM_DETERMINISTIC_VERSION_V2_2026-04-14_22-26-21':      'CNN-LSTM-DET',
@@ -80,6 +83,8 @@ def load_csv(filename, model_name):
     # Handle both column naming conventions across different ML team outputs
     if 'Predicted_Close' in df.columns:
         df = df.rename(columns={'Predicted_Close': 'predicted_close'})
+    elif 'target_close' in df.columns:
+        df = df.rename(columns={'target_close': 'predicted_close'})
     elif 'close' in df.columns:
         df = df.rename(columns={'close': 'predicted_close'})
 
