@@ -46,7 +46,7 @@ const MODELS = [
     modelName: 'RF Forecast',
     modelFullName: 'Random Forest: 2026-2027 Forecast',
     modelDescription:
-      'Random Forest model generating weekly S&P 500 OHLC price forecasts from May 2026 through early 2027. Trained on the full dataset to produce genuine forward-looking predictions beyond the historical test period.',
+      'Random Forest model generating weekly S&P 500 OHLC price forecasts from May 2026 to May 2027. Trained on the full dataset to produce genuine forward-looking predictions beyond the historical test period.',
     modelStrengths: 'Full OHLC forward predictions beyond the test set period',
     modelWeaknesses: 'No actual values to evaluate against until time catches up',
     modelBestFor: 'Visualising what the model expects the S&P 500 to do over the next year',
@@ -74,7 +74,7 @@ const MODELS = [
     modelName: 'SVR Forecast',
     modelFullName: 'SVR: 2026-2027 Forecast',
     modelDescription:
-      'SVR model generating weekly S&P 500 OHLC price forecasts from May 2026 through early 2027. Trained on the full available dataset to produce forward-looking predictions beyond the test period.',
+      'SVR model generating weekly S&P 500 OHLC price forecasts from May 2026 to May 2027. Trained on the full available dataset to produce forward-looking predictions beyond the test period.',
     modelStrengths: 'Full OHLC forward predictions beyond the test set period',
     modelWeaknesses: 'No actual values to evaluate against until time catches up',
     modelBestFor: 'Visualising what the SVR model expects the S&P 500 to do over the next year',
