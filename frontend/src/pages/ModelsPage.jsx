@@ -139,6 +139,20 @@ const MODELS = [
     sparklineData: [100, 106, 103, 112, 109, 118, 114, 123, 119, 128, 124, 133],
   },
   {
+    modelId: 'gru-all',
+    category: 'Deep Learning',
+    modelName: 'GRU All Value Predictors',
+    modelFullName: 'GRU (All Value Predictors)',
+    modelDescription:
+      'A GRU variant that outputs all four OHLC values simultaneously from a shared hidden state, rather than predicting close price alone. By learning the interdependencies between open, high, low, and close within a single model, this architecture captures the internal structure of weekly candlestick shapes.',
+    modelStrengths: 'Predicts full OHLC candlestick shapes, capturing all four price value interdependencies',
+    modelWeaknesses: 'Joint OHLC prediction is harder to optimise than single-target regression',
+    modelBestFor: 'Full candlestick forecasting where all four price values are needed',
+    modelComplexity: 3,
+    sparklineColour: '#0e7490',
+    sparklineData: [100, 107, 104, 113, 110, 119, 115, 124, 120, 129, 125, 134],
+  },
+  {
     modelId: 'knn',
     category: 'Instance-Based',
     modelName: 'KNN',
@@ -203,7 +217,7 @@ export default function ModelsPage({ disclaimerConfirmed, setDisclaimerConfirmed
             className="text-[0.78rem] font-medium tracking-[0.12em] uppercase mb-3"
             style={{ color: 'var(--color-muted)' }}
           >
-            12 ML Models
+            13 ML Models
           </p>
           <h1
             className="font-serif tracking-tight"
