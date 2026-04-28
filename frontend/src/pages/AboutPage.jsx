@@ -149,6 +149,18 @@ export default function AboutPage() {
                 </span>
               </div>
             </div>
+
+            <a
+              href="https://github.com/Bilgee135/market-prediction-platform.git"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs mt-3 inline-block"
+              style={{ color: 'var(--color-muted)', textDecoration: 'none' }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-ink)')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-muted)')}
+            >
+              View on GitHub →
+            </a>
           </div>
 
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 md:grid-cols-1 md:gap-3 border-t border-[var(--color-border)] pt-4">
