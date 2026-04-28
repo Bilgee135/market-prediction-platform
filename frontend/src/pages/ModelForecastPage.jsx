@@ -5,7 +5,6 @@ import CandlestickChart from '../components/charts/CandlestickChart';
 import PredictionCandlestickChart from '../components/charts/PredictionCandlestickChart';
 import PredictionLineChart from '../components/charts/PredictionLineChart';
 
-// Hardcoded rates as of 17 April 2026
 const CURRENCY = {
   USD: { rate: 1, symbol: '$' },
   GBP: { rate: 0.74, symbol: '£' },

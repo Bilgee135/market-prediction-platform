@@ -14,8 +14,13 @@ const WEEKLY_MODELS = ['lstm'];
 
 const CURRENCY = {
   USD: { rate: 1, symbol: '$' },
-  GBP: { rate: 0.7399, symbol: '£' },
-  EUR: { rate: 0.8482, symbol: '€' },
+  GBP: { rate: 0.74, symbol: '£' },
+  EUR: { rate: 0.85, symbol: '€' },
+  JPY: { rate: 159.49, symbol: '¥' },
+  CNY: { rate: 6.83, symbol: '¥' },
+  AUD: { rate: 1.39, symbol: 'A$' },
+  CAD: { rate: 1.36, symbol: 'C$' },
+  CHF: { rate: 0.78, symbol: 'CHF' },
 };
 
 export default function PredictionLineChart({
