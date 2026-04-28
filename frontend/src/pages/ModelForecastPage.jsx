@@ -5,11 +5,15 @@ import CandlestickChart from '../components/charts/CandlestickChart';
 import PredictionCandlestickChart from '../components/charts/PredictionCandlestickChart';
 import PredictionLineChart from '../components/charts/PredictionLineChart';
 
-// Hardcoded rates as of 17 April 2026
 const CURRENCY = {
   USD: { rate: 1, symbol: '$' },
-  GBP: { rate: 0.7399, symbol: '£' },
-  EUR: { rate: 0.8482, symbol: '€' },
+  GBP: { rate: 0.74, symbol: '£' },
+  EUR: { rate: 0.85, symbol: '€' },
+  JPY: { rate: 159.49, symbol: '¥' },
+  CNY: { rate: 6.83, symbol: '¥' },
+  AUD: { rate: 1.39, symbol: 'A$' },
+  CAD: { rate: 1.36, symbol: 'C$' },
+  CHF: { rate: 0.78, symbol: 'CHF' },
 };
 
 const MODEL_META = {
@@ -32,7 +36,7 @@ const MODEL_META = {
     category: 'Ensemble',
     complexity: 2,
     description:
-      'Random Forest model trained on the full available S&P 500 dataset to generate weekly OHLC price forecasts from May 2026 through early 2027. Unlike the test set predictions, these are genuine future forecasts with no known actual values to compare against. The model predicts open, high, low, and close for each week, giving a full candlestick picture of its expected market trajectory.',
+      'Random Forest model trained on the full available S&P 500 dataset to generate weekly OHLC price forecasts from May 2026 to May 2027. Unlike the test set predictions, these are genuine future forecasts with no known actual values to compare against. The model predicts open, high, low, and close for each week, giving a full candlestick picture of its expected market trajectory.',
   },
   svr: {
     fullName: 'Support Vector Regression',
@@ -46,7 +50,7 @@ const MODEL_META = {
     category: 'Kernel Method',
     complexity: 3,
     description:
-      'SVR model generating weekly S&P 500 OHLC price forecasts from May 2026 through early 2027. Trained on the full available dataset to produce forward-looking predictions beyond the test period.',
+      'SVR model generating weekly S&P 500 OHLC price forecasts from May 2026 to May 2027. Trained on the full available dataset to produce forward-looking predictions beyond the test period.',
   },
   lstm: {
     fullName: 'Long Short-Term Memory',
@@ -246,23 +250,32 @@ export default function ModelForecastPage() {
               {/* Divider */}
               <div className="hidden sm:block w-px h-5 bg-[var(--color-border)]" />
 
-              {/* Currency buttons */}
-              <div className="flex gap-1">
-                {Object.keys(CURRENCY).map((c) => (
-                  <button
-                    key={c}
-                    onClick={() => setCurrency(c)}
-                    className="px-3 py-1.5 rounded-lg text-[0.75rem] font-medium cursor-pointer"
-                    style={{
-                      background: currency === c ? 'var(--color-ink)' : 'transparent',
-                      color: currency === c ? 'var(--color-off-white)' : 'var(--color-muted)',
-                      border: currency === c ? 'none' : '1px solid var(--color-border)',
-                      fontFamily: 'inherit',
-                    }}
-                  >
-                    {c}
-                  </button>
-                ))}
+              {/* Currency dropdown */}
+              <div className="flex items-center gap-2">
+                <span
+                  className="text-[0.75rem] font-medium"
+                  style={{ color: 'var(--color-muted)' }}
+                >
+                  Currency:
+                </span>
+                <select
+                  value={currency}
+                  onChange={(e) => setCurrency(e.target.value)}
+                  className="px-2 py-1.5 rounded-lg text-[0.75rem] font-medium cursor-pointer"
+                  style={{
+                    background: 'var(--color-card-bg)',
+                    color: 'var(--color-ink)',
+                    border: '1px solid var(--color-border)',
+                    fontFamily: 'inherit',
+                    outline: 'none',
+                  }}
+                >
+                  {Object.keys(CURRENCY).map((c) => (
+                    <option key={c} value={c}>
+                      {c} ({CURRENCY[c].symbol})
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
 

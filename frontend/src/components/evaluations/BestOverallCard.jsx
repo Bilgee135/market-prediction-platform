@@ -10,7 +10,7 @@
 export default function BestOverallCard({ model }) {
   return (
     <div
-      className="w-full rounded-xl px-7 py-6 flex items-start justify-between gap-6"
+      className="w-full overflow-hidden rounded-xl px-4 py-4 md:px-7 md:py-6 flex flex-col gap-4 md:flex-row md:items-start md:justify-between md:gap-6"
       style={{ background: 'var(--color-ink)' }}
     >
       <div className="flex flex-col gap-1.5">
@@ -21,13 +21,13 @@ export default function BestOverallCard({ model }) {
           Best overall
         </span>
         <span
-          className="font-serif text-[1.5rem] tracking-tight"
+          className="font-serif text-[1.25rem] md:text-[1.5rem] tracking-tight"
           style={{ color: 'var(--color-off-white)' }}
         >
           {model.displayName}
         </span>
         <p
-          className="text-[0.82rem] font-light leading-relaxed max-w-sm"
+          className="text-[0.78rem] md:text-[0.82rem] font-light leading-normal md:leading-relaxed max-w-sm"
           style={{ color: 'rgba(247,246,242,0.72)' }}
         >
           Strongest combination of directional accuracy ({model.dir}%) and error rate across the
@@ -36,7 +36,7 @@ export default function BestOverallCard({ model }) {
         </p>
       </div>
 
-      <div className="flex gap-6 flex-shrink-0">
+      <div className="grid grid-cols-3 gap-2 md:flex md:gap-6 md:flex-shrink-0">
         {[
           { val: `${model.dir}%`, key: 'Dir. Acc.' },
           { val: model.mae, key: 'MAE' },
@@ -44,13 +44,13 @@ export default function BestOverallCard({ model }) {
         ].map(({ val, key }) => (
           <div key={key} className="flex flex-col gap-1">
             <span
-              className="font-serif text-[1.4rem] tracking-tight"
+              className="font-serif text-[1.1rem] md:text-[1.4rem] tracking-tight"
               style={{ color: 'var(--color-off-white)' }}
             >
               {val}
             </span>
             <span
-              className="text-[0.68rem] uppercase tracking-[0.08em] font-light"
+              className="text-[0.6rem] md:text-[0.68rem] uppercase tracking-[0.08em] font-light"
               style={{ color: 'rgba(247,246,242,0.5)' }}
             >
               {key}
