@@ -157,9 +157,9 @@ export default function AboutPage() {
                 rel="noopener noreferrer"
                 className="flex items-center justify-between px-3 py-2 rounded-lg border text-xs font-semibold transition-opacity hover:opacity-80"
                 style={{
-                  color: 'var(--color-web-app)',
-                  backgroundColor: 'var(--color-web-app-bg)',
-                  borderColor: 'var(--color-web-app)',
+                  color: 'var(--color-ml-models)',
+                  backgroundColor: 'var(--color-ml-models-bg)',
+                  borderColor: 'var(--color-ml-models)',
                   textDecoration: 'none',
                 }}
               >
