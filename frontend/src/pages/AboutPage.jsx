@@ -150,17 +150,38 @@ export default function AboutPage() {
               </div>
             </div>
 
-            <a
-              href="https://github.com/Bilgee135/market-prediction-platform.git"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs mt-3 inline-block"
-              style={{ color: 'var(--color-muted)', textDecoration: 'none' }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-ink)')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-muted)')}
-            >
-              View on GitHub →
-            </a>
+            <div className="flex flex-col gap-2 mt-4">
+              <a
+                href="https://github.com/Bilgee135/market-prediction-platform.git"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between px-3 py-2 rounded-lg border text-xs font-semibold transition-opacity hover:opacity-80"
+                style={{
+                  color: 'var(--color-web-app)',
+                  backgroundColor: 'var(--color-web-app-bg)',
+                  borderColor: 'var(--color-web-app)',
+                  textDecoration: 'none',
+                }}
+              >
+                <span>Web App</span>
+                <span>View on GitHub →</span>
+              </a>
+              <a
+                href="https://github.com/TomCampbellOulton/Team45.git"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between px-3 py-2 rounded-lg border text-xs font-semibold transition-opacity hover:opacity-80"
+                style={{
+                  color: 'var(--color-ml-models)',
+                  backgroundColor: 'var(--color-ml-models-bg)',
+                  borderColor: 'var(--color-ml-models)',
+                  textDecoration: 'none',
+                }}
+              >
+                <span>ML Models</span>
+                <span>View on GitHub →</span>
+              </a>
+            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 md:grid-cols-1 md:gap-3 border-t border-[var(--color-border)] pt-4">
